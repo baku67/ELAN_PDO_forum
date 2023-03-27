@@ -30,11 +30,11 @@ foreach($topics as $topic ){
 <p>Créer un topic:</p>
 <form action="index.php?ctrl=forum&action=createTopic" method="post">
     <label>Titre</label>
-    <input type="text" name="title" placeholder="Titre">
+    <input id="title" type="text" name="title" placeholder="Titre">
     <label>1er message</label>
     <textarea name="firstMsg" placeholder="blabla..." rows="5"></textarea>
     <label>Catégorie</label>
-    <select name="" id="">
+    <select id="category" name="category">
         <?php 
         foreach ($categories as $category) { 
         ?>
@@ -43,6 +43,7 @@ foreach($topics as $topic ){
         }
         ?>
     </select>
+    <input id="submit" type="submit" value="Créer">
 </form>
 
 

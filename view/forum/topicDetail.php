@@ -6,7 +6,7 @@ $posts = $result["data"]['posts'];
     
 ?>
 
-<h1>Detail du topic</h1>
+<h1>Detail du topic n°<?= $topic->getId() ?></h1>
 
 
     <p><?=$topic->getTitle()?></p>
