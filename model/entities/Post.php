@@ -33,7 +33,7 @@
 
         public function getText()
         {
-                return $this->name;
+                return $this->text;
         }
 
         public function setText($text)

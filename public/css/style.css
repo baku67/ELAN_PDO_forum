@@ -14,3 +14,13 @@
     opacity: 0.8;
     border-radius: 3px;
 }
+
+
+.postCard {
+    padding: 5px;
+    border: 1px solid black;
+}
+.postInfos {
+    font-style: italic;
+    opacity: 0.8;
+}

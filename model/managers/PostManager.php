@@ -15,5 +15,19 @@
             parent::connect();
         }
 
+        public function findByTopicId($id) {
+
+            $sql = "
+            SELECT * FROM ".$this->tableName . " p
+            WHERE p.topic_id = :id
+            ORDER BY p.creationdate DESC";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $id]),
+                $this->className
+            );
+
+        }
+
 
     }

@@ -14,11 +14,13 @@
         public function index(){
           
            $topicManager = new TopicManager();
+           $categoryManager = new CategoryManager();
 
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topics" => $topicManager->findAll(["publishDate", "DESC"])
+                    "categories" => $categoryManager->findAll(["name", "DESC"]),
+                    "topics" => $topicManager->findAll(["creationdate", "DESC"])
                 ]
             ];
         }
@@ -27,10 +29,12 @@
         public function topicDetail($id){
 
             $topicManager = new TopicManager();
+            $postManager = new PostManager();
 
             return [
                 "view" => VIEW_DIR."forum/topicDetail.php",
                 "data" => [
+                    "posts" => $postManager->findByTopicId($id),
                     "topicDetail" => $topicManager->findOneById($id)
                 ]
             ];
@@ -49,6 +53,9 @@
                 ]
             ];
         }
+
+
+
 
         
 

@@ -1,6 +1,9 @@
 <?php
 
 $topics = $result["data"]['topics'];
+
+$categories = $result["data"]['categories'];
+
 if (isset($result["data"]["catName"])) {
     $catName = "(".$result["data"]["catName"].")";
 }
@@ -20,6 +23,27 @@ foreach($topics as $topic ){
     <br>
     <?php
 }
+?>
+
+
+
+<p>Créer un topic:</p>
+<form action="index.php?ctrl=forum&action=createTopic" method="post">
+    <label>Titre</label>
+    <input type="text" name="title" placeholder="Titre">
+    <label>1er message</label>
+    <textarea name="firstMsg" placeholder="blabla..." rows="5"></textarea>
+    <label>Catégorie</label>
+    <select name="" id="">
+        <?php 
+        foreach ($categories as $category) { 
+        ?>
+            <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+        <?php 
+        }
+        ?>
+    </select>
+</form>
 
 
   
