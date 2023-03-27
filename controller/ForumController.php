@@ -18,10 +18,23 @@
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
-                    "topics" => $topicManager->findAll(["creationdate", "DESC"])
+                    "topics" => $topicManager->findAll(["publishDate", "DESC"])
                 ]
             ];
         
+        }
+
+
+        public function topicDetail($id){
+
+            $topicManager = new TopicManager();
+
+            return [
+                "view" => VIEW_DIR."forum/topicDetail.php",
+                "data" => [
+                    "topicDetail" => $topicManager->findOneById($id)
+                ]
+            ];
         }
 
         

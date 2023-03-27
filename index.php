@@ -19,6 +19,9 @@
     //et on intègre la classe Session qui prend la main sur les messages en session
     use App\Session as Session;
 
+
+    
+
 //---------REQUETE HTTP INTERCEPTEE-----------
     $ctrlname = DEFAULT_CTRL;//on prend le controller par défaut
     //ex : index.php?ctrl=home
@@ -46,6 +49,9 @@
     else $id = null;
     //ex : HomeController->users(null)
     $result = $ctrl->$action($id);
+
+
+
     
     /*--------CHARGEMENT PAGE--------*/
     

@@ -7,14 +7,15 @@
         
         public function redirectTo($ctrl = null, $action = null, $id = null){
 
-            if($ctrl != "home"){
-                $url = $ctrl ? "/".$ctrl : "";
-                $url.= $action ? "/".$action : "";
-                $url.= $id ? "/".$id : "";
-                $url.= ".html";
-            }
-            else $url = "/";
-            header("Location: $url");
+            if ($ctrl != "home") { 
+                $url = "index.php"; 
+                $url .= $ctrl ? "?ctrl=" . $ctrl : ""; 
+                $url .= $action ? "&action=" . $action : ""; 
+                $url .= $id ? "&id=" . $id : ""; 
+            } 
+            else $url = "/"; 
+            
+            header("Location: $url"); 
             die();
 
         }

@@ -16,4 +16,15 @@
         }
 
 
+        public function topicDetail($id){
+
+            return [
+                "view" => VIEW_DIR."forum/topicDetail.php",
+                "data" => [
+                    "topicDetail" => $topicManager->findOneById($id)
+                ]
+            ];
+        }
+
+
     }
