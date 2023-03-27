@@ -80,7 +80,7 @@
             else {
                 $_SESSION["error"] = "You must fullfill all inputs.";
                 // header("Location: index.php");
-                $this->redirectTo("home", "index");
+                $this->redirectTo("forum", "index");
             }
                  
         }

@@ -11,6 +11,7 @@
         private $email;
         private $role;
         private $creationdate;
+        private $status;
 
 
         public function __construct($data){         
@@ -77,6 +78,19 @@
         public function setRole($role)
         {
                 $this->role = $role;
+
+                return $this;
+        }
+
+
+        public function getStatus()
+        {
+                return $this->status;
+        }
+
+        public function setStatus($status)
+        {
+                $this->status = $status;
 
                 return $this;
         }
