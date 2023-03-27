@@ -7,12 +7,12 @@
     use App\ControllerInterface;
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
+    use Model\Managers\CategoryManager;
     
     class ForumController extends AbstractController implements ControllerInterface{
 
         public function index(){
           
-
            $topicManager = new TopicManager();
 
             return [
@@ -21,7 +21,6 @@
                     "topics" => $topicManager->findAll(["publishDate", "DESC"])
                 ]
             ];
-        
         }
 
 
@@ -33,6 +32,19 @@
                 "view" => VIEW_DIR."forum/topicDetail.php",
                 "data" => [
                     "topicDetail" => $topicManager->findOneById($id)
+                ]
+            ];
+        }
+
+
+        public function listTopicByCat($id) {
+
+            $topicManager = new TopicManager();
+
+            return [
+                "view" => VIEW_DIR."forum/listTopics.php",
+                "data" => [
+                    "topics" => $topicManager->listTopicByCat($id)
                 ]
             ];
         }

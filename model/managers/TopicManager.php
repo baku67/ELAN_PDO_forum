@@ -16,4 +16,17 @@
         }
 
 
+        public function listTopicByCat($id){
+
+            $sql = "
+            SELECT * FROM " .$this->tableName. " t
+            WHERE t.category_id = :id
+            ORDER BY t.id_topic DESC";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $id]),
+                $this->className
+            );
+        }
+
     }
