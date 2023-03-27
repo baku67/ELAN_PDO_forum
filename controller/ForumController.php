@@ -82,7 +82,26 @@
                 header("Location: index.php");
             }
                  
+        }
 
+
+        public function addPost() {
+
+            $topicManager = new TopicManager();
+            $postManager = new PostManager();
+
+            // if ($_SESSION['user']) {
+            // $user = $_SESSION['user']->getId();
+            $user = 1;
+            $topicId = $_GET['topicId'];
+
+            if (isset($_POST["postText"])) {
+
+                $msg = filter_input(INPUT_POST, "postText", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $postManager->add(["user_id" => $user, "text" => $msg, "topic_id" => $topicId]);
+
+                header("Location: index.php?ctrl=forum&action=topicDetail&id=".$topicId);
+            }
         }
 
         

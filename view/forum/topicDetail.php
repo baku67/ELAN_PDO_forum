@@ -30,4 +30,12 @@ $posts = $result["data"]['posts'];
     ?>
 
 
+    <p>Publier un message</p>
+    <form action="index.php?ctrl=forum&action=addPost&topicId=<?= $topic->getId() ?>" method="post">
+        <label for="postText">Message</label>
+        <textarea id="postText" name="postText"></textarea>
+        <input type="submit" value="Envoyer">
+    </form>
+
+
   
