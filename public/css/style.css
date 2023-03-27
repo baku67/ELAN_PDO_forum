@@ -1,0 +1,14 @@
+.onglets {
+    padding: 3px 7px;
+    margin: 0 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+
+}
+
+.categoryLabel {
+    padding: 3px 7px;
+    margin: 0 10px;
+    border: 1px solid black;
+    border-radius: 3px;
+}
