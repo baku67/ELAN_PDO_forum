@@ -10,7 +10,7 @@ $categories = $result["data"]['categories'];
 foreach($categories as $category ){
 
     ?>
-    <a href="index.php?ctrl=forum&action=listTopicByCat&id=<?= $category->getId() ?>"><?=$category->getName()?></a><br>
+    <a href="index.php?ctrl=forum&action=listTopicByCat&id=<?= $category->getId() ?>&catName=<?= $category->getName() ?>"><?=$category->getName()?></a><br>
     <?php
 }
 

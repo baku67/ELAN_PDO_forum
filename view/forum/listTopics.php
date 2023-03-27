@@ -1,10 +1,16 @@
 <?php
 
 $topics = $result["data"]['topics'];
+if (isset($result["data"]["catName"])) {
+    $catName = "(".$result["data"]["catName"].")";
+}
+else {
+    $catName = "";
+}
     
 ?>
 
-<h1>liste topics</h1>
+<h1>liste topics <?= $catName ?> </h1>
 
 <?php
 foreach($topics as $topic ){

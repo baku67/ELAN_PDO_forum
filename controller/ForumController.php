@@ -44,6 +44,7 @@
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
+                    "catName" => $_GET['catName'],
                     "topics" => $topicManager->listTopicByCat($id)
                 ]
             ];
