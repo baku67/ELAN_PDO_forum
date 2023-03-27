@@ -28,6 +28,20 @@
                 $this->className
             );
         }
+
+
+        // public function count($email){
+        //     $sql = "SELECT COUNT(*) as count 
+        //             FROM ".$this->tableName." WHERE email = :email
+        //             ";
+
+        //     return $this->getSingleResult(
+        //         DAO::select($sql, [":email" => $email], false),
+        //         $this->className
+        //     );
+        // }
+        
+
        
         public function findOneById($id){
 
