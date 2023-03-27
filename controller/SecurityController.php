@@ -23,19 +23,6 @@
                 "data" => []
             ];
         }
-
-
-
-        // public function checkIfUserExists($email) {
-        //     $result = $userManager->findAll(["email", "DESC"]);
-        //     // if count...
-        //     if(count() > 0) {
-        //         return true;
-        //     }
-        //     else {
-        //         return false;
-        //     }
-        // }
         
 
         public function register() {
@@ -70,28 +57,20 @@
                         $newUserId = $userManager->add(["username" => $username, "email" => $email, "password" => $finalPassword]);
 
                         $_SESSION["success"] = "Inscription réussie";
-                        return [
-                            "view" => VIEW_DIR."home.php"
-                        ];
+                        $this->redirectTo("security", "connexionForm");
                     }
                     else {
                         $_SESSION["error"] = "Le nom d'utilisateur est déjà utilisé";
-                        return [
-                            "view" => VIEW_DIR."home.php"
-                        ]; 
+                        $this->redirectTo("security", "subscribeForm");
                     }
                 }
                 else {
                     $_SESSION["error"] = "L'email est déjà utilisé";
-                    return [
-                        "view" => VIEW_DIR."home.php"
-                    ];
+                    $this->redirectTo("security", "subscribeForm");
                 }
 
             }
-
-            
-           
+ 
         }
     
 

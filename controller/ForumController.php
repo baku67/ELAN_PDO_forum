@@ -55,8 +55,6 @@
         }
 
 
-        // Pour résumer, quelque soit l'élément que vous souhaitez ajouter en BDD (user, post, topic, categorie; ...) vous n'aurez pas besoin de faire une méthode personnalisée dans vos TopicManager, PostManager, etc
-        // Le framework vous aide déjà dans cette démarche à travers les méthodes qui se trouvent déjà dans "App/Manager.php"
         public function createTopic() {
 
             $topicManager = new TopicManager();
@@ -67,19 +65,22 @@
             $user = 1;
             $newTopicId;
 
-            if(isset($_POST["title"]) && isset($_POST["category"]) && isset($_POST["firstMsg"])){ 
+            if(!empty($_POST["title"]) && !empty($_POST["category"]) && !empty($_POST["firstMsg"])){ 
                 $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $category = filter_input(INPUT_POST, "category", FILTER_VALIDATE_INT);
                 $firstMsg = filter_input(INPUT_POST, "firstMsg", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                // $topicManager->add(["user_id" => $user, "title" => $title, "category_id" => $category]);
                 $newTopicId = $topicManager->add(["user_id" => $user, "title" => $title, "category_id" => $category]);
                 $postManager->add(["user_id" => $user, "topic_id" => $newTopicId, "text" => $firstMsg]);
 
-                header("Location: index.php?ctrl=forum&action=topicDetail&id=".$newTopicId);
+                $_SESSION["success"] = "Topic created successfully.";
+                // header("Location: index.php?ctrl=forum&action=topicDetail&id=".$newTopicId);
+                $this->redirectTo("forum", "topicDetail", $newTopicId);
             }
             else {
-                header("Location: index.php");
+                $_SESSION["error"] = "You must fullfill all inputs.";
+                // header("Location: index.php");
+                $this->redirectTo("home", "index");
             }
                  
         }
@@ -95,13 +96,21 @@
             $user = 1;
             $topicId = $_GET['topicId'];
 
-            if (isset($_POST["postText"])) {
+            if (!empty($_POST["postText"])) {
 
                 $msg = filter_input(INPUT_POST, "postText", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                 $postManager->add(["user_id" => $user, "text" => $msg, "topic_id" => $topicId]);
 
-                header("Location: index.php?ctrl=forum&action=topicDetail&id=".$topicId);
+
+                $_SESSION["success"] = "Message added successfully.";
+                // header("Location: index.php?ctrl=forum&action=topicDetail&id=".$topicId);
+                $this->redirectTo("forum", "topicDetail", $topicId);
             }
+            else {
+                $_SESSION["error"] = "You must enter a message.";
+                $this->redirectTo("forum", "topicDetail", $topicId);
+            }
+
         }
 
         
