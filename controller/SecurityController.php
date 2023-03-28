@@ -46,8 +46,9 @@
                     ];
                 }
                 else {
-                    // Check if user exists (email):
+                    // Check if user exists (email), false ou objet NULL s'il y a:
                     $countEmail = $userManager->findOneByMail($email);
+
                     if(!$countEmail) {
                         //check if user exists (username):
                         $countPseudo = $userManager->findOneByUsername($username);
@@ -86,18 +87,27 @@
 
             $userManager = new UserManager();  
 
-            $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $email = filter_input(INPUT_POST, "email", FILTER_VALIDATE_EMAIL);
             $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-            if($username && $password){
+            if($email && $password){
 
-                $mdpBdd = $userManager->retrievePassword($email);
+                $dbPass = $userManager->retrievePassword($email);
 
-                if($mdpBdd) {
+                if($dbPass !== false) {
 
-                    $hash = $mdpBdd->getPassword();
+                    $hash = $dbPass->getPassword();
 
                     $user = $userManager->findOneByMail($email);
+
+                    // return [
+                    //     "view" => VIEW_DIR."home.php",
+                    //     "data" => [
+                    //         "dbPass" => $dbPass,
+                    //         "hashPassword" => $hash,
+                    //         "user" => $user
+                    //     ]
+                    // ]; 
 
                     if (password_verify($password, $hash)) {
 
@@ -106,12 +116,29 @@
 
                             Session::setUser($user);
 
+                            $this->redirectTo("home", "index");
                         }
-
+                        else {
+                            $_SESSION["error"] = "Vous avez été banni du Formum";
+                            $this->redirectTo("security", "connexionForm");
+                        }
                     }
+                    else {
+                        $_SESSION["error"] = "Erreur lors de la connexion";
+                        $this->redirectTo("security", "connexionForm");
+                    }
+                }
+                else {
+                    $_SESSION["error"] = "Erreur lors du retrieve password (utilisateur inconnu)";
+                    $this->redirectTo("security", "connexionForm");
                 }
 
             }
+            else {
+                $_SESSION["error"] = "Veuillez entrer un email valide";
+                $this->redirectTo("security", "connexionForm");
+            }
+
 
 
 

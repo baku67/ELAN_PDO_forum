@@ -32,12 +32,12 @@
         public function findOneByMail($email){
 
             $sql = "SELECT *
-                    FROM ".$this->tableName." a
+                    FROM ".$this->tableName."
                     WHERE email = :email
                     ";
 
             return $this->getOneOrNullResult(
-                DAO::select($sql, ['email' => $email]), 
+                DAO::select($sql, ['email' => $email], false), 
                 $this->className
             );
         }
@@ -46,12 +46,12 @@
         public function findOneByUsername($username){
 
             $sql = "SELECT *
-                    FROM ".$this->tableName." a
+                    FROM ".$this->tableName."
                     WHERE username = :username
                     ";
 
             return $this->getOneOrNullResult(
-                DAO::select($sql, ['username' => $username]), 
+                DAO::select($sql, ['username' => $username], false), 
                 $this->className
             );
         }
@@ -59,12 +59,12 @@
 
         public function retrievePassword($email) {
             $sql = "SELECT password
-                    FROM ".$this->tableName." a
+                    FROM ".$this->tableName."
                     WHERE email = :email
                     ";
 
             return $this->getOneOrNullResult(
-                DAO::select($sql, ['email' => $email]), 
+                DAO::select($sql, ['email' => $email], false), 
                 $this->className
             );
         }

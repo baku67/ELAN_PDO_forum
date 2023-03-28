@@ -2,8 +2,8 @@
 
 <form action="index.php?ctrl=security&action=login" method="post">
 
-    <label>Username</label>
-    <input type="text" name="username">
+    <label>Email</label>
+    <input type="text" name="email">
     <label>Password</label>
     <input type="password" name="password">
 
