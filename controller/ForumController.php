@@ -13,14 +13,16 @@
 
         public function index(){
           
-           $topicManager = new TopicManager();
-           $categoryManager = new CategoryManager();
+            $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
+            // $postManager = new PostManager();
 
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
-                    "topics" => $topicManager->findAll(["creationdate", "DESC"])
+                    "topics" => $topicManager->findAll(["creationdate", "DESC"]),
+                    // "posts" => $postManager->findAll(["creationdate", "DESC"])
                 ]
             ];
         }
@@ -74,7 +76,11 @@
                     $firstMsg = filter_input(INPUT_POST, "firstMsg", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
                     $newTopicId = $topicManager->add(["user_id" => $user, "title" => $title, "category_id" => $category]);
-                    $postManager->add(["user_id" => $user, "topic_id" => $newTopicId, "text" => $firstMsg]);
+                    $newPostId = $postManager->add(["user_id" => $user, "topic_id" => $newTopicId, "text" => $firstMsg]);
+                    
+                    // (lastPostId pas utilisé pour l'instant) update du lastPostId du topic apres insertion (ID vérifiés):
+                    // $topicManager->updateLastPostId($newTopicId, $newPostId);
+                    $topicManager->updateLastPostIdMsg($newTopicId, $newPostId, $firstMsg);
 
                     $_SESSION["success"] = "Topic created successfully.";
                     $this->redirectTo("forum", "topicDetail", $newTopicId);
@@ -142,11 +148,14 @@
                 if (!empty($_POST["postText"])) {
 
                     $msg = filter_input(INPUT_POST, "postText", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                    $postManager->add(["user_id" => $user, "text" => $msg, "topic_id" => $topicId]);
+                    $newPostId = $postManager->add(["user_id" => $user, "text" => $msg, "topic_id" => $topicId]);
+
+                    // (lastPostId pas utilisé pour l'instant) update du lastPostId du topic apres insertion (ID vérifiés):
+                    // $topicManager->updateLastPostId($topicId, $newPostId);
+                    $topicManager->updateLastPostIdMsg($topicId, $newPostId, $msg);
 
 
                     $_SESSION["success"] = "Message added successfully.";
-                    // header("Location: index.php?ctrl=forum&action=topicDetail&id=".$topicId);
                     $this->redirectTo("forum", "topicDetail", $topicId);
                 }
                 else {

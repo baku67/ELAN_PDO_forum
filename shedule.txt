@@ -1,10 +1,7 @@
-Ajouter les message d'erreur/succes apres form ($_SESSION)
-
-redirectTo (abstarct Controller) plutot que header(Location) a la fin des methode form 
-
 Status user: banni (pas de co possible), muted (pas de post/topic), standard
 
-Le isAdmin se met pas a jour si changement role BDD (session qui persiste?)
+Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton pour ban/mute)
 
+LastMessage dans topicList 
 
 /!\  view/security/users: Fix le timezone offset SignInDateDiff (bien présent mais calcul pas bon)

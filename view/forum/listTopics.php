@@ -1,6 +1,7 @@
 <?php
 
 $topics = $result["data"]['topics'];
+// $posts = $result["data"]['posts'];
 
 $categories = $result["data"]['categories'];
 
@@ -20,6 +21,7 @@ foreach($topics as $topic ){
 
     ?>
     <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a></p>
+    <p>...<?php echo var_dump($topic->getLastMsg()) ?></p>
     <br>
     <?php
 }

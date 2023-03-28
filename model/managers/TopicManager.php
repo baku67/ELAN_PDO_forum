@@ -42,6 +42,30 @@
             );
         }
 
+        // Lors creation du topic (avec fistMsg) puis lors d'un addPost dans topic
+        public function updateLastPostId($topicId, $newPostId) {
+            $sql = "UPDATE ".$this->tableName."
+             SET lastPostId = :lastPostId
+            WHERE id_topic = :id
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::update($sql, ['lastPostId' => $newPostId, 'id' => $topicId], false), 
+                $this->className
+            );
+        }
+        public function updateLastPostIdMsg($topicId, $newPostId, $msg) {
+            $sql = "UPDATE ".$this->tableName."
+             SET lastPostMsg = :msg, lastPostId = :lastPostId
+            WHERE id_topic = :id
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::update($sql, ['lastPostId' => $newPostId, 'msg' => $msg, 'id' => $topicId], false), 
+                $this->className
+            );
+        }
+
 
         // Close et open différents ou juste toggle avec !value ?
         public function changeStatusTopic($id, $status) {

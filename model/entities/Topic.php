@@ -11,6 +11,7 @@
         private $creationdate;
         private $status;
         private $category;
+        private $lastPostMsg;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -119,4 +120,18 @@
 
                 return $this;
         }
+
+
+
+        public function getLastMsg()
+        {
+                return $this->lastPostMsg;
+        }
+        public function setLastMsg($lastPostMsg)
+        {
+                $this->lastPostMsg = $lastPostMsg;
+
+                return $this;
+        }
+
     }
