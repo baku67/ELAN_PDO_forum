@@ -57,11 +57,5 @@
         }
 
 
-        public function getUserTopics($id) {
-
-        }
-
-
-
 
     }

@@ -29,5 +29,18 @@
             );
         }
 
+        public function getUserTopics($id) {
+            $sql = "SELECT *
+                    FROM ".$this->tableName."
+                    WHERE user_id = :id
+                    ORDER BY id_topic DESC
+                    ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $id]),
+                $this->className
+            );
+        }
+
 
     }

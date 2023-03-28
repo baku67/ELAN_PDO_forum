@@ -6,6 +6,7 @@
     use App\AbstractController;
     use App\ControllerInterface;
     use Model\Managers\UserManager;
+    use Model\Managers\TopicManager;
 
     class HomeController extends AbstractController implements ControllerInterface{
 
@@ -27,9 +28,10 @@
         }
 
         public function viewProfile() {
-            $userManager = new UserManager(); 
+            // $userManager = new UserManager(); 
+            $topicManager = new TopicManager();
 
-            $userTopicList = $userManager->getUserTopics($_SESSION["user"]->getId());
+            $userTopicList = $topicManager->getUserTopics($_SESSION["user"]->getId());
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",

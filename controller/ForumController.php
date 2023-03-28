@@ -60,27 +60,32 @@
             $topicManager = new TopicManager();
             $postManager = new PostManager();
 
-            // if ($_SESSION['user']) {
-            // $user = $_SESSION['user']->getId();
-            $user = 1;
-            $newTopicId;
+            // $user = 1;
+            if (!empty($_SESSION['user'])) {
+                $user = $_SESSION['user']->getId();
+            
+                $newTopicId;
 
-            if(!empty($_POST["title"]) && !empty($_POST["category"]) && !empty($_POST["firstMsg"])){ 
-                $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $category = filter_input(INPUT_POST, "category", FILTER_VALIDATE_INT);
-                $firstMsg = filter_input(INPUT_POST, "firstMsg", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                if(!empty($_POST["title"]) && !empty($_POST["category"]) && !empty($_POST["firstMsg"])){ 
+                    $title = filter_input(INPUT_POST, "title", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $category = filter_input(INPUT_POST, "category", FILTER_VALIDATE_INT);
+                    $firstMsg = filter_input(INPUT_POST, "firstMsg", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-                $newTopicId = $topicManager->add(["user_id" => $user, "title" => $title, "category_id" => $category]);
-                $postManager->add(["user_id" => $user, "topic_id" => $newTopicId, "text" => $firstMsg]);
+                    $newTopicId = $topicManager->add(["user_id" => $user, "title" => $title, "category_id" => $category]);
+                    $postManager->add(["user_id" => $user, "topic_id" => $newTopicId, "text" => $firstMsg]);
 
-                $_SESSION["success"] = "Topic created successfully.";
-                // header("Location: index.php?ctrl=forum&action=topicDetail&id=".$newTopicId);
-                $this->redirectTo("forum", "topicDetail", $newTopicId);
+                    $_SESSION["success"] = "Topic created successfully.";
+                    $this->redirectTo("forum", "topicDetail", $newTopicId);
+                }
+                else {
+                    $_SESSION["error"] = "You must fullfill all inputs.";
+                    $this->redirectTo("forum", "listTopics");
+                }
+
             }
             else {
-                $_SESSION["error"] = "You must fullfill all inputs.";
-                // header("Location: index.php");
-                $this->redirectTo("forum", "index");
+                $_SESSION["error"] = "You must be logged in to create topics";
+                $this->redirectTo("security", "connexionForm");
             }
                  
         }
@@ -91,24 +96,29 @@
             $topicManager = new TopicManager();
             $postManager = new PostManager();
 
-            // if ($_SESSION['user']) {
-            // $user = $_SESSION['user']->getId();
-            $user = 1;
-            $topicId = $_GET['topicId'];
+            // $user = 1;
+            if ($_SESSION['user']) {
+                $user = $_SESSION['user']->getId();
+                $topicId = $_GET['topicId'];
 
-            if (!empty($_POST["postText"])) {
+                if (!empty($_POST["postText"])) {
 
-                $msg = filter_input(INPUT_POST, "postText", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-                $postManager->add(["user_id" => $user, "text" => $msg, "topic_id" => $topicId]);
+                    $msg = filter_input(INPUT_POST, "postText", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    $postManager->add(["user_id" => $user, "text" => $msg, "topic_id" => $topicId]);
 
 
-                $_SESSION["success"] = "Message added successfully.";
-                // header("Location: index.php?ctrl=forum&action=topicDetail&id=".$topicId);
-                $this->redirectTo("forum", "topicDetail", $topicId);
+                    $_SESSION["success"] = "Message added successfully.";
+                    // header("Location: index.php?ctrl=forum&action=topicDetail&id=".$topicId);
+                    $this->redirectTo("forum", "topicDetail", $topicId);
+                }
+                else {
+                    $_SESSION["error"] = "You must enter a message.";
+                    $this->redirectTo("forum", "topicDetail", $topicId);
+                }
             }
             else {
-                $_SESSION["error"] = "You must enter a message.";
-                $this->redirectTo("forum", "topicDetail", $topicId);
+                $_SESSION["error"] = "You must be logged in to post something";
+                $this->redirectTo("security", "connexionForm");
             }
 
         }
