@@ -11,16 +11,32 @@
 
         public function index(){}
 
+
         public function connexionForm() {
             return [
                 "view" => VIEW_DIR."security/login.php",
                 "data" => []
             ];
         }
+
         public function subscribeForm() {
             return [
                 "view" => VIEW_DIR."security/register.php",
                 "data" => []
+            ];
+        }
+
+        public function viewProfile() {
+            $userManager = new UserManager(); 
+
+            $userTopicList = $userManager->getUserTopics($_SESSION["user"]->getId());
+
+            return [
+                "view" => VIEW_DIR."security/viewProfile.php",
+                "data" => [
+                    "user" => $_SESSION["user"],
+                    "userTopicList" => $userTopicList
+                ]
             ];
         }
         
@@ -100,15 +116,6 @@
 
                     $user = $userManager->findOneByMail($email);
 
-                    // return [
-                    //     "view" => VIEW_DIR."home.php",
-                    //     "data" => [
-                    //         "dbPass" => $dbPass,
-                    //         "hashPassword" => $hash,
-                    //         "user" => $user
-                    //     ]
-                    // ]; 
-
                     if (password_verify($password, $hash)) {
 
                         // Si user pas banni
@@ -124,7 +131,7 @@
                         }
                     }
                     else {
-                        $_SESSION["error"] = "Erreur lors de la connexion";
+                        $_SESSION["error"] = "Mot de passe incorrect";
                         $this->redirectTo("security", "connexionForm");
                     }
                 }
@@ -139,10 +146,14 @@
                 $this->redirectTo("security", "connexionForm");
             }
 
+        }
 
 
 
-
+        public function logout() {
+            session_start();
+            session_destroy();
+            $this->redirectTo("security", "connexionForm");
         }
     
 

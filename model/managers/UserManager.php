@@ -16,19 +16,6 @@
         }
 
 
-        // public function countByEmail($email) {
-        //     $sql = "
-        //     SELECT COUNT(*) FROM ".$this->tableName . " u
-        //     WHERE u.email = :email
-        //     ORDER BY u.id_user DESC
-        //     ";
-
-        //     return $this->getOneOrNullResult(
-        //         DAO::select($sql, ['email' => $email], false),
-        //         $this->className
-        //     );
-        // }
-
         public function findOneByMail($email){
 
             $sql = "SELECT *
@@ -69,6 +56,10 @@
             );
         }
 
+
+        public function getUserTopics($id) {
+
+        }
 
 
 
