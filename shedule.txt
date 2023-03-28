@@ -5,3 +5,6 @@ redirectTo (abstarct Controller) plutot que header(Location) a la fin des method
 Status user: banni (pas de co possible), muted (pas de post/topic), standard
 
 Le isAdmin se met pas a jour si changement role BDD (session qui persiste?)
+
+
+/!\  view/security/users: Fix le timezone offset SignInDateDiff (bien présent mais calcul pas bon)

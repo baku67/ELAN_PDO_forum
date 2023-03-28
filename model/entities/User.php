@@ -10,7 +10,7 @@
         private $password;
         private $email;
         private $role;
-        private $creationdate;
+        private $signInDate;
         private $status;
 
 
@@ -96,13 +96,13 @@
         }
 
 
-        public function getCreationdate(){
-            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
+        public function getSignInDate(){
+            $formattedDate = $this->signInDate->format("d/m/Y, H:i:s");
             return $formattedDate;
         }
 
-        public function setCreationdate($date){
-            $this->creationdate = new \DateTime($date);
+        public function setSignInDate($date){
+            $this->signInDate = new \DateTime($date);
             return $this;
         }
 

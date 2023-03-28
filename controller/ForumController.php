@@ -44,12 +44,14 @@
         public function listTopicByCat($id) {
 
             $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
 
             return [
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
                     "catName" => $_GET['catName'],
-                    "topics" => $topicManager->listTopicByCat($id)
+                    "topics" => $topicManager->listTopicByCat($id),
+                    "categories" => $categoryManager->findAll(["name", "DESC"])
                 ]
             ];
         }
