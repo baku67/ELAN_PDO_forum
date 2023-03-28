@@ -16,7 +16,6 @@
         }
 
         public function findByTopicId($id) {
-
             $sql = "
             SELECT * FROM ".$this->tableName . " p
             WHERE p.topic_id = :id
@@ -28,6 +27,32 @@
             );
 
         }
+
+
+        public function getUserMsgList($userId) {
+            $sql = "
+            SELECT * FROM ".$this->tableName . " 
+            WHERE user_id = :id
+            LIMIT 100
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['id' => $userId]),
+                $this->className
+            );
+        }
+
+        // public function countUserMsgList($userId) {
+        //     $sql = "
+        //     SELECT COUNT(*) FROM ".$this->tableName . " 
+        //     WHERE user_id = :id
+        //     ";
+
+        //     return $this->getOneOrNullResult(
+        //         DAO::select($sql, ['id' => $userId]),
+        //         $this->className
+        //     );
+        // }
 
 
     }

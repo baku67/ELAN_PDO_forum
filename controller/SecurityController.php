@@ -7,6 +7,7 @@
     use App\ControllerInterface;
     use Model\Managers\UserManager;
     use Model\Managers\TopicManager;
+    use Model\Managers\PostManager;
 
     class HomeController extends AbstractController implements ControllerInterface{
 
@@ -28,7 +29,7 @@
         }
 
         public function viewProfile() {
-            // $userManager = new UserManager(); 
+
             $topicManager = new TopicManager();
 
             $userTopicList = $topicManager->getUserTopics($_SESSION["user"]->getId());
@@ -40,6 +41,33 @@
                     "userTopicList" => $userTopicList
                 ]
             ];
+        }
+
+
+        public function userMsgList($userId) {
+
+            if($_SESSION["user"]->getRole() == "ROLE_ADMIN") {
+
+                $postManager = new PostManager();
+
+                $userMsgList = $postManager->getUserMsgList($userId);
+                // $countUserMsgList = $postManager->countUserMsgList($userId);
+
+                return [
+                    "view" => VIEW_DIR."security/userMsgList.php",
+                    "data" => [
+                        "userMsgList" => $userMsgList,
+                        // "count" => $countUserMsgList
+                    ]
+                ];
+            }
+            else {
+                $_SESSION["error"] = "Non autorisé";
+                $this->redirectTo("security", "subscribeForm");
+            }
+
+
+
         }
         
 

@@ -70,7 +70,7 @@
             ?>
                 <tr>
                     <td><?= $user->getId() ?></td>
-                    <td><?= $user->getUsername() ?></td>
+                    <td><a href="index.php?ctrl=security&action=userMsgList&id=<?= $user->getId() ?>"><?= $user->getUsername() ?></a></td>
                     <td><?= $user->getEmail() ?></td>
                     <td><?= $roleText ?></td>
                     <td><?= $statusText ?></td>
