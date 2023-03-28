@@ -153,7 +153,7 @@
 
 
         public function logout() {
-            session_start();
+            session_start(); 
             session_destroy();
             $this->redirectTo("security", "connexionForm");
         }

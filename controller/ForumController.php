@@ -86,8 +86,44 @@
             else {
                 $_SESSION["error"] = "You must be logged in to create topics";
                 $this->redirectTo("security", "connexionForm");
+            } 
+        }
+
+
+        public function closeTopic($topicId) {
+
+            $topicManager = new TopicManager();
+
+            $topic = $topicManager->findOneById($topicId);
+
+            // Check si user = auteur/admin 
+            if(!empty($_SESSION["user"])) {
+                if(($_SESSION["user"]->getRole() == "ROLE_ADMIN") || ($_SESSION["user"]->getId() == $topic->getUser()->getId())) {
+                    
+                    // On inverse le status du topic (fermeture/reouverture)
+                    if($topic->getStatus() == "1") {
+                        $topicManager->changeStatusTopic($topicId, "0");
+                        $_SESSION["success"] = "Le topic a été fermé";
+                    }
+                    else {
+                        $topicManager->changeStatusTopic($topicId, "1");
+                        $_SESSION["success"] = "Le topic a été rouvert";
+                    }
+
+                    $this->redirectTo("forum", "topicDetail", $topicId);
+                }
+                else {
+                    $_SESSION["error"] = "You must be the author or Admin to close this topic";
+                    $this->redirectTo("forum", "topicDetail", $topicId);
+                }
+
             }
-                 
+            else {
+                $_SESSION["error"] = "You must be logged in to close this topic";
+                $this->redirectTo("forum", "topicDetail", $topicId);
+            }
+
+
         }
 
 

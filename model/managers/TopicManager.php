@@ -43,4 +43,18 @@
         }
 
 
+        // Close et open différents ou juste toggle avec !value ?
+        public function changeStatusTopic($id, $status) {
+            $sql = "UPDATE ".$this->tableName."
+             SET status = :status
+            WHERE id_topic = :id
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::update($sql, ['status' => $status, 'id' => $id], false), 
+                $this->className
+            );
+
+        }
+
     }

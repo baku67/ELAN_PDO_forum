@@ -36,11 +36,18 @@
 <!-- + liste des topics ou il a parler ? -->
 <h2>Topics</h2>
 <?php 
-foreach ($result["data"]["userTopicList"] as $topic) {
-?>
-    <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a></p>
-    <br>
+if(!empty($result["data"]["userTopicList"])) {
+    foreach ($result["data"]["userTopicList"] as $topic) {
+    ?>
+        <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a></p>
+        <br>
 
+    <?php
+    }
+}
+else {
+?>
+    <p style="font-style:italic; opacity:0.7;">Vous n'avez pas créé de Topics pour l'instant</p>
 <?php
 }
 ?>

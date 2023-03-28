@@ -29,7 +29,29 @@ $posts = $result["data"]['posts'];
     }
     ?>
 
+    <!-- Si user = admin, bouton de fermeture/réouverture du topic -->
+    <!-- Si user = auteur du topic: bouton de fermeture/réouverture du topic -->
+    <?php
+    if($topic->getStatus() == 0) {
+        $actionText = "Rouvrir";
+    }
+    else {
+        $actionText = "Fermer";
+    }
 
+    if(!empty($_SESSION["user"]) && ($_SESSION['user']->getRole() == "ROLE_ADMIN")) {
+    ?>
+        <a href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>">(Admin) <?= $actionText ?> le topic</a>
+    <?php
+    }
+    else if(!empty($_SESSION["user"]) && ($_SESSION["user"]->getId() == $topic->getUser()->getId())) {
+    ?>
+        <a href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>">(Auteur) <?= $actionText ?> le topic</a>
+    <?php
+    }
+    ?>
+
+    <!-- Gestion du droit d'écrire un post -->
     <?php 
     if($topic->getStatus() == 1) {
     ?>
