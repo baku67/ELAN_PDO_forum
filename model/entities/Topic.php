@@ -123,11 +123,11 @@
 
 
 
-        public function getLastMsg()
+        public function getLastPostMsg()
         {
                 return $this->lastPostMsg;
         }
-        public function setLastMsg($lastPostMsg)
+        public function setLastPostMsg($lastPostMsg)
         {
                 $this->lastPostMsg = $lastPostMsg;
 

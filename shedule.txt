@@ -5,3 +5,6 @@ Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton po
 LastMessage dans topicList 
 
 /!\  view/security/users: Fix le timezone offset SignInDateDiff (bien présent mais calcul pas bon)
+
+
+!H-S! RAPPEL: il reste à fix le ajout casting Cinema (foreign key constraint failed)

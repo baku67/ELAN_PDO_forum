@@ -18,12 +18,11 @@ else {
 
 <?php
 foreach($topics as $topic ){
-
-    ?>
+?>
     <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a></p>
-    <p>...<?php echo var_dump($topic->getLastMsg()) ?></p>
+    <p><?= $topic->getLastPostMsg() ?></p>
     <br>
-    <?php
+<?php
 }
 ?>
 
