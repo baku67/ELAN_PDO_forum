@@ -31,16 +31,22 @@
         public function viewProfile() {
 
             $topicManager = new TopicManager();
+            $postManager = new PostManager();
 
             $userTopicList = $topicManager->getUserTopics($_SESSION["user"]->getId());
             $countTopics = $topicManager->getCountTopics($_SESSION["user"]->getId());
+
+            $userMsgList = $postManager->getUserMsgList($_SESSION["user"]->getId());
+            $countUserMsgList = $postManager->countUserMsgList($_SESSION["user"]->getId());
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
                     "user" => $_SESSION["user"],
                     "userTopicList" => $userTopicList,
-                    "countTopics" => $countTopics
+                    "countTopics" => $countTopics,
+                    "userMsgList" => $userMsgList,
+                    "countMsg" => $countUserMsgList
                 ]
             ];
         }
@@ -50,16 +56,23 @@
 
             $topicManager = new TopicManager();
             $userManager = new UserManager();
+            $postManager = new PostManager();
 
             $userTopicList = $topicManager->getUserTopics($userId);
             $countTopics = $topicManager->getCountTopics($userId);
+
+            $userMsgList = $postManager->getUserMsgList($userId);
+            $countUserMsgList = $postManager->countUserMsgList($userId);
+
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
                     "user" => $userManager->findOneById($userId),
                     "userTopicList" => $userTopicList,
-                    "countTopics" => $countTopics
+                    "countTopics" => $countTopics,
+                    "userMsgList" => $userMsgList,
+                    "countMsg" => $countUserMsgList
                 ]
             ];
         }

@@ -38,9 +38,13 @@ foreach($topics as $topic ){
     $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
 
 ?>
-    <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a><span> &nbsp;(<?= $statusText ?>)</span></p>
-    <p><?= $topic->getLastPostMsg() ?></p>
-    <p><?= $dateDiff1 ?>, par <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
+    <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
+    <div class="topicCard">
+        <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
+        <p><?= $topic->getLastPostMsg() ?></p>
+        <p><?= $dateDiff1 ?>, par <a class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
+    </div>
+    </a>
     <br>
 <?php
 }

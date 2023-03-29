@@ -28,3 +28,13 @@ a {
     font-style: italic;
     opacity: 0.8;
 }
+
+.userLink {
+    /* Bouton lienUser mieux clickable */
+    padding: 15px;
+    margin: -15px;
+}
+.topicCard {
+    padding: 5px;
+    border: 1px solid rgb(0, 16, 156);
+}

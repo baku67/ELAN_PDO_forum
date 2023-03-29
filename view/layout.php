@@ -44,7 +44,7 @@
                         
                         if(App\Session::getUser()){
                             ?>
-                            <a href="index.php?ctrl=security&action=viewProfile"><span class="fas fa-user"></span>&nbsp;<?= App\Session::getUser()->getUsername()?></a>
+                            <a href="index.php?ctrl=security&action=viewProfile"><span class="fas fa-user"></span>&nbsp;<?= ucfirst(App\Session::getUser()->getUsername()) ?></a>
                             <a href="index.php?ctrl=security&action=logout">Déconnexion</a>
                             <a class="onglets" href="index.php?ctrl=forum&action=listTopics">Liste des topics</a>
                             <a class="onglets" href="index.php?ctrl=category&action=index">Liste des catégories</a>

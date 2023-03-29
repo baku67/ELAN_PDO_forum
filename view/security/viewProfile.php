@@ -20,6 +20,9 @@
     }
     
     $countTopics = $result["data"]["countTopics"];
+
+    $userMsgList = $result["data"]["userMsgList"];
+    $countMsg = $result["data"]["countMsg"];
     
 ?>
 
@@ -40,19 +43,70 @@
 <?php 
 if(!empty($result["data"]["userTopicList"])) {
     foreach ($result["data"]["userTopicList"] as $topic) {
-    ?>
-        <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a></p>
-        <br>
 
-    <?php
-    }
+        if($topic->getStatus() == 1) {
+            $statusText = "Ouvert";
+        }
+        else {
+            $statusText = "Fermé";
+        }
+    
+        // Chercher "carbon php time human reading" library
+        // Formattage *Time*Temps*Date
+        $date0 = str_replace("/", "-", $topic->getCreationdate());
+        $date1 = trim($date0, ",");
+        $date2 = new DateTime($date1, new DateTimeZone("+0000"));
+        
+        $dateNow0 = date("Y-m-d H:i:s");
+        $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
+    
+        $dateDiff0 = $date2->diff($dateNow1);
+        $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+    ?>
+    
+    <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
+        <div class="topicCard">
+            <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
+            <p><?= $topic->getLastPostMsg() ?></p>
+            <p><?= $dateDiff1 ?></p>
+        </div>
+    </a>
+
+    <br>
+<?php
+}
 }
 else {
+    if($result["data"]["user"]->getId() == $_SESSION["user"]->getId()) {
 ?>
     <p style="font-style:italic; opacity:0.7;">Vous n'avez pas créé de Topics pour l'instant</p>
 <?php
+    } else {
+?>
+    <p style="font-style:italic; opacity:0.7;">Cet utilisateur n'a publié aucun Topic pour l'instant</p>
+<?php
+    }
 }
 ?>
 
-<h2>Messages publiés</h2>
-
+<h2>Messages publiés (<?= $countMsg["count"] ?>)</h2>
+<?php
+    if (!empty($userMsgList)) {
+        foreach ($userMsgList as $post) {
+        // $count += 1;
+        ?>
+            <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $post->getTopic()->getId() ?>">
+                <div class="postCard">
+                    <p><?= $post->getText() ?></p>
+                    <span class="postInfos">le <?= $post->getCreationdate() ?></span>
+                </div>
+            </a>
+        <?php
+        }
+    } 
+    else {
+    ?>
+        <p class="postCard">Aucun post</p>
+    <?php
+    }
+    ?>

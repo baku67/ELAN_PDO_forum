@@ -4,6 +4,7 @@ Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton po
 
 LastMessage dans topicList 
 
+ATTENTIOn: droits viewProfile à gérer (email, boutons ban/mute) (même vue mais conditions isAdmin)
 
 *pOuR aLlez PlUs lOiN*
 LienAdmin listeUsers: nbrUsers et à coté nbrNewUser ("notif-bubble" comme panier), pour nombreNouveau: garder en BDD le nombre actuel(au moment du click->voirList) à chaque co, puis calc la diff pour le nombre de nouveaux users, +surbrillance newUser  

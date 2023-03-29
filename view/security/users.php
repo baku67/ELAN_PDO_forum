@@ -53,7 +53,7 @@
             ?>
                 <tr>
                     <td><?= $user->getId() ?></td>
-                    <td><a href="index.php?ctrl=security&action=userMsgList&id=<?= $user->getId() ?>"><?= $user->getUsername() ?></a></td>
+                    <td><a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $user->getId() ?>"><?= $user->getUsername() ?></a></td>
                     <td><?= $user->getEmail() ?></td>
                     <td><?= $roleText ?></td>
                     <td><?= $statusText ?></td>
