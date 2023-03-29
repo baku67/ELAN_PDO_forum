@@ -38,34 +38,17 @@
                     $statusText = "Banni";
                 }
 
-                // $dateSignInBdd = $user->getSignInDate();
-                // $dateTemp1 = str_replace("/", "-", $dateSignInBdd);
-                // $dateTemp2 = trim($dateTemp1, ",");
-                // $dateSignInFormatted = strtotime($dateTemp2);
-
-                // $date1 = new DateTime();
-                // $date1->setTimestamp($dateSignInFormatted);
-                // $finalDateLast = $date1->format("Y-m-d H:i:s");
-                // $finalDate = date("m-d-Y H:m:s",$dateSignInFormatted);
-
-
-                // $dateSignInBdd = "2023-03-28 14:06:54";
-                // $dateSignInFormatted = strtotime($dateSignInBdd);
-                // $finalDate = date("m-d-Y H:m:s",$dateSignInFormatted);
-
-                // $dateNow = date("Y-m-d H:i:s");
-                // $dateDiffSignIn = $finalDateLast->diff($dateNow);
-
-                // Fix le timezone offset (bien présent mais calcul pas bon)
+                // Chercher "carbon php time human reading" library
+                // Formattage *Time*Temps*Date
                 $date0 = str_replace("/", "-", $user->getSignInDate());
                 $date1 = trim($date0, ",");
-                $date2 = new DateTime($date1, new DateTimeZone("+0200"));
+                $date2 = new DateTime($date1, new DateTimeZone("+0000"));
                 
                 $dateNow0 = date("Y-m-d H:i:s");
                 $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
 
                 $dateDiff0 = $date2->diff($dateNow1);
-                $dateDiff1 = $dateDiff0->format("il y a %Yy %mm %dd");
+                $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
 
             ?>
                 <tr>

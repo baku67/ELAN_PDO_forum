@@ -24,9 +24,23 @@ foreach($topics as $topic ){
     else {
         $statusText = "Fermé";
     }
+
+    // Chercher "carbon php time human reading" library
+    // Formattage *Time*Temps*Date
+    $date0 = str_replace("/", "-", $topic->getCreationdate());
+    $date1 = trim($date0, ",");
+    $date2 = new DateTime($date1, new DateTimeZone("+000"));
+    
+    $dateNow0 = date("Y-m-d H:i:s");
+    $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
+
+    $dateDiff0 = $date2->diff($dateNow1);
+    $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+
 ?>
     <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a><span> &nbsp;(<?= $statusText ?>)</span></p>
     <p><?= $topic->getLastPostMsg() ?></p>
+    <p><?= $dateDiff1 ?></p>
     <br>
 <?php
 }

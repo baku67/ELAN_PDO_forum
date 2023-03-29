@@ -33,6 +33,7 @@
             $sql = "
             SELECT * FROM ".$this->tableName . " 
             WHERE user_id = :id
+            ORDER BY creationdate DESC
             LIMIT 100
             ";
 
