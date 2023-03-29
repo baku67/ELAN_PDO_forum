@@ -35,15 +35,29 @@
             $postManager = new PostManager();
             $likeManager = new LikeManager();
 
-            return [
-                "view" => VIEW_DIR."forum/topicDetail.php",
-                "data" => [
-                    "posts" => $postManager->findByTopicId($id),
-                    "topicDetail" => $topicManager->findOneById($id),
-                    "topicPostsCount" => $postManager->countByTopic($id),
-                    "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id)
-                ]
-            ];
+            // Pas de list userLikedPostId si pas connecté:
+            // if($_SESSION["user"]) {
+                return [
+                    "view" => VIEW_DIR."forum/topicDetail.php",
+                    "data" => [
+                        "posts" => $postManager->findByTopicId($id),
+                        "topicDetail" => $topicManager->findOneById($id),
+                        "topicPostsCount" => $postManager->countByTopic($id),
+                        "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id)
+                    ]
+                ];
+            // }
+            // else {
+            //     return [
+            //         "view" => VIEW_DIR."forum/topicDetail.php",
+            //         "data" => [
+            //             "posts" => $postManager->findByTopicId($id),
+            //             "topicDetail" => $topicManager->findOneById($id),
+            //             "topicPostsCount" => $postManager->countByTopic($id)
+            //         ]
+            //     ];
+            // }
+
         }
 
 

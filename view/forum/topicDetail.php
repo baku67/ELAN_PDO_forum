@@ -18,10 +18,13 @@ else {
     
 ?>
 
+<p>PostId likés sur ce Topic pour l'utilisateur connecté:</p>
 <?php 
+// On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
+$postIdLikedArray = [];
 if(!empty($userTopicLikeList)) {
     foreach ($userTopicLikeList as $like) {
-        echo("postId liké: " . $like->getPost()->getId());
+        $postIdLikedArray[] = $like->getPost()->getId();
     }
 }
 ?>
@@ -35,20 +38,37 @@ if(!empty($userTopicLikeList)) {
     <?php
     if (isset($posts)) {
         foreach ($posts as $post) {
+
+            // Check si Post liked (on check si le postId est dans l'array des userPostIdLiked)
+            $isLiked = false;
+            if(in_array($post->getId(), $postIdLikedArray)) {
+                $isLiked = true;
+            }
+            else {
+                $isLiked = false;
+            }
+
         ?>
+
             <div class="postCard">
                 <p><?= $post->getText() ?></p>
                 <span class="postInfos">by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $post->getUser()->getId() ?>"><?= $post->getUser()->getUsername() ?></a>, le <?= $post->getCreationdate() ?></span>
                 <?php
                 if(App\Session::getUser()){
+                    // Bouton like différent selon isLiked
+                    if($isLiked) {
                 ?>
-                    <!-- Liste objet from like inner join user inner join post where userID
-                        Puis dans foreach post, si postId présent dans listLike ? -->
                     <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
                 <?php
+                    }else{
+                ?>  
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i></i></a>
+                <?php
+                    }
                 }
                 ?>
             </div>
+
         <?php
         }
     } else {

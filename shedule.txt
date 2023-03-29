@@ -1,17 +1,47 @@
+** SECU:
 Status user: banni (pas de co possible), muted (pas de post/topic), standard
-
 Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton pour ban/mute)
-
-
-
-Si la $row like existe deja, la suppr (=enlever le like en recliquant)
-
 ATTENTIOn: droits viewProfile à gérer (email, boutons ban/mute) (même vue mais conditions isAdmin)
-
 *pOuR aLlez PlUs lOiN*
 LienAdmin listeUsers: nbrUsers et à coté nbrNewUser ("notif-bubble" comme panier), pour nombreNouveau: garder en BDD le nombre actuel(au moment du click->voirList) à chaque co, puis calc la diff pour le nombre de nouveaux users, +surbrillance newUser  
+Si user deleted ou banni: laisser les topics/posts (mais mettrre *deleted user*)
+
+** LIKES:
+Si la $row like existe deja, la suppr (=enlever le like en recliquant)
+Toggle <i>FA</i> like selon liked ou non
+COMPTEUR de likes (posts)
+
+
+
+
+** To-Fix:
+Pour les linkCard: il faut mettre le <a> dans la div et faire ressortir les liens dedans avec un z-index 999 (https://www.w3docs.com/snippets/css/how-to-make-a-div-a-clickable-link.html#:~:text=Create%20a%20with%20a,to%20add%20the%20needed%20link.)
+
+** Idée:
+$SESSION["message"] à mettre dans un pop up fixed bottom-right (et qui depop/fadeOut au bout de 1-2s, plus moderne), avec Bg-red/green
+
+** Idée:
+Recherche Topic: systeme de tags lors création ou/et recherche dans le titre (sql LIKE comme Cinéma)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 !H-S! RAPPEL: il reste à fix le ajout casting Cinema (foreign key constraint failed)
 
 
-Si user deleted ou banni 
+
+
