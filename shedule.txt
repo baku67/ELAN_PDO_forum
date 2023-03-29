@@ -23,7 +23,7 @@ $SESSION["message"] à mettre dans un pop up fixed bottom-right (et qui depop/fa
 ** Idée:
 Recherche Topic: systeme de tags lors création ou/et recherche dans le titre (sql LIKE comme Cinéma)
 
-
+** Front: différencier les posts de l'utilisateur connecté (ses msg sont à droite et plus foncés par ex)
 
 
 

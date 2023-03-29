@@ -197,11 +197,22 @@
 
                 $user = $_SESSION['user']->getId();
 
-                $likeManager->add(["user_id" => $user, "post_id" => $id]);
+                if($likeManager->findOneByUserAndPost($user, $id)) {
+                    
+                    $matchingLikeId = $likeManager->findOneByUserAndPost($user, $id)->getId();
+                    $likeManager->delete($matchingLikeId);
 
-                $_SESSION["success"] = "Liké";
-                // $this->redirectTo("forum", "topicDetail", $topicId);
-                $this->redirectTo("forum", "topicDetail", $id2);
+                    $_SESSION["error"] = "Post Unliké";
+                    $this->redirectTo("forum", "topicDetail", $id2);
+                }
+                else {
+                    $likeManager->add(["user_id" => $user, "post_id" => $id]);
+                    $_SESSION["success"] = "Post Liké";
+                    $this->redirectTo("forum", "topicDetail", $id2);
+                }
+
+                // $_SESSION["success"] = "Liké";
+                // $this->redirectTo("forum", "topicDetail", $id2);
             }
             else {
                 $_SESSION["error"] = "You must be logged in to like a post";

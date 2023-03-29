@@ -47,4 +47,34 @@
             );
         }
 
+        // Check si le like existe deja pour ce userId et ce postId
+        // public function findOneByUserAndPost($user, $id) {
+
+        //     $sql = "
+        //     SELECT * FROM ".$this->tableName . " l 
+        //     WHERE l.user_id = :userId 
+        //     AND l.post_id = :postId
+        //     ";
+
+        //     return $this->getMultipleResults(
+        //         DAO::select($sql, ["postId" => $id, 'userId' => $user], true),
+        //         $this->className
+        //     );
+        // }
+        // Avec findOneOrNull plus facile pour le check ForumController likePost()
+        public function findOneByUserAndPost($user, $id) {
+
+            $sql = "
+            SELECT * FROM ".$this->tableName . " l 
+            WHERE l.user_id = :userId 
+            AND l.post_id = :postId
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ["postId" => $id, 'userId' => $user], false),
+                $this->className
+            );
+        }
+        
+
     }
