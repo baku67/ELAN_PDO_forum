@@ -8,6 +8,7 @@
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
     use Model\Managers\CategoryManager;
+    use Model\Managers\LikeManager;
     
     class ForumController extends AbstractController implements ControllerInterface{
 
@@ -168,6 +169,28 @@
                 $this->redirectTo("security", "connexionForm");
             }
 
+        }
+
+
+        public function likePost($postId) {
+
+            $likeManager = new LikeManager();
+
+            if ($_SESSION['user']) {
+
+                $user = $_SESSION['user']->getId();
+
+                $likeManager->add(["user_id" => $user, "post_id" => $postId]);
+
+                $_SESSION["success"] = "Liké";
+                // $this->redirectTo("forum", "topicDetail", $topicId);
+                $this->redirectTo("forum", "index");
+            }
+            else {
+                $_SESSION["error"] = "You must be logged in to like a post";
+                $this->redirectTo("security", "connexionForm");
+            }
+                
         }
 
         
