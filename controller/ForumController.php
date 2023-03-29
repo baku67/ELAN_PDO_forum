@@ -33,13 +33,15 @@
 
             $topicManager = new TopicManager();
             $postManager = new PostManager();
+            $likeManager = new LikeManager();
 
             return [
                 "view" => VIEW_DIR."forum/topicDetail.php",
                 "data" => [
                     "posts" => $postManager->findByTopicId($id),
                     "topicDetail" => $topicManager->findOneById($id),
-                    "topicPostsCount" => $postManager->countByTopic($id)
+                    "topicPostsCount" => $postManager->countByTopic($id),
+                    "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id)
                 ]
             ];
         }
@@ -173,7 +175,7 @@
         }
 
 
-        public function likePost($postId) {
+        public function likePost($id, $id2) {
 
             $likeManager = new LikeManager();
 
@@ -181,11 +183,11 @@
 
                 $user = $_SESSION['user']->getId();
 
-                $likeManager->add(["user_id" => $user, "post_id" => $postId]);
+                $likeManager->add(["user_id" => $user, "post_id" => $id]);
 
                 $_SESSION["success"] = "Liké";
                 // $this->redirectTo("forum", "topicDetail", $topicId);
-                $this->redirectTo("forum", "index");
+                $this->redirectTo("forum", "topicDetail", $id2);
             }
             else {
                 $_SESSION["error"] = "You must be logged in to like a post";

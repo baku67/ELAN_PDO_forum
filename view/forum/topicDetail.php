@@ -6,6 +6,8 @@ $posts = $result["data"]['posts'];
 
 $postsCount = $result["data"]['topicPostsCount'];
 
+$userTopicLikeList = $result["data"]['likeList'];
+
 
 if($topic->getStatus() == 1) {
     $statusText = "Ouvert";
@@ -14,6 +16,14 @@ else {
     $statusText = "Fermé";
 }
     
+?>
+
+<?php 
+if(!empty($userTopicLikeList)) {
+    foreach ($userTopicLikeList as $like) {
+        echo("postId liké: " . $like->getPost()->getId());
+    }
+}
 ?>
 
 <h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span>
@@ -32,7 +42,9 @@ else {
                 <?php
                 if(App\Session::getUser()){
                 ?>
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <!-- Liste objet from like inner join user inner join post where userID
+                        Puis dans foreach post, si postId présent dans listLike ? -->
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
                 <?php
                 }
                 ?>

@@ -2,7 +2,9 @@ Status user: banni (pas de co possible), muted (pas de post/topic), standard
 
 Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton pour ban/mute)
 
-LastMessage dans topicList 
+
+
+Si la $row like existe deja, la suppr (=enlever le like en recliquant)
 
 ATTENTIOn: droits viewProfile à gérer (email, boutons ban/mute) (même vue mais conditions isAdmin)
 

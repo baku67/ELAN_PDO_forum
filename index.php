@@ -47,8 +47,20 @@
         $id = $_GET['id'];
     }
     else $id = null;
+    if(isset($_GET['id2'])){
+        $id2 = $_GET['id2'];
+    }
+    else $id2 = null;
+ 
     //ex : HomeController->users(null)
-    $result = $ctrl->$action($id);
+
+    if(is_null($id2)) {
+        $result = $ctrl->$action($id);
+    }
+    else {
+        $result = $ctrl->$action($id, $id2);
+    }
+
 
 
 
