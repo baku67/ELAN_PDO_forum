@@ -43,17 +43,29 @@
             );
         }
 
-        // public function countUserMsgList($userId) {
-        //     $sql = "
-        //     SELECT COUNT(*) FROM ".$this->tableName . " 
-        //     WHERE user_id = :id
-        //     ";
 
-        //     return $this->getOneOrNullResult(
-        //         DAO::select($sql, ['id' => $userId]),
-        //         $this->className
-        //     );
-        // }
+        public function countUserMsgList($userId) {
+            $sql = "
+            SELECT COUNT(*) AS count FROM ".$this->tableName . " 
+            WHERE user_id = :id
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ['id' => $userId])
+            );
+        }
+
+
+        public function countByTopic($topicId) {
+            $sql = "
+            SELECT COUNT(*) FROM ".$this->tableName . " 
+            WHERE topic_id = :id
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ['id' => $topicId], false)
+            );
+        }
 
 
     }

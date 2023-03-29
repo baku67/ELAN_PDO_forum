@@ -29,7 +29,7 @@ foreach($topics as $topic ){
     // Formattage *Time*Temps*Date
     $date0 = str_replace("/", "-", $topic->getCreationdate());
     $date1 = trim($date0, ",");
-    $date2 = new DateTime($date1, new DateTimeZone("+000"));
+    $date2 = new DateTime($date1, new DateTimeZone("+0000"));
     
     $dateNow0 = date("Y-m-d H:i:s");
     $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));

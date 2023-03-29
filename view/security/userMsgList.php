@@ -2,18 +2,20 @@
 
 $userMsgList = $result["data"]['userMsgList'];
 
-// A améliorer (ajouter un vrai COUNT())
-$count = 0;
+$countMsg = $result["data"]['count'];
+
+// remplacé par vrai COUNT(*)
+// $count = 0;
    
 ?>
 
 
-    <h2>Messages de l'utilisateur (<span id="countTitle"><?= $count ?></span>)</h2>
+    <h2>Messages de l'utilisateur (<span id="countTitle"><?= $countMsg["count"] ?></span>)</h2>
     
     <?php
     if (!empty($userMsgList)) {
         foreach ($userMsgList as $post) {
-        $count += 1;
+        // $count += 1;
         ?>
             <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $post->getTopic()->getId() ?>">
                 <div class="postCard">
@@ -31,11 +33,11 @@ $count = 0;
     }
     ?>
 
-    <!-- // Affichage du nombre de msg dans le titre apres foreach count -->
-    <p id="count" style="display:none"><?= $count ?></p>
+    <!-- // Affichage du nombre de msg dans le titre apres foreach count (remplacé par un vrai COUNT(*)) -->
+    <!-- <p id="count" style="display:none"><?= $count ?></p>
     <script>
         var countNbr = document.getElementById("count").innerText;
         document.getElementById("countTitle").innerText = countNbr;
-    </script>
+    </script> -->
 
     

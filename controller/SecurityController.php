@@ -51,13 +51,13 @@
                 $postManager = new PostManager();
 
                 $userMsgList = $postManager->getUserMsgList($userId);
-                // $countUserMsgList = $postManager->countUserMsgList($userId);
+                $countUserMsgList = $postManager->countUserMsgList($userId);
 
                 return [
                     "view" => VIEW_DIR."security/userMsgList.php",
                     "data" => [
                         "userMsgList" => $userMsgList,
-                        // "count" => $countUserMsgList
+                        "count" => $countUserMsgList
                     ]
                 ];
             }

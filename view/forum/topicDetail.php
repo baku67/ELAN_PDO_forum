@@ -4,6 +4,9 @@ $topic = $result["data"]['topicDetail'];
 
 $posts = $result["data"]['posts'];
 
+$postsCount = $result["data"]['topicPostsCount'];
+
+
 if($topic->getStatus() == 1) {
     $statusText = "Ouvert";
 }
@@ -13,7 +16,7 @@ else {
     
 ?>
 
-<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1>
+<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span>
 
 
     <p><?=$topic->getTitle()?></p>
@@ -29,7 +32,7 @@ else {
                 <?php
                 if(App\Session::getUser()){
                 ?>
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>">like</a>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
                 <?php
                 }
                 ?>

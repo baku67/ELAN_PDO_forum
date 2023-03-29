@@ -14,6 +14,9 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css">
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/698848973e.js" crossorigin="anonymous"></script>
+
     <title>FORUM</title>
 </head>
 <body>

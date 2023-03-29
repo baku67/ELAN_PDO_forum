@@ -38,7 +38,8 @@
                 "view" => VIEW_DIR."forum/topicDetail.php",
                 "data" => [
                     "posts" => $postManager->findByTopicId($id),
-                    "topicDetail" => $topicManager->findOneById($id)
+                    "topicDetail" => $topicManager->findOneById($id),
+                    "topicPostsCount" => $postManager->countByTopic($id)
                 ]
             ];
         }
