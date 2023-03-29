@@ -19,6 +19,8 @@
         $status = "Banni";
     }
     
+    $countTopics = $result["data"]["countTopics"];
+    
 ?>
 
 
@@ -34,7 +36,7 @@
 
  <!-- Liste des topics créé par l'user (clickable, modifiables ici) -->
 <!-- + liste des topics ou il a parler ? -->
-<h2>Topics</h2>
+<h2>Topics créés (<?= $countTopics["count"] ?>)</h2>
 <?php 
 if(!empty($result["data"]["userTopicList"])) {
     foreach ($result["data"]["userTopicList"] as $topic) {
@@ -51,4 +53,6 @@ else {
 <?php
 }
 ?>
+
+<h2>Messages publiés</h2>
 

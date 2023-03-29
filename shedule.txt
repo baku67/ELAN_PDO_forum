@@ -9,3 +9,6 @@ LastMessage dans topicList
 LienAdmin listeUsers: nbrUsers et à coté nbrNewUser ("notif-bubble" comme panier), pour nombreNouveau: garder en BDD le nombre actuel(au moment du click->voirList) à chaque co, puis calc la diff pour le nombre de nouveaux users, +surbrillance newUser  
 
 !H-S! RAPPEL: il reste à fix le ajout casting Cinema (foreign key constraint failed)
+
+
+Si user deleted ou banni 

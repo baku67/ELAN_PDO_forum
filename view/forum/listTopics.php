@@ -40,7 +40,7 @@ foreach($topics as $topic ){
 ?>
     <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a><span> &nbsp;(<?= $statusText ?>)</span></p>
     <p><?= $topic->getLastPostMsg() ?></p>
-    <p><?= $dateDiff1 ?></p>
+    <p><?= $dateDiff1 ?>, par <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
     <br>
 <?php
 }

@@ -33,12 +33,33 @@
             $topicManager = new TopicManager();
 
             $userTopicList = $topicManager->getUserTopics($_SESSION["user"]->getId());
+            $countTopics = $topicManager->getCountTopics($_SESSION["user"]->getId());
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
                     "user" => $_SESSION["user"],
-                    "userTopicList" => $userTopicList
+                    "userTopicList" => $userTopicList,
+                    "countTopics" => $countTopics
+                ]
+            ];
+        }
+
+
+        public function viewUserProfile($userId) {
+
+            $topicManager = new TopicManager();
+            $userManager = new UserManager();
+
+            $userTopicList = $topicManager->getUserTopics($userId);
+            $countTopics = $topicManager->getCountTopics($userId);
+
+            return [
+                "view" => VIEW_DIR."security/viewProfile.php",
+                "data" => [
+                    "user" => $userManager->findOneById($userId),
+                    "userTopicList" => $userTopicList,
+                    "countTopics" => $countTopics
                 ]
             ];
         }

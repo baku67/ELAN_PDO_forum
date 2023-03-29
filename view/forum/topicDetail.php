@@ -28,7 +28,7 @@ else {
         ?>
             <div class="postCard">
                 <p><?= $post->getText() ?></p>
-                <span class="postInfos">by <?= $post->getUser()->getUsername() ?>, le <?= $post->getCreationdate() ?></span>
+                <span class="postInfos">by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $post->getUser()->getId() ?>"><?= $post->getUser()->getUsername() ?></a>, le <?= $post->getCreationdate() ?></span>
                 <?php
                 if(App\Session::getUser()){
                 ?>

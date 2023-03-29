@@ -78,7 +78,17 @@
                 DAO::update($sql, ['status' => $status, 'id' => $id], false), 
                 $this->className
             );
+        }
 
+        public function getCountTopics($userId) {
+            $sql = "
+            SELECT COUNT(*) AS count FROM ".$this->tableName . " 
+            WHERE user_id = :id
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ['id' => $userId])
+            );
         }
 
     }
