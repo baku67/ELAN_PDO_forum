@@ -1,32 +1,29 @@
 <?php
 
-$topic = $result["data"]['topicDetail'];
+    $topic = $result["data"]['topicDetail'];
 
-$posts = $result["data"]['posts'];
+    $posts = $result["data"]['posts'];
 
-$postsCount = $result["data"]['topicPostsCount'];
+    $postsCount = $result["data"]['topicPostsCount'];
 
-$userTopicLikeList = $result["data"]['likeList'];
-
-
-if($topic->getStatus() == 1) {
-    $statusText = "Ouvert";
-}
-else {
-    $statusText = "Fermé";
-}
-    
-?>
-
-<p>PostId likés sur ce Topic pour l'utilisateur connecté:</p>
-<?php 
-// On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
-$postIdLikedArray = [];
-if(!empty($userTopicLikeList)) {
-    foreach ($userTopicLikeList as $like) {
-        $postIdLikedArray[] = $like->getPost()->getId();
+    if($topic->getStatus() == 1) {
+        $statusText = "Ouvert";
     }
-}
+    else {
+        $statusText = "Fermé";
+    }
+
+    // On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
+    if(!empty($result["data"]['likeList'])) {
+        $userTopicLikeList = $result["data"]['likeList'];
+    }
+
+    $postIdLikedArray = [];
+    if(!empty($userTopicLikeList)) {
+        foreach ($userTopicLikeList as $like) {
+            $postIdLikedArray[] = $like->getPost()->getId();
+        }
+    }
 ?>
 
 <h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span>

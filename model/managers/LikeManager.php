@@ -33,4 +33,18 @@
 
         }
 
+        // On récupère la liste des likes du TOPIC (avec le FK:post_id) et apres dans la vue pour chaque post on compte+1 si y'a match
+        public function countLikesPost($postId) {
+
+            $sql = "
+            SELECT COUNT(*) FROM ".$this->tableName . " l
+            INNER JOIN post p ON p.id_post = l.post_id
+            WHERE p.id_post = :postId
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ['postId' => $postId], false)
+            );
+        }
+
     }

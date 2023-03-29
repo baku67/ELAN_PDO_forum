@@ -35,28 +35,28 @@
             $postManager = new PostManager();
             $likeManager = new LikeManager();
 
+
             // Pas de list userLikedPostId si pas connecté:
-            // if($_SESSION["user"]) {
+            if(!empty($_SESSION["user"])) {
                 return [
                     "view" => VIEW_DIR."forum/topicDetail.php",
                     "data" => [
                         "posts" => $postManager->findByTopicId($id),
                         "topicDetail" => $topicManager->findOneById($id),
                         "topicPostsCount" => $postManager->countByTopic($id),
-                        "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id)
+                        "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id)                    ]
+                ];
+            }
+            else {
+                return [
+                    "view" => VIEW_DIR."forum/topicDetail.php",
+                    "data" => [
+                        "posts" => $postManager->findByTopicId($id),
+                        "topicDetail" => $topicManager->findOneById($id),
+                        "topicPostsCount" => $postManager->countByTopic($id)
                     ]
                 ];
-            // }
-            // else {
-            //     return [
-            //         "view" => VIEW_DIR."forum/topicDetail.php",
-            //         "data" => [
-            //             "posts" => $postManager->findByTopicId($id),
-            //             "topicDetail" => $topicManager->findOneById($id),
-            //             "topicPostsCount" => $postManager->countByTopic($id)
-            //         ]
-            //     ];
-            // }
+            }
 
         }
 
