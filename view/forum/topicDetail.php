@@ -3,10 +3,17 @@
 $topic = $result["data"]['topicDetail'];
 
 $posts = $result["data"]['posts'];
+
+if($topic->getStatus() == 1) {
+    $statusText = "Ouvert";
+}
+else {
+    $statusText = "Fermé";
+}
     
 ?>
 
-<h1>Detail du topic n°<?= $topic->getId() ?></h1>
+<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1>
 
 
     <p><?=$topic->getTitle()?></p>

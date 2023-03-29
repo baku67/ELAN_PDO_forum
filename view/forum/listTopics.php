@@ -18,8 +18,14 @@ else {
 
 <?php
 foreach($topics as $topic ){
+    if($topic->getStatus() == 1) {
+        $statusText = "Ouvert";
+    }
+    else {
+        $statusText = "Fermé";
+    }
 ?>
-    <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a></p>
+    <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>"><?=$topic->getTitle()?></a><span> &nbsp;(<?= $statusText ?>)</span></p>
     <p><?= $topic->getLastPostMsg() ?></p>
     <br>
 <?php
