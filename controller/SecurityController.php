@@ -8,6 +8,7 @@
     use Model\Managers\UserManager;
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
+    use Model\Managers\LikeManager;
 
     class HomeController extends AbstractController implements ControllerInterface{
 
@@ -32,12 +33,15 @@
 
             $topicManager = new TopicManager();
             $postManager = new PostManager();
+            $likeManager = new LikeManager();
 
             $userTopicList = $topicManager->getUserTopics($_SESSION["user"]->getId());
             $countTopics = $topicManager->getCountTopics($_SESSION["user"]->getId());
 
             $userMsgList = $postManager->getUserMsgList($_SESSION["user"]->getId());
             $countUserMsgList = $postManager->countUserMsgList($_SESSION["user"]->getId());
+
+            $userLikesList = $likeManager->userlikesList($_SESSION["user"]->getId());
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
@@ -46,7 +50,8 @@
                     "userTopicList" => $userTopicList,
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,
-                    "countMsg" => $countUserMsgList
+                    "countMsg" => $countUserMsgList,
+                    "userLikesList" => $userLikesList
                 ]
             ];
         }
@@ -57,12 +62,15 @@
             $topicManager = new TopicManager();
             $userManager = new UserManager();
             $postManager = new PostManager();
+            $likeManager = new LikeManager();
 
             $userTopicList = $topicManager->getUserTopics($userId);
             $countTopics = $topicManager->getCountTopics($userId);
 
             $userMsgList = $postManager->getUserMsgList($userId);
             $countUserMsgList = $postManager->countUserMsgList($userId);
+
+            $userLikesList = $likeManager->userlikesList($userId);
 
 
             return [
@@ -72,7 +80,8 @@
                     "userTopicList" => $userTopicList,
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,
-                    "countMsg" => $countUserMsgList
+                    "countMsg" => $countUserMsgList,
+                    "userLikesList" => $userLikesList
                 ]
             ];
         }

@@ -16,7 +16,7 @@
         }
 
         
-        // Fonction de récupération des ID de post liké par l'utilisateur connecté pour le Topic en question (pour comparer: si postId présent dans l'array result => liké)
+        // (not used) Fonction de récupération des ID de post liké par l'utilisateur connecté pour le Topic en question (pour comparer: si postId présent dans l'array result => liké)
         public function topicUserLikeList($connectedUser, $topicId) {
 
             $sql = "
@@ -62,6 +62,20 @@
 
             return $this->getMultipleResults(
                 DAO::select($sql, ["topicId" => $topicId], true),
+                $this->className
+            );
+        }
+
+        // ViewProfile: on récupère la liste des postLikes
+        public function userlikesList() {
+
+            $sql = "
+            SELECT * 
+            FROM ".$this->tableName . " l
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, null, true),
                 $this->className
             );
         }

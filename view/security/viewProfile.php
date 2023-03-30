@@ -23,6 +23,34 @@
 
     $userMsgList = $result["data"]["userMsgList"];
     $countMsg = $result["data"]["countMsg"];
+
+
+    // ** Tous les postLikes du User (All topic)
+    $listLikesTopic = $result["data"]['userLikesList'];
+
+    $globalListLikesTopic = [];
+    foreach($listLikesTopic as $like) {
+        $globalListLikesTopic[] = $like->getPost()->getId();
+    }
+    // var_dump($globalListLikesTopic);
+    // echo("<br>Décompte: ");
+    // echo(var_dump(array_count_values($globalListLikesTopic)));
+    // ** Exemple de récup du nbr de like en passant l'idPost en index
+    // var_dump(array_count_values($globalListLikesTopic)[51]);
+
+
+    // ** (isLiked userCo) On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
+    if(!empty($result["data"]['likeList'])) {
+        $userTopicLikeList = $result["data"]['likeList'];
+    }
+
+    $postIdLikedArray = [];
+    if(!empty($userTopicLikeList)) {
+        foreach ($userTopicLikeList as $like) {
+            $postIdLikedArray[] = $like->getPost()->getId();
+        }
+    }
+    
     
 ?>
 
@@ -93,12 +121,28 @@ else {
 <?php
     if (!empty($userMsgList)) {
         foreach ($userMsgList as $post) {
-        // $count += 1;
-        ?>
+
+            // $isLiked = false;
+            // if(in_array($post->getId(), $postIdLikedArray)) {
+            //     $isLiked = true;
+            // }
+            // else {
+            //     $isLiked = false;
+            // }
+        
+            if(!empty(array_count_values($globalListLikesTopic)[$post->getId()])) {
+                $postLikesCount = array_count_values($globalListLikesTopic)[$post->getId()];
+            }
+            else {
+                $postLikesCount = 0;
+            }
+            ?>
+
             <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $post->getTopic()->getId() ?>">
                 <div class="postCard">
                     <p><?= $post->getText() ?></p>
                     <span class="postInfos">le <?= $post->getCreationdate() ?></span>
+                    <p><?= $postLikesCount ?> likes</p></a>
                 </div>
             </a>
         <?php

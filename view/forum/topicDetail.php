@@ -14,7 +14,7 @@
         $statusText = "Fermé";
     }
 
-    // ** On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
+    // ** (isLiked userCo) On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
     if(!empty($result["data"]['likeList'])) {
         $userTopicLikeList = $result["data"]['likeList'];
     }

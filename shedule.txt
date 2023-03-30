@@ -11,7 +11,7 @@ Si la $row like existe deja, la suppr (=enlever le like en recliquant)
 Toggle <i>FA</i> like selon liked ou non
 COMPTEUR de likes (posts)
 Récup la liste des likes (du topic, tout user confondus, puis dans foreach post on compare les id et on compte)
-
+User: viewProfile: nbr Total de likes obtenus (assez proche du countLikesPost)
 
 
 ** To-Fix:
