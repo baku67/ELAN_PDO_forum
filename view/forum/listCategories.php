@@ -1,6 +1,8 @@
 <?php
 
 $categories = $result["data"]['categories'];
+
+$userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
     
 ?>
 
@@ -15,11 +17,13 @@ foreach($categories as $category ){
 }
 ?>
 
+
 <?php
-if(App\Session::isAdmin()){
+// On check le role de l'user connecté depuis la BDD et non la SESSION (pour si changement de role en cours de session active)
+if($userConnectedRoleFromBdd == "ROLE_ADMIN"){
 ?>
     <p>Ajouter une catégorie</p>
-    <form action="index.php?ctrl=security&action=addCategory" method="post">
+    <form action="index.php?ctrl=category&action=addCategory" method="post">
         <label for="categoryName"></label>
         <input id="categoryName" name="categoryName" type="text" maxlength="20">
         <input type="submit" value="ajouter">

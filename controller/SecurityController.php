@@ -31,32 +31,6 @@
             ];
         }
 
-        public function addCategory() {
-
-            $categoryManager = new CategoryManager;
-
-            if(Session::isAdmin()){
-                $categoryName = filter_input(INPUT_POST, "categoryName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-
-                if($categoryName) {
-
-                    $categoryManager->add(["name" => $categoryName]);
-
-                    $_SESSION["success"] = "Catégorie ajoutée";
-                    $this->redirectTo("category", "index");
-                }
-                else {
-                    $_SESSION["error"] = "Nom de la catégorie invalide";
-                    $this->redirectTo("home", "index");
-                }
-                
-            }
-            else {
-                $_SESSION["error"] = "Accès non autorisé";
-                $this->redirectTo("home", "index");
-            }
-        }
-
 
         public function changeUserStatus() {
 
