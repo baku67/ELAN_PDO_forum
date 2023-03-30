@@ -6,7 +6,9 @@
 
     $postsCount = $result["data"]['topicPostsCount'];
 
-    $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
+    if (!empty($result["data"]['userConnectedRoleFromBdd'])) {
+        $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
+    }
 
     
     if($topic->getStatus() == 1) {
@@ -37,7 +39,7 @@
             $globalListLikesTopic[] = $like->getPost()->getId();
         }
     }
-    // var_dump($globalListLikesTopic);
+    var_dump($globalListLikesTopic);
     // echo("<br>Décompte: ");
     // echo(var_dump(array_count_values($globalListLikesTopic)));
     // ** Exemple de récup du nbr de like en passant l'idPost en index
@@ -84,13 +86,18 @@
                     // Bouton like différent selon isLiked
                     if($isLiked) {
                 ?>
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i><p><?= $postGlobalLikesCount ?> likes</p></a>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a><p><?= $postGlobalLikesCount ?> likes</p>
                 <?php
                     }else{
                 ?>  
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i><p><?= $postGlobalLikesCount ?> likes</p></a>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i></a><p><?= $postGlobalLikesCount ?> likes</p>
                 <?php
                     }
+                }
+                else {
+                ?>
+                    <p><?= $postGlobalLikesCount ?> likes</p>
+                <?php
                 }
                 ?>
             </div>

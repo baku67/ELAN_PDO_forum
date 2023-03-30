@@ -68,7 +68,7 @@
                         "topicDetail" => $topicManager->findOneById($id),
                         "topicPostsCount" => $postManager->countByTopic($id),
                         "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id),
-                        "listLikesTopic" => $likeManager->listLikesTopic($id) ,
+                        "listLikesTopic" => $likeManager->listLikesTopic($id),
                         "userConnectedRoleFromBdd" => $userManager->findOneById($_SESSION["user"]->getId())->getRole()                
                     ]
                 ];
@@ -79,7 +79,8 @@
                     "data" => [
                         "posts" => $postManager->findByTopicId($id),
                         "topicDetail" => $topicManager->findOneById($id),
-                        "topicPostsCount" => $postManager->countByTopic($id)
+                        "topicPostsCount" => $postManager->countByTopic($id),
+                        "listLikesTopic" => $likeManager->listLikesTopic($id),
                     ]
                 ];
             }
