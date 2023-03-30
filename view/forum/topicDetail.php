@@ -6,6 +6,8 @@
 
     $postsCount = $result["data"]['topicPostsCount'];
 
+    $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
+
     
     if($topic->getStatus() == 1) {
         $statusText = "Ouvert";
@@ -117,7 +119,7 @@
         <a href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>">(Auteur) <?= $actionText ?> le topic</a>
     <?php
     }
-    else if(!empty($_SESSION["user"]) && ($_SESSION['user']->getRole() == "ROLE_ADMIN")) {
+    else if(!empty($_SESSION["user"]) && ($userConnectedRoleFromBdd == "ROLE_ADMIN")) {
     ?>
         <a href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>">(Admin) <?= $actionText ?> le topic</a>
     <?php

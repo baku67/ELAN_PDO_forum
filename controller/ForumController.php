@@ -31,17 +31,23 @@
         }
 
         public function users(){
-            $this->restrictTo("ROLE_USER");
-
             $userManager = new UserManager();
-            $users = $userManager->findAll(['signInDate', 'DESC']);
 
-            return [
-                "view" => VIEW_DIR."security/users.php",
-                "data" => [
-                    "users" => $users
-                ]
-            ];
+            // On check le role de l'user connecté depuis la BDD et non la session (pour si changement du role pendant la session active)
+            if($userManager->findOneById($_SESSION["user"]->getId())->getRole() == "ROLE_ADMIN") {
+                $users = $userManager->findAll(['signInDate', 'DESC']);
+
+                return [
+                    "view" => VIEW_DIR."security/users.php",
+                    "data" => [
+                        "users" => $users
+                    ]
+                ];
+            }
+            else {
+                $_SESSION["error"] = "You are no more Administrator";
+                $this->redirectTo("security", "viewProfile");
+            } 
         }
 
 
@@ -50,6 +56,7 @@
             $topicManager = new TopicManager();
             $postManager = new PostManager();
             $likeManager = new LikeManager();
+            $userManager = new UserManager();
 
 
             // Pas de list userLikedPostId si pas connecté:
@@ -61,7 +68,8 @@
                         "topicDetail" => $topicManager->findOneById($id),
                         "topicPostsCount" => $postManager->countByTopic($id),
                         "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id),
-                        "listLikesTopic" => $likeManager->listLikesTopic($id)                 
+                        "listLikesTopic" => $likeManager->listLikesTopic($id) ,
+                        "userConnectedRoleFromBdd" => $userManager->findOneById($_SESSION["user"]->getId())->getRole()                
                     ]
                 ];
             }
@@ -143,12 +151,16 @@
         public function closeTopic($topicId) {
 
             $topicManager = new TopicManager();
+            $userManager = new UserManager();
 
             $topic = $topicManager->findOneById($topicId);
 
+            // On recheck le role du user connecté dans la BDD et non à partir du $_SESSION (pour si changement role en cours de session)
+            $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
+
             // Check si user = auteur/admin (utiliser Session::isAdmin())
             if(!empty($_SESSION["user"])) {
-                if(($_SESSION["user"]->getRole() == "ROLE_ADMIN") || ($_SESSION["user"]->getId() == $topic->getUser()->getId())) {
+                if(($userConnectedRoleFromBdd == "ROLE_ADMIN") || ($_SESSION["user"]->getId() == $topic->getUser()->getId())) {
                     
                     // On inverse le status du topic (fermeture/reouverture)
                     if($topic->getStatus() == "1") {

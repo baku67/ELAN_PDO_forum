@@ -30,6 +30,20 @@
         }
 
 
+        public function updateUserRole($userId, $newRole) {
+            $sql = "
+                UPDATE user
+                SET role = :newRole
+                WHERE id_user = :userId
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::update($sql, ['userId' => $userId, 'newRole' => $newRole], false), 
+                $this->className
+            );
+        }
+
+
         public function findOneByMail($email){
 
             $sql = "SELECT *

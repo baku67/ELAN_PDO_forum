@@ -58,7 +58,7 @@
         }
 
 
-        public function changeUserStatus($id) {
+        public function changeUserStatus() {
 
             $userManager = new UserManager;
 
@@ -80,6 +80,34 @@
                     $this->redirectTo("forum", "users");
                 }
 
+            }
+            else {
+                $_SESSION["error"] = "Accès non autorisé";
+                $this->redirectTo("home", "index");
+            }
+        }
+
+
+        public function changeUserRole() {
+
+            $userManager = new UserManager;
+
+            if(Session::isAdmin()){
+
+                $newRole = filter_input(INPUT_POST, "role-Select", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                $userId = filter_var($_POST["userId2"], FILTER_VALIDATE_INT);
+
+                if($newRole && ($userId !== false)) {
+
+                    $userManager->updateUserRole($userId, $newRole);
+
+                    $_SESSION["success"] = "Rôle de l'utilisateur modifié: userID=" . $userId . ", newRole=" . $newRole;
+                    $this->redirectTo("forum", "users");
+                }
+                else {
+                    $_SESSION["error"] = "Requête refusée";
+                    $this->redirectTo("forum", "users");
+                }
             }
             else {
                 $_SESSION["error"] = "Accès non autorisé";

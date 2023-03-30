@@ -21,17 +21,23 @@
         
    
         public function users(){
-            $this->restrictTo("ROLE_USER");
-
             $userManager = new UserManager();
-            $users = $userManager->findAll(['signInDate', 'DESC']);
 
-            return [
-                "view" => VIEW_DIR."security/users.php",
-                "data" => [
-                    "users" => $users
-                ]
-            ];
+            // On check le role de l'user connecté depuis la BDD et non la session (pour si changement du role pendant la session active)
+            if($userManager->findOneById($_SESSION["user"]->getId())->getRole() == "ROLE_ADMIN") {
+                $users = $userManager->findAll(['signInDate', 'DESC']);
+
+                return [
+                    "view" => VIEW_DIR."security/users.php",
+                    "data" => [
+                        "users" => $users
+                    ]
+                ];
+            }
+            else {
+                $_SESSION["error"] = "You are no more Administrator";
+                $this->redirectTo("security", "viewProfile");
+            } 
         }
 
         public function forumRules(){

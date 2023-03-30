@@ -26,26 +26,26 @@
                 $roleText = "";
                 if($user->getRole() == "ROLE_USER") {
                     $roleText = "Utilisateur";
+                    $roleSelectedAdmin = "";
+                    $roleSelectedStandard = "selected";
                 }
                 else if ($user->getRole() == "ROLE_ADMIN") {
                     $roleText = "Administrateur";
+                    $roleSelectedAdmin = "selected";
+                    $roleSelectedStandard = "";
                 }
 
-                $statusText = "";
                 if($user->getStatus() == 0) {
-                    $statusText = "Strandard";
                     $selectedStandard = "selected";
                     $selectedMute = "";
                     $selectedBan = "";
                 }
                 else if ($user->getStatus() == 1) {
-                    $statusText = "Muted";
                     $selectedStandard = "";
                     $selectedMute = "selected";
                     $selectedBan = "";
                 }
                 else if ($user->getStatus() == 2) {
-                    $statusText = "Banni";
                     $selectedStandard = "";
                     $selectedMute = "";
                     $selectedBan = "selected";
@@ -68,7 +68,16 @@
                     <td><?= $user->getId() ?></td>
                     <td><a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $user->getId() ?>"><?= $user->getUsername() ?></a></td>
                     <td><?= $user->getEmail() ?></td>
-                    <td><?= $roleText ?></td>
+                    <td>
+                        <form action="index.php?ctrl=security&action=changeUserRole" method="post">
+                            <input type="hidden" name="userId2" id="userId2" value="<?= $user->getId() ?>">
+                            <select name="role-Select" id="role-Select" onchange='this.form.submit()'>
+                                <option <?= $roleSelectedStandard ?> value="ROLE_USER">Utilisateur</option>
+                                <option <?= $roleSelectedAdmin ?> value="ROLE_ADMIN">Administrateur</option>
+                            </select>
+                            <noscript><input type="submit" value="Ok"></noscript>
+                        </form>
+                    </td>
                     <td>
                         <!-- Form submitted when select change -->
                         <form action="index.php?ctrl=security&action=changeUserStatus" method="post">
