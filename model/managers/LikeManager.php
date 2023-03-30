@@ -15,6 +15,8 @@
             parent::connect();
         }
 
+        
+        // Fonction de récupération des ID de post liké par l'utilisateur connecté pour le Topic en question (pour comparer: si postId présent dans l'array result => liké)
         public function topicUserLikeList($connectedUser, $topicId) {
 
             $sql = "
@@ -33,7 +35,8 @@
 
         }
 
-        // On récupère la liste des likes du TOPIC (avec le FK:post_id) et apres dans la vue pour chaque post on compte+1 si y'a match
+
+        // Fonction pour compter les likes d'un post (PB: nécessite le postId)
         public function countLikesPost($postId) {
 
             $sql = "
@@ -47,20 +50,24 @@
             );
         }
 
+        // On récupère la liste globale des likes du TOPIC (avec le FK:post_id) et apres dans la vue pour chaque post on compte+1 si y'a match
+        public function listLikesTopic($topicId) {
+
+            $sql = "
+            SELECT * 
+            FROM ".$this->tableName . " l
+            INNER JOIN post p ON p.id_post = l.post_id
+            WHERE p.topic_id = :topicId
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ["topicId" => $topicId], true),
+                $this->className
+            );
+        }
+
+
         // Check si le like existe deja pour ce userId et ce postId
-        // public function findOneByUserAndPost($user, $id) {
-
-        //     $sql = "
-        //     SELECT * FROM ".$this->tableName . " l 
-        //     WHERE l.user_id = :userId 
-        //     AND l.post_id = :postId
-        //     ";
-
-        //     return $this->getMultipleResults(
-        //         DAO::select($sql, ["postId" => $id, 'userId' => $user], true),
-        //         $this->className
-        //     );
-        // }
         // Avec findOneOrNull plus facile pour le check ForumController likePost()
         public function findOneByUserAndPost($user, $id) {
 

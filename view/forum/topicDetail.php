@@ -6,6 +6,7 @@
 
     $postsCount = $result["data"]['topicPostsCount'];
 
+    
     if($topic->getStatus() == 1) {
         $statusText = "Ouvert";
     }
@@ -13,7 +14,7 @@
         $statusText = "Fermé";
     }
 
-    // On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
+    // ** On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
     if(!empty($result["data"]['likeList'])) {
         $userTopicLikeList = $result["data"]['likeList'];
     }
@@ -24,8 +25,21 @@
             $postIdLikedArray[] = $like->getPost()->getId();
         }
     }
-?>
 
+    // ** Tous les postLikes du Topic (All user)
+    $listLikesTopic = $result["data"]['listLikesTopic'];
+
+    $globalListLikesTopic = [];
+    foreach($listLikesTopic as $like) {
+        $globalListLikesTopic[] = $like->getPost()->getId();
+    }
+    // var_dump($globalListLikesTopic);
+    // echo("<br>Décompte: ");
+    // echo(var_dump(array_count_values($globalListLikesTopic)));
+    // ** Exemple de récup du nbr de like en passant l'idPost en index
+    // var_dump(array_count_values($globalListLikesTopic)[51]);
+
+?>
 
 <h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span> <span>(<?= $topic->getCategory()->getName() ?>)</span>
 
@@ -46,6 +60,16 @@
                 $isLiked = false;
             }
 
+            // Compte des likes Globaux à l'aide de l'array $globalListLikesTopic (qui comprend tout les id de post liké all users, donc doublons de postId)
+            if(!empty(array_count_values($globalListLikesTopic)[$post->getId()])) {
+                $postGlobalLikesCount = array_count_values($globalListLikesTopic)[$post->getId()];
+            }
+            else {
+                $postGlobalLikesCount = 0;
+            }
+
+
+
         ?>
 
             <div class="postCard">
@@ -56,11 +80,11 @@
                     // Bouton like différent selon isLiked
                     if($isLiked) {
                 ?>
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i><p><?= $postGlobalLikesCount ?> likes</p></a>
                 <?php
                     }else{
                 ?>  
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i></i></a>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i><p><?= $postGlobalLikesCount ?> likes</p></a>
                 <?php
                     }
                 }

@@ -45,7 +45,9 @@
                         "posts" => $postManager->findByTopicId($id),
                         "topicDetail" => $topicManager->findOneById($id),
                         "topicPostsCount" => $postManager->countByTopic($id),
-                        "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id)                    ]
+                        "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id),
+                        "listLikesTopic" => $likeManager->listLikesTopic($id)                 
+                    ]
                 ];
             }
             else {
