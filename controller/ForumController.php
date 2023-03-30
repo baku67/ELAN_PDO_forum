@@ -57,6 +57,7 @@
             $postManager = new PostManager();
             $likeManager = new LikeManager();
             $userManager = new UserManager();
+            $categoryManager = new CategoryManager();
 
 
             // Pas de list userLikedPostId si pas connecté:
@@ -69,7 +70,8 @@
                         "topicPostsCount" => $postManager->countByTopic($id),
                         "likeList" => $likeManager->topicUserLikeList($_SESSION["user"]->getId(), $id),
                         "listLikesTopic" => $likeManager->listLikesTopic($id),
-                        "userConnectedRoleFromBdd" => $userManager->findOneById($_SESSION["user"]->getId())->getRole()                
+                        "userConnectedRoleFromBdd" => $userManager->findOneById($_SESSION["user"]->getId())->getRole(),
+                        "categories" => $categoryManager->findAll()              
                     ]
                 ];
             }
@@ -84,6 +86,23 @@
                     ]
                 ];
             }
+        }
+
+
+        // Admin: form envoyé depuis topicDetail pour changer la catégorie du topic
+        public function changeTopicCategory() {
+
+            $userManager = new UserManager();
+
+            // On check le role de l'user connecté depuis la BDD et non la session (pour si changement du role pendant la session active)
+            if($userManager->findOneById($_SESSION["user"]->getId())->getRole() == "ROLE_ADMIN") {
+                
+            }
+            else {
+                $_SESSION["error"] = "You are no more Administrator";
+                $this->redirectTo("security", "viewProfile");
+            } 
+
 
         }
 

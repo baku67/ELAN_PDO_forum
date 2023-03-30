@@ -6,6 +6,10 @@
 
     $postsCount = $result["data"]['topicPostsCount'];
 
+    if (!empty($result["data"]['categories'])) {
+        $categories = $result["data"]['categories'];
+    }
+
     if (!empty($result["data"]['userConnectedRoleFromBdd'])) {
         $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
     }
@@ -47,7 +51,29 @@
 
 ?>
 
-<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span> <span>(<?= $topic->getCategory()->getName() ?>)</span>
+<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1>
+<span>(<?= $postsCount ?> messages)</span> 
+<?php
+if($userConnectedRoleFromBdd == "ROLE_USER") {
+?>
+    <span>(<?= $topic->getCategory()->getName() ?>)</span>
+<?php 
+} else {
+?>
+    <form action="index.php?ctrl=forum&action=changeTopicCategory" method="post">
+        <select name="category_Select" id="category_Select">
+            <?php 
+            foreach ($categories as $category) {
+            ?>
+                <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+            <?php
+            }
+            ?>
+        </select>
+    </form>
+<?php
+}
+?>
 
 
     <p><?=$topic->getTitle()?></p>

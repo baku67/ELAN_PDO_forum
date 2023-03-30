@@ -1,3 +1,7 @@
+En cours: le selected de la categorie actuelle du topic (admin: changement de catégorie du topicDetail)
+    Et finir forumController: public function changeTopicCategory() 
+
+
 ** SECU:
 Status user: banni (pas de co possible), muted (pas de post/topic), standard
 Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton pour ban/mute)
@@ -6,7 +10,7 @@ ATTENTIOn: droits viewProfile à gérer (email, boutons ban/mute) (même vue mai
 LienAdmin listeUsers: nbrUsers et à coté nbrNewUser ("notif-bubble" comme panier), pour nombreNouveau: garder en BDD le nombre actuel(au moment du click->voirList) à chaque co, puis calc la diff pour le nombre de nouveaux users, +surbrillance newUser  
 Si user deleted ou banni: laisser les topics/posts (mais mettrre *deleted user*)
 Admin: peut changer la catégorie d'un topic à partir de la fiche détail (et ajouter une catégorie dans espace admin)
-
+Logiquement: si bannissement en cours de session active: il faut check si user banni a chaque action: si banni: session destroy (logout)
 
 ** LIKES:
 Si la $row like existe deja, la suppr (=enlever le like en recliquant)
