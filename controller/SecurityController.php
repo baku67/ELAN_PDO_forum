@@ -92,6 +92,7 @@
             $topicManager = new TopicManager();
             $postManager = new PostManager();
             $likeManager = new LikeManager();
+            $userManager = new UserManager();
 
             $userTopicList = $topicManager->getUserTopics($_SESSION["user"]->getId());
             $countTopics = $topicManager->getCountTopics($_SESSION["user"]->getId());
@@ -106,7 +107,7 @@
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
-                    "user" => $_SESSION["user"],
+                    "user" => $userManager->findOneById($_SESSION["user"]->getId()),
                     "userTopicList" => $userTopicList,
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,
@@ -256,14 +257,14 @@
                     if (password_verify($password, $hash)) {
 
                         // Si user pas banni
-                        if ($user->getStatus()) {
+                        if ($user->getStatus() != 2) {
 
                             Session::setUser($user);
 
                             $this->redirectTo("home", "index");
                         }
                         else {
-                            $_SESSION["error"] = "Vous avez été banni du Formum";
+                            $_SESSION["error"] = "You are currently banned and can not log in";
                             $this->redirectTo("security", "connexionForm");
                         }
                     }

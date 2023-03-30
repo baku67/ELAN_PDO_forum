@@ -26,8 +26,8 @@ Recherche Topic: systeme de tags lors création ou/et recherche dans le titre (s
 
 ** Front: différencier les posts de l'utilisateur connecté (ses msg sont à droite et plus foncés par ex)
 
-
-
+** To-Fix:
+PB de droits qui ne se "mettent pas à jour" si changement de status pendant issetSession: car justement le status est stocké dans la session alors qu'il faudrait recheker en BDD le status de l'user
 
 
 

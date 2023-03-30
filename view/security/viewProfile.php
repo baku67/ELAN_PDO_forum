@@ -12,12 +12,19 @@
     }
 
 
-    if ($result["data"]["user"]->getStatus() == 1) {
+    if ($result["data"]["user"]->getStatus() == 0) {
         $status = "Normal";
     }
-    else {
-        $status = "Banni";
+    else if ($result["data"]["user"]->getStatus() == 1) {
+        $status = "Muted";
     }
+    else if ($result["data"]["user"]->getStatus() == 2) {
+        $status = "Banned";
+    }
+    // Test Marche pas:
+    // if(App\Session::isMuted()) {
+    //     $status = "testMuted from App\Session";
+    // }
     
     $countTopics = $result["data"]["countTopics"];
 

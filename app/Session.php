@@ -44,6 +44,20 @@
             return false;
         }
 
+        public static function isMuted(){
+            if(self::getUser() && self::getUser()->getStatus()===1){
+                return true;
+            }
+            return false;
+        }
+
+        public static function isBanned(){
+            if(self::getUser() && self::getUser()->getStatus()===2){
+                return true;
+            }
+            return false;
+        }
+
 
 
     }

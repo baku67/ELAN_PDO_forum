@@ -30,8 +30,10 @@
     $listLikesTopic = $result["data"]['listLikesTopic'];
 
     $globalListLikesTopic = [];
-    foreach($listLikesTopic as $like) {
-        $globalListLikesTopic[] = $like->getPost()->getId();
+    if(!empty($listLikesTopic)) {
+        foreach($listLikesTopic as $like) {
+            $globalListLikesTopic[] = $like->getPost()->getId();
+        }
     }
     // var_dump($globalListLikesTopic);
     // echo("<br>Décompte: ");
