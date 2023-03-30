@@ -35,6 +35,8 @@
 
         }
 
+        // (La requête fonctionne, PB recup postId dans le controller, vu que c'est un generate?) 
+        // nbr de likes Globaux du Post
 
         // Fonction pour compter les likes d'un post (PB: nécessite le postId)
         public function countLikesPost($postId) {
@@ -100,6 +102,7 @@
 
         // Check si le like existe deja pour ce userId et ce postId
         // Avec findOneOrNull plus facile pour le check ForumController likePost()
+        // Check si le like existe deja pour ce userId et ce postId
         public function findOneByUserAndPost($user, $id) {
 
             $sql = "

@@ -2,6 +2,8 @@ En cours: le selected de la categorie actuelle du topic (admin: changement de ca
     Et finir forumController: public function changeTopicCategory() 
 
 
+** Posts: (Rapide) faire le truc de différenctiation entre posts users et posts userCo (si post->getId = $SESSION[user] => style)
+
 ** SECU:
 Status user: banni (pas de co possible), muted (pas de post/topic), standard
 Admin: listUsers-> clique sur un Users pour voir tout ses messages (et bouton pour ban/mute)

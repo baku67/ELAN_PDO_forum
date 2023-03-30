@@ -80,6 +80,19 @@
             );
         }
 
+        public function changeTopicCategory($topicId, $newCategoryId) {
+            $sql = "UPDATE ".$this->tableName."
+             SET category_id = :categoryId
+            WHERE id_topic = :id
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::update($sql, ['categoryId' => $newCategoryId, 'id' => $topicId], false), 
+                $this->className
+            );
+
+        }
+
         public function getCountTopics($userId) {
             $sql = "
             SELECT COUNT(*) AS count FROM ".$this->tableName . " 

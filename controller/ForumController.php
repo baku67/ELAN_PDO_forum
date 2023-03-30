@@ -89,17 +89,35 @@
         }
 
 
-        // Admin: form envoyé depuis topicDetail pour changer la catégorie du topic
-        public function changeTopicCategory() {
+        // Admin: form envoyé depuis topicDetail pour changer la catégorie du topic 
+        public function changeTopicCategory($id) {
+
+            // Vérifier Admin (en + du front):
+            
 
             $userManager = new UserManager();
+            $topicManager = new TopicManager();
 
             // On check le role de l'user connecté depuis la BDD et non la session (pour si changement du role pendant la session active)
             if($userManager->findOneById($_SESSION["user"]->getId())->getRole() == "ROLE_ADMIN") {
                 
+                // $newCategoryId = $_POST["category_Select"];
+                $newCategoryId = filter_input(INPUT_POST, "category_Select", FILTER_VALIDATE_INT);
+
+                if($newCategoryId !== false) {
+                    // topicId from GETparamètre et newCategoryId par POSTform (à filtrer)
+                    $topicManager->changeTopicCategory($id, $newCategoryId);
+
+                    $_SESSION["success"] = "Category of the topic has been changed";
+                    $this->redirectTo("forum", "topicDetail", $id);
+                }
+                else {
+                    $_SESSION["error"] = "Input not valid";
+                    $this->redirectTo("forum", "topicDetail", $id);
+                }
             }
             else {
-                $_SESSION["error"] = "You are no more Administrator";
+                $_SESSION["error"] = "You are not Administrator";
                 $this->redirectTo("security", "viewProfile");
             } 
 

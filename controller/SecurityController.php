@@ -75,7 +75,7 @@
 
                     $userManager->updateUserRole($userId, $newRole);
 
-                    $_SESSION["success"] = "Rôle de l'utilisateur modifié: userID=" . $userId . ", newRole=" . $newRole;
+                    $_SESSION["success"] = "Rôle de l'utilisateur modifié";
                     $this->redirectTo("forum", "users");
                 }
                 else {

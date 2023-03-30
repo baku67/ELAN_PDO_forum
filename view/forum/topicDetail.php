@@ -54,22 +54,30 @@
 <h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1>
 <span>(<?= $postsCount ?> messages)</span> 
 <?php
-if($userConnectedRoleFromBdd == "ROLE_USER") {
+if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
 ?>
     <span>(<?= $topic->getCategory()->getName() ?>)</span>
-<?php 
+<?php
 } else {
 ?>
-    <form action="index.php?ctrl=forum&action=changeTopicCategory" method="post">
-        <select name="category_Select" id="category_Select">
+    <form action="index.php?ctrl=forum&action=changeTopicCategory&id=<?= $topic->getId() ?>" method="post">
+        <select name="category_Select" id="category_Select" onchange='this.form.submit()'>
             <?php 
             foreach ($categories as $category) {
+                // Si Topic->Categorie->name = Category->name alors $selected="selected"
+                if($topic->getCategory()->getId() == $category->getId()) {
+                    $selected = "selected";
+                }
+                else {
+                    $selected = "";
+                }
             ?>
-                <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+                <option value="<?= $category->getId() ?>" <?=$selected?>><?= $category->getName() ?></option>
             <?php
             }
             ?>
         </select>
+        <noscript><input type="submit" value="changer"></noscript>
     </form>
 <?php
 }
