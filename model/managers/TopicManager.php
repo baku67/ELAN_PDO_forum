@@ -91,4 +91,15 @@
             );
         }
 
+
+        public function getTotalCountTopics() {
+            $sql = "
+            SELECT COUNT(*) AS count FROM ".$this->tableName . "";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql)
+            );
+            
+        }
+
     }

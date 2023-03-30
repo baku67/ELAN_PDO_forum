@@ -5,6 +5,8 @@ $topics = $result["data"]['topics'];
 
 $categories = $result["data"]['categories'];
 
+$totalCountTopics = $result["data"]['totalCountTopics'];
+
 if (isset($result["data"]["catName"])) {
     $catName = "(".$result["data"]["catName"].")";
 }
@@ -14,7 +16,7 @@ else {
     
 ?>
 
-<h1>liste topics <?= $catName ?> </h1>
+<h1>liste topics (<?= $totalCountTopics["count"] ?>) <?= $catName ?> </h1>
 
 <?php
 foreach($topics as $topic ){

@@ -26,7 +26,7 @@
     }
 ?>
 
-<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span>
+<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1><span>(<?= $postsCount ?> messages)</span> <span>(<?= $topic->getCategory()->getName() ?>)</span>
 
 
     <p><?=$topic->getTitle()?></p>

@@ -23,6 +23,7 @@
                 "data" => [
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
                     "topics" => $topicManager->findAll(["creationdate", "DESC"]),
+                    "totalCountTopics" => $topicManager->getTotalCountTopics()
                     // "posts" => $postManager->findAll(["creationdate", "DESC"])
                 ]
             ];
