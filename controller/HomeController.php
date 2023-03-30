@@ -23,8 +23,8 @@
         public function users(){
             $this->restrictTo("ROLE_USER");
 
-            $manager = new UserManager();
-            $users = $manager->findAll(['signInDate', 'DESC']);
+            $userManager = new UserManager();
+            $users = $userManager->findAll(['signInDate', 'DESC']);
 
             return [
                 "view" => VIEW_DIR."security/users.php",

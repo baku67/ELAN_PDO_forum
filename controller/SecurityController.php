@@ -11,6 +11,7 @@
     use Model\Managers\LikeManager;
     use Model\Managers\CategoryManager;
 
+
     class HomeController extends AbstractController implements ControllerInterface{
 
         public function index(){}
@@ -49,6 +50,36 @@
                     $this->redirectTo("home", "index");
                 }
                 
+            }
+            else {
+                $_SESSION["error"] = "Accès non autorisé";
+                $this->redirectTo("home", "index");
+            }
+        }
+
+
+        public function changeUserStatus($id) {
+
+            $userManager = new UserManager;
+
+            if(Session::isAdmin()){
+
+                $newStatus = filter_var($_POST["status-Select"], FILTER_VALIDATE_INT);
+                $userId = filter_var($_POST["userId"], FILTER_VALIDATE_INT);
+
+                if(($newStatus !== false) && ($userId !== false)) {
+
+                    $userManager->updateUserStatus($userId, $newStatus);
+
+                    $_SESSION["success"] = "Statut de l'utilisateur modifié";
+                    $this->redirectTo("forum", "users");
+                    // header("Refresh:0");
+                }
+                else {
+                    $_SESSION["error"] = "Requête refusée";
+                    $this->redirectTo("forum", "users");
+                }
+
             }
             else {
                 $_SESSION["error"] = "Accès non autorisé";

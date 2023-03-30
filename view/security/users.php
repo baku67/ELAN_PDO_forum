@@ -22,6 +22,7 @@
         
             <?php 
             foreach($listUsers as $user) {
+
                 $roleText = "";
                 if($user->getRole() == "ROLE_USER") {
                     $roleText = "Utilisateur";
@@ -31,11 +32,23 @@
                 }
 
                 $statusText = "";
-                if($user->getStatus() == 1) {
+                if($user->getStatus() == 0) {
                     $statusText = "Strandard";
+                    $selectedStandard = "selected";
+                    $selectedMute = "";
+                    $selectedBan = "";
                 }
-                else if ($user->getStatus() == 0) {
+                else if ($user->getStatus() == 1) {
+                    $statusText = "Muted";
+                    $selectedStandard = "";
+                    $selectedMute = "selected";
+                    $selectedBan = "";
+                }
+                else if ($user->getStatus() == 2) {
                     $statusText = "Banni";
+                    $selectedStandard = "";
+                    $selectedMute = "";
+                    $selectedBan = "selected";
                 }
 
                 // Chercher "carbon php time human reading" library
@@ -56,7 +69,18 @@
                     <td><a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $user->getId() ?>"><?= $user->getUsername() ?></a></td>
                     <td><?= $user->getEmail() ?></td>
                     <td><?= $roleText ?></td>
-                    <td><?= $statusText ?></td>
+                    <td>
+                        <!-- Form submitted when select change -->
+                        <form action="index.php?ctrl=security&action=changeUserStatus" method="post">
+                            <input type="hidden" name="userId" id="userId" value="<?= $user->getId() ?>">
+                            <select name="status-Select" id="status-Select" onchange='this.form.submit()'>
+                                <option <?= $selectedStandard ?> value=0>Standard</option>
+                                <option <?= $selectedMute ?> value=1>Mute</option>
+                                <option <?= $selectedBan ?> value=2>Banned</option>
+                            </select>
+                            <noscript><input type="submit" value="Ok"></noscript>
+                        </form>
+                    </td>
                     <td><?php echo $dateDiff1 ?></td>
                 </tr>
             <?php

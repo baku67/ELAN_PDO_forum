@@ -9,6 +9,7 @@
     use Model\Managers\PostManager;
     use Model\Managers\CategoryManager;
     use Model\Managers\LikeManager;
+    use Model\Managers\UserManager;
     
     class ForumController extends AbstractController implements ControllerInterface{
 
@@ -25,6 +26,20 @@
                     "topics" => $topicManager->findAll(["creationdate", "DESC"]),
                     "totalCountTopics" => $topicManager->getTotalCountTopics()
                     // "posts" => $postManager->findAll(["creationdate", "DESC"])
+                ]
+            ];
+        }
+
+        public function users(){
+            $this->restrictTo("ROLE_USER");
+
+            $userManager = new UserManager();
+            $users = $userManager->findAll(['signInDate', 'DESC']);
+
+            return [
+                "view" => VIEW_DIR."security/users.php",
+                "data" => [
+                    "users" => $users
                 ]
             ];
         }

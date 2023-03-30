@@ -16,6 +16,20 @@
         }
 
 
+        public function updateUserStatus($userId, $newStatus) {
+            $sql = "
+                UPDATE user
+                SET status = :newStatus
+                WHERE id_user = :userId
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::update($sql, ['userId' => $userId, 'newStatus' => $newStatus], false), 
+                $this->className
+            );
+        }
+
+
         public function findOneByMail($email){
 
             $sql = "SELECT *
