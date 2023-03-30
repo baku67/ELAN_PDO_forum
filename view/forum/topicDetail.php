@@ -39,7 +39,7 @@
             $globalListLikesTopic[] = $like->getPost()->getId();
         }
     }
-    var_dump($globalListLikesTopic);
+    // var_dump($globalListLikesTopic);
     // echo("<br>Décompte: ");
     // echo(var_dump(array_count_values($globalListLikesTopic)));
     // ** Exemple de récup du nbr de like en passant l'idPost en index
@@ -96,7 +96,8 @@
                 }
                 else {
                 ?>
-                    <p><?= $postGlobalLikesCount ?> likes</p>
+                    <!-- Vérification user dans le controller finalement -->
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up" style="opacity:0.5"></i></a><p><?= $postGlobalLikesCount ?> likes</p>
                 <?php
                 }
                 ?>
