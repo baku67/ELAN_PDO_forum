@@ -24,6 +24,8 @@
     $userMsgList = $result["data"]["userMsgList"];
     $countMsg = $result["data"]["countMsg"];
 
+    $userTotalLikes = $result["data"]["userTotalLikes"];
+
 
     // ** Tous les postLikes du User (All topic)
     $listLikesTopic = $result["data"]['userLikesList'];
@@ -63,6 +65,7 @@
 <br>
 <p>Rôle: <?= $role ?></p>
 <p>Status: <?= $status ?></p>
+<!-- <p>Nombres de likes<?= $userTotalLikes ?></p> -->
 
 
  <!-- Liste des topics créé par l'user (clickable, modifiables ici) -->

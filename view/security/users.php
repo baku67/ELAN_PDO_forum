@@ -66,6 +66,13 @@
         
     </table>
 
+    <p>Ajouter une catégorie</p>
+    <form action="index.php?ctrl=security&action=addCategory" method="post">
+        <label for="categoryName"></label>
+        <input id="categoryName" name="categoryName" type="text" maxlength="20">
+        <input type="submit" value="ajouter">
+    </form>
+
 
     <script>
         let table = new DataTable('#usersTable');

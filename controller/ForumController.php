@@ -125,7 +125,7 @@
 
             $topic = $topicManager->findOneById($topicId);
 
-            // Check si user = auteur/admin 
+            // Check si user = auteur/admin (utiliser Session::isAdmin())
             if(!empty($_SESSION["user"])) {
                 if(($_SESSION["user"]->getRole() == "ROLE_ADMIN") || ($_SESSION["user"]->getId() == $topic->getUser()->getId())) {
                     

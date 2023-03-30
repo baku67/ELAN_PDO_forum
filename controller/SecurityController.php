@@ -9,6 +9,7 @@
     use Model\Managers\TopicManager;
     use Model\Managers\PostManager;
     use Model\Managers\LikeManager;
+    use Model\Managers\CategoryManager;
 
     class HomeController extends AbstractController implements ControllerInterface{
 
@@ -29,6 +30,32 @@
             ];
         }
 
+        public function addCategory() {
+
+            $categoryManager = new CategoryManager;
+
+            if(Session::isAdmin()){
+                $categoryName = filter_input(INPUT_POST, "categoryName", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+                if($categoryName) {
+
+                    $categoryManager->add(["name" => $categoryName]);
+
+                    $_SESSION["success"] = "Catégorie ajoutée";
+                    $this->redirectTo("category", "index");
+                }
+                else {
+                    $_SESSION["error"] = "Nom de la catégorie invalide";
+                    $this->redirectTo("home", "index");
+                }
+                
+            }
+            else {
+                $_SESSION["error"] = "Accès non autorisé";
+                $this->redirectTo("home", "index");
+            }
+        }
+
         public function viewProfile() {
 
             $topicManager = new TopicManager();
@@ -43,6 +70,8 @@
 
             $userLikesList = $likeManager->userlikesList($_SESSION["user"]->getId());
 
+            $userTotalLikes = $likeManager->getUserTotalLikes($_SESSION["user"]->getId());
+
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
@@ -51,7 +80,8 @@
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,
                     "countMsg" => $countUserMsgList,
-                    "userLikesList" => $userLikesList
+                    "userLikesList" => $userLikesList,
+                    "userTotalLikes" => $userTotalLikes
                 ]
             ];
         }
@@ -72,6 +102,8 @@
 
             $userLikesList = $likeManager->userlikesList($userId);
 
+            $userTotalLikes = $likeManager->getUserTotalLikes($userId);
+
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
@@ -81,7 +113,8 @@
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,
                     "countMsg" => $countUserMsgList,
-                    "userLikesList" => $userLikesList
+                    "userLikesList" => $userLikesList,
+                    "userTotalLikes" => $userTotalLikes
                 ]
             ];
         }

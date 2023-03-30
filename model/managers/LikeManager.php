@@ -81,6 +81,23 @@
         }
 
 
+        // Compte des postLikes totaux de l'user (HS)
+        public function getUserTotalLikes($userId) {
+
+            $sql = "
+            SELECT COUNT(*)
+            FROM ".$this->tableName . " l
+            INNER JOIN post p ON p.user_id = l.user_id
+            WHERE p.user_id = :userId
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ['userId' => $userId], false)
+            );
+
+        }
+
+
         // Check si le like existe deja pour ce userId et ce postId
         // Avec findOneOrNull plus facile pour le check ForumController likePost()
         public function findOneByUserAndPost($user, $id) {
