@@ -85,7 +85,7 @@ if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USE
 
 
     <p><?=$topic->getTitle()?></p>
-    <p>by <?=$topic->getUser()->getUsername()?>, le <?=$topic->getCreationdate()?></p>
+    <p>by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?=$topic->getUser()->getUsername()?></a>, le <?=$topic->getCreationdate()?></p>
 
     <?php
     if (isset($posts)) {
