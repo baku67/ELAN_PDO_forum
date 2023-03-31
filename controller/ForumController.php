@@ -24,7 +24,8 @@
                 "data" => [
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
                     "topics" => $topicManager->findAll(["creationdate", "DESC"]),
-                    "totalCountTopics" => $topicManager->getTotalCountTopics()
+                    "totalCountTopics" => $topicManager->getTotalCountTopics(),
+                    "title" => "Liste topics"
                     // "posts" => $postManager->findAll(["creationdate", "DESC"])
                 ]
             ];
@@ -48,6 +49,27 @@
                 $_SESSION["error"] = "You are no more Administrator";
                 $this->redirectTo("security", "viewProfile");
             } 
+        }
+
+
+        public function search() {
+
+            $topicManager = new TopicManager();
+            $categoryManager = new CategoryManager();
+
+            $inputSearch = filter_input(INPUT_POST, "searchInput", FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            if($inputSearch) {
+                return [
+                    "view" => VIEW_DIR."forum/listTopics.php",
+                    "data" => [
+                        "categories" => $categoryManager->findAll(["name", "DESC"]),
+                        "topics" => $topicManager->listTopicBySearch($inputSearch),
+                        "totalCountTopics" => $topicManager->getSearchCountTopics($inputSearch),
+                        "title" => "Recherche"
+                    ]
+                ];
+            }
         }
 
 
@@ -135,7 +157,7 @@
                 "data" => [
                     "catName" => $_GET['catName'],
                     "topics" => $topicManager->listTopicByCat($id),
-                    "categories" => $categoryManager->findAll(["name", "DESC"])
+                    "categories" => $categoryManager->findAll(["name", "DESC"]),
                 ]
             ];
         }

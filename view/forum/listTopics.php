@@ -16,7 +16,24 @@ else {
     
 ?>
 
-<h1>liste topics (<?= $totalCountTopics["count"] ?>) <?= $catName ?> </h1>
+<?php 
+if (!empty($result["data"]["title"]) && $result["data"]["title"] == "Recherche") {
+?>
+    <h1>Recherche (<?= $totalCountTopics["count"] ?>) <?= $catName ?> </h1>
+<?php
+}
+else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"]["title"]))) {
+?>
+    <h1>liste topics (<?= $totalCountTopics["count"] ?>) <?= $catName ?> </h1>
+<?php
+}
+?>
+<form action="index.php?ctrl=forum&action=search" method="post">
+    <input type="text" name="searchInput" id="searchInput" placeholder="Rechercher">
+    <input type="submit" value="Chercher">
+</form>
+
+<br>
 
 <?php
 foreach($topics as $topic ){

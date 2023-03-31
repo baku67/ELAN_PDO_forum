@@ -1,6 +1,8 @@
 En cours: le selected de la categorie actuelle du topic (admin: changement de catégorie du topicDetail)
     Et finir forumController: public function changeTopicCategory() 
 
+Nbr de messages par topic dans topicList
+
 Messages $SESSION: layout l:26 (à fixed bottom right)
 
 ** Posts: (Rapide) faire le truc de différenctiation entre posts users et posts userCo (si post->getId = $SESSION[user] => style)

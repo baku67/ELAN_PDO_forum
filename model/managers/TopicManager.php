@@ -67,6 +67,34 @@
         }
 
 
+        public function listTopicBySearch($searchInput) {
+            $sql = "
+                SELECT *
+                FROM topic t
+                WHERE t.title LIKE :searchInput
+                ORDER BY t.creationdate DESC
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ['searchInput' => "%".$searchInput."%"], true),
+                $this->className
+            );
+        }
+
+        public function getSearchCountTopics($searchInput) {
+            $sql = "
+                SELECT COUNT(*) AS count
+                FROM topic t
+                WHERE t.title LIKE :searchInput
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ['searchInput' => "%".$searchInput."%"])
+            );
+            
+        }
+
+
         // Close et open différents ou juste toggle avec !value ?
         public function changeStatusTopic($id, $status) {
             $sql = "UPDATE ".$this->tableName."
