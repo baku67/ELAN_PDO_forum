@@ -19,7 +19,8 @@
             $sql = "
                 SELECT u.id_user, u.username, u.password, u.email, u.role, u.signInDate, u.status, COUNT(l.id_liking_post) AS likesCount
                 FROM user u
-                LEFT JOIN liking_post l ON l.user_id = u.id_user
+                LEFT JOIN post p ON p.user_id = u.id_user
+                LEFT JOIN liking_post l ON l.post_id = p.id_post
                 GROUP BY u.id_user
                 ORDER BY u.signInDate DESC
             ";
@@ -34,7 +35,8 @@
             $sql = "
                 SELECT u.id_user, u.username, u.password, u.email, u.role, u.signInDate, u.status, COUNT(l.id_liking_post) AS likesCount
                 FROM user u
-                LEFT JOIN liking_post l ON l.user_id = u.id_user
+                LEFT JOIN post p ON p.user_id = u.id_user
+                LEFT JOIN liking_post l ON l.post_id = p.id_post
                 WHERE u.id_user = :userId
             ";
 
