@@ -15,6 +15,7 @@
                 <th>Role</th>
                 <th>Status</th>
                 <th>Date d'inscription</th>
+                <th>Likes</th>
             </tr>
         </thead>
 
@@ -93,6 +94,7 @@
                         </form>
                     </td>
                     <td><?php echo $dateDiff1 ?></td>
+                    <td><?= $user->getLikesCount() ?></td>
                 </tr>
             <?php
             }

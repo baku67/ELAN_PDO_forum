@@ -15,6 +15,35 @@
             parent::connect();
         }
 
+        public function findAllAndCount() {
+            $sql = "
+                SELECT u.id_user, u.username, u.password, u.email, u.role, u.signInDate, u.status, COUNT(l.id_liking_post) AS likesCount
+                FROM user u
+                LEFT JOIN liking_post l ON l.user_id = u.id_user
+                GROUP BY u.id_user
+                ORDER BY u.signInDate DESC
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql),
+                $this->className
+            );
+        }
+
+        public function findOneByIdAndCount($userId) {
+            $sql = "
+                SELECT u.id_user, u.username, u.password, u.email, u.role, u.signInDate, u.status, COUNT(l.id_liking_post) AS likesCount
+                FROM user u
+                LEFT JOIN liking_post l ON l.user_id = u.id_user
+                WHERE u.id_user = :userId
+            ";
+
+            return $this->getOneOrNullResult(
+                DAO::select($sql, ['userId' => $userId], false), 
+                $this->className
+            );
+        }
+
 
         public function updateUserStatus($userId, $newStatus) {
             $sql = "

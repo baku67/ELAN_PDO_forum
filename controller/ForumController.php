@@ -37,7 +37,7 @@
 
             // On check le role de l'user connecté depuis la BDD et non la session (pour si changement du role pendant la session active)
             if($userManager->findOneById($_SESSION["user"]->getId())->getRole() == "ROLE_ADMIN") {
-                $users = $userManager->findAll(['signInDate', 'DESC']);
+                $users = $userManager->findAllAndCount();
 
                 return [
                     "view" => VIEW_DIR."security/users.php",

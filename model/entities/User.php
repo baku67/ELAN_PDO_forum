@@ -12,6 +12,8 @@
         private $role;
         private $signInDate;
         private $status;
+        // Champ "non mappé" (car pas présent en BDD)
+        private $likesCount;
 
 
         public function __construct($data){         
@@ -104,6 +106,20 @@
         public function setSignInDate($date){
             $this->signInDate = new \DateTime($date);
             return $this;
+        }
+
+
+        // Champ "non mappé" (car pas présent en BDD)
+        public function getLikesCount() {
+
+                return $this->likesCount;
+
+        }
+        public function setLikesCount($likesCount) {
+
+                $this->likesCount = $likesCount;
+                return $this;
+                
         }
 
     }

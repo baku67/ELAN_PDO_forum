@@ -130,7 +130,7 @@
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
-                    "user" => $userManager->findOneById($_SESSION["user"]->getId()),
+                    "user" => $userManager->findOneByIdAndCount($_SESSION["user"]->getId()),
                     "userTopicList" => $userTopicList,
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,
@@ -160,12 +160,12 @@
 
             $userTotalLikes = $likeManager->getUserTotalLikes($userId);
 
-            $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
+            $userConnectedRoleFromBdd = $userManager->findOneById($userId)->getRole();
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
-                    "user" => $userManager->findOneById($userId),
+                    "user" => $userManager->findOneByIdAndCount($userId),
                     "userTopicList" => $userTopicList,
                     "countTopics" => $countTopics,
                     "userMsgList" => $userMsgList,

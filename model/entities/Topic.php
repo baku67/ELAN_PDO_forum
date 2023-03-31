@@ -12,6 +12,7 @@
         private $status;
         private $category;
         private $lastPostMsg;
+        // Champ "non mappé" (car pas présent en BDD)
         private $nbrPosts;
 
         public function __construct($data){         
@@ -140,7 +141,7 @@
         public function getNbrPosts() {
 
                 return $this->nbrPosts;
-                
+
         }
         public function setNbrPosts($nbrPosts) {
 
