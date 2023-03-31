@@ -23,7 +23,8 @@
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
-                    "topics" => $topicManager->findAll(["creationdate", "DESC"]),
+                    "topics" => $topicManager->findAllAndCount(),
+                    // "topicsPostsCounts" => $topicManager->topicsPostsCounts(),
                     "totalCountTopics" => $topicManager->getTotalCountTopics(),
                     "title" => "Liste topics"
                     // "posts" => $postManager->findAll(["creationdate", "DESC"])

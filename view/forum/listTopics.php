@@ -1,6 +1,7 @@
 <?php
 
 $topics = $result["data"]['topics'];
+
 // $posts = $result["data"]['posts'];
 
 $categories = $result["data"]['categories'];
@@ -72,6 +73,7 @@ foreach($topics as $topic ){
         <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
         <p><?= $topic->getLastPostMsg() ?></p>
         <p><?= $dateDiff1 ?>, par <a class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
+        <p><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></p>
     </div>
     </a>
     <br>

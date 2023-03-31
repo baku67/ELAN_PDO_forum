@@ -12,6 +12,7 @@
         private $status;
         private $category;
         private $lastPostMsg;
+        private $nbrPosts;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -130,6 +131,20 @@
         public function setLastPostMsg($lastPostMsg)
         {
                 $this->lastPostMsg = $lastPostMsg;
+
+                return $this;
+        }
+
+
+        // Champ "non mappé" (car pas présent en BDD)
+        public function getNbrPosts() {
+
+                return $this->nbrPosts;
+                
+        }
+        public function setNbrPosts($nbrPosts) {
+
+                $this->nbrPosts = $nbrPosts;
 
                 return $this;
         }

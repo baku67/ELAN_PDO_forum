@@ -81,3 +81,9 @@ a {
     background-color: rgba(127, 255, 212, 1);
     animation: authorFadeBgColor 1s ease forwards;
 }
+
+
+.fa-comments {
+    font-size: 70%;
+    opacity: 0.8;
+}
