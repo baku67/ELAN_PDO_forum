@@ -1,3 +1,8 @@
+* {
+    font-family: monospace;
+
+}
+
 a {
     text-decoration: none;
 }
@@ -37,4 +42,37 @@ a {
 .topicCard {
     padding: 5px;
     border: 1px solid rgb(0, 16, 156);
+}
+
+.msgFixed {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 5px;
+    color: white;
+}
+
+.msgSuccess {
+    background-color: rgba(0, 128, 0, 0.8);
+    padding: 10px 20px;
+
+}
+
+.msgError {
+    background-color: rgba(165, 42, 42, 0.8);
+    padding: 10px 20px;
+
+}
+
+.author {
+    background-color: rgba(127, 255, 212, 1);
+    animation: authorFadeBgColor 1s ease forwards;
+}
+@keyframes authorFadeBgColor {
+    from {
+        background-color: rgba(127, 255, 212, 1);
+    }
+    to {
+        background-color: rgba(127, 255, 212, 0.3);
+    }
 }

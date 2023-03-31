@@ -91,6 +91,14 @@ if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USE
     if (isset($posts)) {
         foreach ($posts as $post) {
 
+            // Check si l'user est auteur du post
+            if ($post->getUser()->getId() == $_SESSION["user"]->getId()) {
+                $authorClass = "author";
+            }
+            else {
+                $authorClass = "";
+            }
+
             // Check si Post liked (on check si le postId est dans l'array des userPostIdLiked)
             $isLiked = false;
             if(in_array($post->getId(), $postIdLikedArray)) {
@@ -112,7 +120,7 @@ if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USE
 
         ?>
 
-            <div class="postCard">
+            <div class="postCard <?= $authorClass ?>">
                 <p><?= $post->getText() ?></p>
                 <span class="postInfos">by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $post->getUser()->getId() ?>"><?= $post->getUser()->getUsername() ?></a>, le <?= $post->getCreationdate() ?></span>
                 <?php

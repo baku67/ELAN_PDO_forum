@@ -85,7 +85,7 @@
                             <select name="status-Select" id="status-Select" onchange='this.form.submit()'>
                                 <option <?= $selectedStandard ?> value=0>Standard</option>
                                 <option <?= $selectedMute ?> value=1>Mute</option>
-                                <option <?= $selectedBan ?> value=2>Banned</option>
+                                <option <?= $selectedBan ?> value=2>Ban</option>
                             </select>
                             <noscript><input type="submit" value="Ok"></noscript>
                         </form>

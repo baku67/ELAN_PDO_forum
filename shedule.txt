@@ -1,6 +1,7 @@
 En cours: le selected de la categorie actuelle du topic (admin: changement de catégorie du topicDetail)
     Et finir forumController: public function changeTopicCategory() 
 
+Messages $SESSION: layout l:26 (à fixed bottom right)
 
 ** Posts: (Rapide) faire le truc de différenctiation entre posts users et posts userCo (si post->getId = $SESSION[user] => style)
 
@@ -25,6 +26,10 @@ User: viewProfile: nbr Total de likes obtenus (assez proche du countLikesPost)
 ** To-Fix:
 Pour les linkCard: il faut mettre le <a> dans la div et faire ressortir les liens dedans avec un z-index 999 (https://www.w3docs.com/snippets/css/how-to-make-a-div-a-clickable-link.html#:~:text=Create%20a%20with%20a,to%20add%20the%20needed%20link.)
 
+** Idée front: Mettre en place les topicLike (mais c'est des étoiles dorées à la place Waou)
+** IDEE FRONT: Changer le backgroundColor/img (header, body?) en fonction du categorie topic ?
+
+
 ** Idée:
 $SESSION["message"] à mettre dans un pop up fixed bottom-right (et qui depop/fadeOut au bout de 1-2s, plus moderne), avec Bg-red/green
 
@@ -33,6 +38,8 @@ Recherche Topic: systeme de tags lors création ou/et recherche dans le titre (s
 
 ** Front: différencier les posts de l'utilisateur connecté (ses msg sont à droite et plus foncés par ex)
 
+
+Admin: Depuis viewUserprofile => peut changer role et status comem dans liste (droits: affichage et controllerAction)
 
 Admin: peut suppr des comptes depuis userList?
 User: peut supprimer son compte depuis viewProfile
