@@ -9,7 +9,7 @@ $categories = $result["data"]['categories'];
 $totalCountTopics = $result["data"]['totalCountTopics'];
 
 if (isset($result["data"]["catName"])) {
-    $catName = "(".$result["data"]["catName"].")";
+    $catName = $result["data"]["catName"];
 }
 else {
     $catName = "";
@@ -20,12 +20,12 @@ else {
 <?php 
 if (!empty($result["data"]["title"]) && $result["data"]["title"] == "Recherche") {
 ?>
-    <h1>Recherche (<?= $totalCountTopics["count"] ?>) <?= $catName ?> </h1>
+    <h1>Recherche (<?= $totalCountTopics["count"] ?> résultats) <?= $catName ?> </h1>
 <?php
 }
 else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"]["title"]))) {
 ?>
-    <h1>liste topics (<?= $totalCountTopics["count"] ?>) <?= $catName ?> </h1>
+    <h1><?= $catName ?> (<?= $totalCountTopics["count"] ?> résultats)  </h1>
 <?php
 }
 ?>
@@ -37,46 +37,56 @@ else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"][
 <br>
 
 <?php
-foreach($topics as $topic ){
+if(!empty($topics)) {
 
-    if($topic->getStatus() == 1) {
-        $statusText = "Ouvert";
-    }
-    else {
-        $statusText = "Fermé";
-    }
+    foreach($topics as $topic ){
 
-    if(App\Session::getUser()) {
-        if($topic->getUser()->getId() == $_SESSION["user"]->getId()) {
-            $authorClass = "authorTopic";
+        if($topic->getStatus() == 1) {
+            $statusText = "Ouvert";
         }
         else {
-            $authorClass = "";
+            $statusText = "Fermé";
         }
-    }
-
-    // Chercher "carbon php time human reading" library
-    // Formattage *Time*Temps*Date
-    $date0 = str_replace("/", "-", $topic->getCreationdate());
-    $date1 = trim($date0, ",");
-    $date2 = new DateTime($date1, new DateTimeZone("+0000"));
     
-    $dateNow0 = date("Y-m-d H:i:s");
-    $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
+        if(App\Session::getUser()) {
+            if($topic->getUser()->getId() == $_SESSION["user"]->getId()) {
+                $authorClass = "authorTopic";
+            }
+            else {
+                $authorClass = "";
+            }
+        }
+    
+        // Chercher "carbon php time human reading" library
+        // Formattage *Time*Temps*Date
+        $date0 = str_replace("/", "-", $topic->getCreationdate());
+        $date1 = trim($date0, ",");
+        $date2 = new DateTime($date1, new DateTimeZone("+0000"));
+        
+        $dateNow0 = date("Y-m-d H:i:s");
+        $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
+    
+        $dateDiff0 = $date2->diff($dateNow1);
+        $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+    ?>
 
-    $dateDiff0 = $date2->diff($dateNow1);
-    $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+        <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
+        <div class="topicCard <?= $authorClass ?>">
+            <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
+            <p><?= $topic->getLastPostMsg() ?></p>
+            <p><?= $dateDiff1 ?>, par <a class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
+            <p><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></p>
+        </div>
+        </a>
 
+        <br>
+
+    <?php
+    }
+}
+else {
 ?>
-    <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
-    <div class="topicCard <?= $authorClass ?>">
-        <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
-        <p><?= $topic->getLastPostMsg() ?></p>
-        <p><?= $dateDiff1 ?>, par <a class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
-        <p><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></p>
-    </div>
-    </a>
-    <br>
+    <p>Aucun résultat :/</p>
 <?php
 }
 ?>

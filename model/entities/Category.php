@@ -7,6 +7,8 @@
 
         private $id;
         private $name;
+        // Champ "non mappé" (car pas présent en BDD)
+        private $nbrTopics;
 
 
         public function __construct($data){         
@@ -35,6 +37,19 @@
         public function setName($name)
         {
                 $this->name = $name;
+
+                return $this;
+        }
+
+
+        public function getNbrTopics() {
+
+                return $this->nbrTopics;
+        }
+
+        public function setNbrTopics($nbrTopics) {
+
+                $this->nbrTopics = $nbrTopics;
 
                 return $this;
         }

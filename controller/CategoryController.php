@@ -24,7 +24,7 @@
             return [
                 "view" => VIEW_DIR."forum/listCategories.php",
                 "data" => [
-                    "categories" => $categoryManager->findAll(["name", "DESC"]),
+                    "categories" => $categoryManager->findAllAndCount(),
                     "userConnectedRoleFromBdd" => $userConnectedRoleFromBdd
 
                 ]

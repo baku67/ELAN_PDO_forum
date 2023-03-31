@@ -161,4 +161,18 @@
             
         }
 
+
+        public function getTotalCountTopicsByCat($idCat) {
+            $sql = "
+            SELECT COUNT(*) AS count 
+            FROM ".$this->tableName . " t
+            WHERE t.category_id = :idCat
+            ";
+
+            return $this->getSingleScalarResult(
+                DAO::select($sql, ["idCat" => $idCat])
+            );
+            
+        }
+
     }

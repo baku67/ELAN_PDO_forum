@@ -159,6 +159,8 @@
                     "catName" => $_GET['catName'],
                     "topics" => $topicManager->listTopicByCat($id),
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
+                    "totalCountTopics" => $topicManager->getTotalCountTopicsByCat($id),
+                    "title" => ""
                 ]
             ];
         }
