@@ -130,18 +130,21 @@ if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USE
                     // Bouton like différent selon isLiked
                     if($isLiked) {
                 ?>
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a><p><?= $postGlobalLikesCount ?> likes</p>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
+                    <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><p><?= $postGlobalLikesCount ?> likes</p></a>
                 <?php
                     }else{
                 ?>  
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i></a><p><?= $postGlobalLikesCount ?> likes</p>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i></a>
+                    <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><p><?= $postGlobalLikesCount ?> likes</p></a>
                 <?php
                     }
                 }
                 else {
                 ?>
                     <!-- Vérification user dans le controller finalement -->
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up" style="opacity:0.5"></i></a><p><?= $postGlobalLikesCount ?> likes</p>
+                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up" style="opacity:0.5"></i></a>
+                    <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><p><?= $postGlobalLikesCount ?> likes</p></a>
                 <?php
                 }
                 ?>

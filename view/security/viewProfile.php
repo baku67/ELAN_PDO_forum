@@ -76,7 +76,7 @@
 <p>Email: <?= $result["data"]["user"]->getEmail() ?></p>
 <p>Password: ********** </p>
 <br>
-<p><?= $result["data"]["user"]->getLikesCount() ?> likes</p>
+<a href="index.php?ctrl=forum&action=viewUserLikesList&id=<?= $result["data"]["user"]->getId() ?>"><p><?= $result["data"]["user"]->getLikesCount() ?> likes</p></a>
 <?php
 if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
 ?>

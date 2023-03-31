@@ -164,6 +164,35 @@
         }
 
 
+        // Liste des likes obtenu du userCo (sur quel Topic/post, de quel user ?)
+        public function viewUserLikesList($id) {
+
+            $likeManager = new LikeManager();
+
+            return [
+                "view" => VIEW_DIR."forum/userLikesList.php",
+                "data" => [
+                    "likesList" => $likeManager->userLikesList2($id),
+                    "titlePage" => "Liste des likes obtenus:"
+                ]
+            ];
+        }
+
+        public function postLikesList($id) {
+
+            $likeManager = new LikeManager();
+
+            return [
+                "view" => VIEW_DIR."forum/userLikesList.php",
+                "data" => [
+                    "likesList" => $likeManager->postLikesList($id),
+                    "titlePage" => "Likes du post n°".$id
+                ]
+            ];
+
+        }
+
+
         public function createTopic() {
 
             $topicManager = new TopicManager();

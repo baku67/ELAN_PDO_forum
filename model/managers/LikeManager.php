@@ -83,6 +83,42 @@
         }
 
 
+        // Liste des likes obtenu du userCo (sur quel Topic/post, de quel user ?)
+        public function userLikesList2($userId) {
+
+            $sql = "
+                SELECT l.id_liking_post, l.user_id, l.post_id 
+                FROM ".$this->tableName . " l
+                INNER JOIN post p ON p.id_post = l.post_id
+                INNER JOIN user u ON u.id_user = l.user_id
+                WHERE p.user_id = :userId
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ["userId" => $userId], true),
+                $this->className
+            );
+        }
+
+        // Liste des likes du post cliqué
+        public function postLikesList($postId) {
+
+            $sql = "
+                SELECT l.id_liking_post, l.user_id, l.post_id 
+                FROM ".$this->tableName . " l
+                INNER JOIN post p ON p.id_post = l.post_id
+                INNER JOIN user u ON u.id_user = l.user_id
+                WHERE l.post_id = :postId
+            ";
+
+            return $this->getMultipleResults(
+                DAO::select($sql, ["postId" => $postId], true),
+                $this->className
+            );
+        }
+
+
+
         // Compte des postLikes totaux de l'user (HS)
         public function getUserTotalLikes($userId) {
 
