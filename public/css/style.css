@@ -64,7 +64,7 @@ a {
 
 }
 
-.author {
+.authorPost {
     background-color: rgba(127, 255, 212, 1);
     animation: authorFadeBgColor 1s ease forwards;
 }
@@ -75,4 +75,9 @@ a {
     to {
         background-color: rgba(127, 255, 212, 0.3);
     }
+}
+
+.authorTopic {
+    background-color: rgba(127, 255, 212, 1);
+    animation: authorFadeBgColor 1s ease forwards;
 }

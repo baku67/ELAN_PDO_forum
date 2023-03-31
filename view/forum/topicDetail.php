@@ -92,11 +92,13 @@ if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USE
         foreach ($posts as $post) {
 
             // Check si l'user est auteur du post
-            if ($post->getUser()->getId() == $_SESSION["user"]->getId()) {
-                $authorClass = "author";
-            }
-            else {
-                $authorClass = "";
+            if(App\Session::getUser()) {
+                if ($post->getUser()->getId() == $_SESSION["user"]->getId()) {
+                    $authorClass = "authorPost";
+                }
+                else {
+                    $authorClass = "";
+                }
             }
 
             // Check si Post liked (on check si le postId est dans l'array des userPostIdLiked)

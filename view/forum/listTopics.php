@@ -20,11 +20,21 @@ else {
 
 <?php
 foreach($topics as $topic ){
+
     if($topic->getStatus() == 1) {
         $statusText = "Ouvert";
     }
     else {
         $statusText = "Fermé";
+    }
+
+    if(App\Session::getUser()) {
+        if($topic->getUser()->getId() == $_SESSION["user"]->getId()) {
+            $authorClass = "authorTopic";
+        }
+        else {
+            $authorClass = "";
+        }
     }
 
     // Chercher "carbon php time human reading" library
@@ -41,7 +51,7 @@ foreach($topics as $topic ){
 
 ?>
     <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
-    <div class="topicCard">
+    <div class="topicCard <?= $authorClass ?>">
         <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
         <p><?= $topic->getLastPostMsg() ?></p>
         <p><?= $dateDiff1 ?>, par <a class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>

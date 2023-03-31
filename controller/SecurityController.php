@@ -45,15 +45,25 @@
 
                     $userManager->updateUserStatus($userId, $newStatus);
 
-                    $_SESSION["success"] = "Statut de l'utilisateur modifié";
-                    $this->redirectTo("forum", "users");
-                    // header("Refresh:0");
+                    if($_POST["redirectTo"] == "viewUserProfile") {
+                        $_SESSION["success"] = "Statut de l'utilisateur modifié";
+                        $this->redirectTo("security", "viewUserProfile", $userId);
+                    }
+                    else {
+                        $_SESSION["success"] = "Statut de l'utilisateur modifié";
+                        $this->redirectTo("forum", "users");
+                    }
                 }
                 else {
-                    $_SESSION["error"] = "Requête refusée";
-                    $this->redirectTo("forum", "users");
+                    if($_POST["redirectTo"] == "viewUserProfile") {
+                        $_SESSION["error"] = "Requête refusée";
+                        $this->redirectTo("security", "viewUserProfile", $userId);
+                    }
+                    else {
+                        $_SESSION["error"] = "Requête refusée";
+                        $this->redirectTo("forum", "users");
+                    } 
                 }
-
             }
             else {
                 $_SESSION["error"] = "Accès non autorisé";
@@ -75,12 +85,23 @@
 
                     $userManager->updateUserRole($userId, $newRole);
 
-                    $_SESSION["success"] = "Rôle de l'utilisateur modifié";
-                    $this->redirectTo("forum", "users");
+                    if($_POST["redirectTo2"] == "viewUserProfile") {
+                        $_SESSION["success"] = "Rôle de l'utilisateur modifié";
+                        $this->redirectTo("security", "viewUserProfile", $userId);
+                    }
+                    else if($_POST["redirectTo2"] == "usersList") {
+                        $_SESSION["success"] = "Rôle de l'utilisateur modifié";
+                        $this->redirectTo("forum", "users");
+                    }
                 }
                 else {
-                    $_SESSION["error"] = "Requête refusée";
-                    $this->redirectTo("forum", "users");
+                    if($_POST["redirectTo2"] == "viewUserProfile") {
+                        $_SESSION["error"] = "Requête refusée";
+                        $this->redirectTo("security", "viewUserProfile", $userId);
+                    } else {
+                        $_SESSION["error"] = "Requête refusée";
+                        $this->redirectTo("forum", "users");
+                    } 
                 }
             }
             else {
@@ -127,6 +148,7 @@
             $userManager = new UserManager();
             $postManager = new PostManager();
             $likeManager = new LikeManager();
+            $categoryManager = new CategoryManager();
 
             $userTopicList = $topicManager->getUserTopics($userId);
             $countTopics = $topicManager->getCountTopics($userId);
@@ -138,6 +160,7 @@
 
             $userTotalLikes = $likeManager->getUserTotalLikes($userId);
 
+            $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
@@ -148,7 +171,8 @@
                     "userMsgList" => $userMsgList,
                     "countMsg" => $countUserMsgList,
                     "userLikesList" => $userLikesList,
-                    "userTotalLikes" => $userTotalLikes
+                    "userTotalLikes" => $userTotalLikes,
+                    "userConnectedRoleFromBdd" => $userConnectedRoleFromBdd,
                 ]
             ];
         }

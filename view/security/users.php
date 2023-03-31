@@ -71,6 +71,7 @@
                     <td>
                         <form action="index.php?ctrl=security&action=changeUserRole" method="post">
                             <input type="hidden" name="userId2" id="userId2" value="<?= $user->getId() ?>">
+                            <input type="hidden" name="redirectTo2" id="redirectTo2" value="usersList">
                             <select name="role-Select" id="role-Select" onchange='this.form.submit()'>
                                 <option <?= $roleSelectedStandard ?> value="ROLE_USER">Utilisateur</option>
                                 <option <?= $roleSelectedAdmin ?> value="ROLE_ADMIN">Administrateur</option>
@@ -82,6 +83,7 @@
                         <!-- Form submitted when select change -->
                         <form action="index.php?ctrl=security&action=changeUserStatus" method="post">
                             <input type="hidden" name="userId" id="userId" value="<?= $user->getId() ?>">
+                            <input type="hidden" name="redirectTo" id="redirectTo" value="usersList">
                             <select name="status-Select" id="status-Select" onchange='this.form.submit()'>
                                 <option <?= $selectedStandard ?> value=0>Standard</option>
                                 <option <?= $selectedMute ?> value=1>Mute</option>

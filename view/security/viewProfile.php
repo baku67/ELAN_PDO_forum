@@ -11,6 +11,8 @@
         $role = "Utilisateur";
     }
 
+    $idUserProfile = $result["data"]["user"]->getId();
+
 
     if ($result["data"]["user"]->getStatus() == 0) {
         $status = "Normal";
@@ -33,6 +35,10 @@
 
     $userTotalLikes = $result["data"]["userTotalLikes"];
 
+    // Récupération du role userConnected depuis la BDD et non SESSION (pour si changement de role durant session active)
+    if (!empty($result["data"]["userConnectedRoleFromBdd"])) {
+        $userConnectedRoleFromBdd = $result["data"]["userConnectedRoleFromBdd"];
+    }
 
     // ** Tous les postLikes du User (All topic)
     $listLikesTopic = $result["data"]['userLikesList'];
@@ -70,8 +76,64 @@
 <p>Email: <?= $result["data"]["user"]->getEmail() ?></p>
 <p>Password: ********** </p>
 <br>
-<p>Rôle: <?= $role ?></p>
-<p>Status: <?= $status ?></p>
+<?php
+if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
+?>
+    <p>Rôle: <?= $role ?></p>
+    <p>Status: <?= $status ?></p>
+<?php
+} else if ($userConnectedRoleFromBdd == "ROLE_ADMIN")  {
+    if($result["data"]["user"]->getRole() == "ROLE_ADMIN") {
+        $selectedAdmin = "selected";
+        $selectedUser = "";
+    }
+    else {
+        $selectedAdmin = "";
+        $selectedUser = "selected";
+    }
+
+    if($result["data"]["user"]->getStatus() == 0) {
+        $selectedStandard = "selected";
+        $selectedMuted = "";
+        $selectedBanned = "";
+    }
+    else if ($result["data"]["user"]->getStatus() == 1) {
+        $selectedStandard = "";
+        $selectedMuted = "selected";
+        $selectedBanned = "";
+    }
+    else if ($result["data"]["user"]->getStatus() == 2) {
+        $selectedStandard = "";
+        $selectedMuted = "";
+        $selectedBanned = "selected";
+    }
+
+?>
+    <form action="index.php?ctrl=security&action=changeUserRole" method="post">
+        <input type="hidden" name="userId2" id="userId2" value="<?= $idUserProfile ?>">
+        <input type="hidden" name="redirectTo2" id="redirectTo2" value="viewUserProfile">
+        <label for="role-Select">Rôle:</label>
+        <select name="role-Select" id="role-Select" onchange="this.form.submit()">
+            <option value="ROLE_USER" <?= $selectedUser ?>>Utilisateur</option>
+            <option value="ROLE_ADMIN" <?= $selectedAdmin ?>>Administrateur</option>
+        </select>
+        <noscript><input type="submit" value="Changer"></noscript>
+    </form>
+
+    <form action="index.php?ctrl=security&action=changeUserStatus" method="post">
+        <input type="hidden" name="userId" id="userId" value="<?= $idUserProfile ?>">
+        <input type="hidden" name="redirectTo" id="redirectTo" value="viewUserProfile">
+        <label for="status-Select">Status:</label>
+        <select name="status-Select" id="status-Select" onchange="this.form.submit()">
+            <option value=0 <?= $selectedStandard ?>>Standard</option>
+            <option value=1 <?= $selectedMuted ?>>Muted</option>
+            <option value=2 <?= $selectedBanned ?>>Banned</option>
+        </select>
+        <noscript><input type="submit" value="Changer"></noscript>
+    </form>
+<?php
+}
+?>
 <!-- <p>Nombres de likes<?= $userTotalLikes ?></p> -->
 
 
