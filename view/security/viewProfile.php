@@ -87,7 +87,7 @@ if(($userConnectedRoleFromBdd == "ROLE_ADMIN") || ($userConnectedRoleFromBdd == 
 <br>
 <a href="index.php?ctrl=forum&action=viewUserLikesList&id=<?= $result["data"]["user"]->getId() ?>"><p><?= $result["data"]["user"]->getLikesCount() ?> likes</p></a>
 <?php
-if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
+if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER") || ($userConnectedRoleFromBdd == "notConnected")) {
 ?>
     <p>Rôle: <?= $role ?></p>
     <p>Status: <?= $status ?></p>
