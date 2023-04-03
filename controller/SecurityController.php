@@ -127,6 +127,8 @@
 
             $userTotalLikes = $likeManager->getUserTotalLikes($_SESSION["user"]->getId());
 
+            $userConnectedRoleFromBdd = "viewOwnProfile";
+
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",
                 "data" => [
@@ -136,7 +138,8 @@
                     "userMsgList" => $userMsgList,
                     "countMsg" => $countUserMsgList,
                     "userLikesList" => $userLikesList,
-                    "userTotalLikes" => $userTotalLikes
+                    "userTotalLikes" => $userTotalLikes,
+                    "userConnectedRoleFromBdd" => $userConnectedRoleFromBdd
                 ]
             ];
         }
@@ -160,7 +163,12 @@
 
             $userTotalLikes = $likeManager->getUserTotalLikes($userId);
 
-            $userConnectedRoleFromBdd = $userManager->findOneById($userId)->getRole();
+            if(!empty($_SESSION["user"])) {
+                $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
+            }
+            else {
+                $userConnectedRoleFromBdd = "notConnected";
+            }
 
             return [
                 "view" => VIEW_DIR."security/viewProfile.php",

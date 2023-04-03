@@ -73,8 +73,17 @@
 <h1>Profile (user n°<?= $result["data"]["user"]->getId() ?>)</h1>
 
 <p>Username: <?= $result["data"]["user"]->getUsername() ?></p>
-<p>Email: <?= $result["data"]["user"]->getEmail() ?></p>
-<p>Password: ********** </p>
+
+<?php
+if(($userConnectedRoleFromBdd == "ROLE_ADMIN") || ($userConnectedRoleFromBdd == "viewOwnProfile" )){
+?>
+    <p>Email: <?= $result["data"]["user"]->getEmail() ?></p>
+    <p>Password: ********** </p>
+<?php
+}
+?>
+
+
 <br>
 <a href="index.php?ctrl=forum&action=viewUserLikesList&id=<?= $result["data"]["user"]->getId() ?>"><p><?= $result["data"]["user"]->getLikesCount() ?> likes</p></a>
 <?php

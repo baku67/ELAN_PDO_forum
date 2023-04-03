@@ -52,7 +52,7 @@
 ?>
 
 <h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1>
-<span>(<?= $postsCount ?> messages)</span> 
+<span><?= $postsCount ?> <i class="fa-regular fa-comments"></i></span> 
 <?php
 if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
 ?>
