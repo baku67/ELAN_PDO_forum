@@ -52,11 +52,14 @@
         }
 
         public function getUserTopics($id) {
-            $sql = "SELECT *
-                    FROM ".$this->tableName."
-                    WHERE user_id = :id
-                    ORDER BY id_topic DESC
-                    ";
+            $sql = "
+                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts
+                FROM ".$this->tableName." t
+                LEFT JOIN post p ON p.topic_id = t.id_topic
+                WHERE t.user_id = :id
+                GROUP BY t.id_topic
+                ORDER BY t.creationdate DESC
+            ";
 
             return $this->getMultipleResults(
                 DAO::select($sql, ['id' => $id]),

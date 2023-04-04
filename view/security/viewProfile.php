@@ -70,7 +70,7 @@
 ?>
 
 
-<h1>Profile (user n°<?= $result["data"]["user"]->getId() ?>)</h1>
+<h1>Profile (réf n°<?= $result["data"]["user"]->getId() ?>)</h1>
 
 <p>Username: <?= $result["data"]["user"]->getUsername() ?></p>
 
@@ -85,7 +85,7 @@ if(($userConnectedRoleFromBdd == "ROLE_ADMIN") || ($userConnectedRoleFromBdd == 
 
 
 <br>
-<a href="index.php?ctrl=forum&action=viewUserLikesList&id=<?= $result["data"]["user"]->getId() ?>"><p><?= $result["data"]["user"]->getLikesCount() ?> likes</p></a>
+<a style="text-decoration:underline" href="index.php?ctrl=forum&action=viewUserLikesList&id=<?= $result["data"]["user"]->getId() ?>"><p><?= $result["data"]["user"]->getLikesCount() ?> likes</p></a>
 <?php
 if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER") || ($userConnectedRoleFromBdd == "notConnected")) {
 ?>
@@ -156,9 +156,11 @@ if(!empty($result["data"]["userTopicList"])) {
 
         if($topic->getStatus() == 1) {
             $statusText = "Ouvert";
+            $statusStyleClass = "openTopic";
         }
         else {
             $statusText = "Fermé";
+            $statusStyleClass = "closedTopic";
         }
     
         // Chercher "carbon php time human reading" library
@@ -175,12 +177,23 @@ if(!empty($result["data"]["userTopicList"])) {
     ?>
     
     <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
-        <div class="topicCard">
-            <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
-            <p><?= $topic->getLastPostMsg() ?></p>
-            <p><?= $dateDiff1 ?></p>
-        </div>
-    </a>
+            <div class="topicCard">
+                <div class="topicCardHeader">
+                    <span class="topicCardTitleLine"><span><?=$topic->getTitle()?></span><span style="display:none" class="<?= $authorClass ?>">Auteur</span></span>
+                    <div class="topicHeaderRight">
+                        <span class="categoryLabel"><?=$topic->getCategory()->getName()?></span>
+                        <span class="statusTopic <?= $statusStyleClass ?>"><?= $statusText ?></span>
+                    </div>
+                </div>
+                <div class="topicCardContent">
+                    <p class="lastMsgLine"><span class="lastMsgLabel">Dernier message:</span><br><?= $topic->getLastPostMsg() ?></p>
+                    <div class="topicCardBottomLine">
+                        <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></span>
+                        <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>
+                    </div>
+                </div>
+            </div>
+        </a>
 
     <br>
 <?php
