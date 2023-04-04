@@ -1,12 +1,20 @@
-<p>Log in</p>
+    
+<div class="loginMain">
 
-<form action="index.php?ctrl=security&action=login" method="post">
+    <h1>Log in</h1>
 
-    <label>Email</label>
-    <input type="text" name="email">
-    <label>Password</label>
-    <input type="password" name="password">
+    <form action="index.php?ctrl=security&action=login" method="post">
 
-    <input type="submit" value="Login">
+        <label>Email</label>
+        <input type="text" name="email" required>
+        <br>
+        <label>Password</label>
+        <input type="password" name="password" required>
+        <br>
+        <input class="loginSubmit" type="submit" value="Login">
 
-</form>
+    </form>
+    
+    <p class="switchLoginForm">Already have an account ? <a href="index.php?ctrl=security&action=subscribeForm">Click here</a></p>
+
+</div>

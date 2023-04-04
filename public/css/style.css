@@ -72,6 +72,58 @@ nav {
 
 }
 
+
+.loginMain {
+    text-align: center;
+    margin-top: 50px;
+    background-color: #dbc4ef;
+    border-radius: 5px;
+    width: 300px;
+    margin: 50px auto 0px auto;
+    border-bottom: 3px solid var(--primary-color);
+}
+.loginMain h1 {
+    margin-block-start: 0;
+    padding: 6px 0px;
+    background-color: var(--primary-color);
+    color: white;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.loginMain form {
+    display: inline-flex;
+    flex-direction: column;
+    padding: 15px 15px 0px 15px;
+    width: 75%;
+
+}
+.loginMain form input {
+    padding: 5px 11px;
+    border-radius: 4px;
+    border: 0px;
+}
+.loginSubmit {
+    background-color: var(--primary-color);
+    color: white;
+    transition: all 0.5s;
+    cursor: pointer;
+    padding: 8px 11px !important;
+    width: 70%;
+    margin: 20px auto 0px auto;
+}
+.loginSubmit:hover {
+    background-color: rgba(56, 29, 80, 0.7);
+}
+
+.switchLoginForm {
+    font-size: 95%;
+    opacity: 0.8;
+}
+.switchLoginForm a {
+    text-decoration:underline;
+    font-style: italic;
+}
+
 .lastMsgLine {
     margin-block-start: 0;
 }
