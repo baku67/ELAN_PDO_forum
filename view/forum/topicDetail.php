@@ -64,7 +64,7 @@
         <br>
 
 
-        <div style="display:inline-flex">
+        <div class="catAndNbrPostsLine">
 
             <?php
             if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
@@ -96,7 +96,7 @@
             }
             ?>
 
-            <span class="topicDetailNbrPosts"><?= $postsCount ?> <i class="fa-regular fa-comments"></i></span>
+            <span class="topicDetailNbrPosts"><?= $postsCount ?> <i class="fa-solid fa-comments"></i></span>
             
         </div>
 

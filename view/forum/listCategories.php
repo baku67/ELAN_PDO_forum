@@ -16,12 +16,12 @@ $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
         foreach($categories as $category ){
             if ($category->getNbrTopics() > 0) {
             ?>
-                <a class="categoryLink" href="index.php?ctrl=forum&action=listTopicByCat&id=<?= $category->getId() ?>&catName=<?= $category->getName() ?>"><?= ucfirst($category->getName()) ?> <?= $category->getNbrTopics() ?></a>
+                <a class="categoryLink" href="index.php?ctrl=forum&action=listTopicByCat&id=<?= $category->getId() ?>&catName=<?= $category->getName() ?>"><?= ucfirst($category->getName()) ?> <br class="displayedPc"><span class="opacityPc">(</span><?= $category->getNbrTopics() ?><span class="opacityPc">)</span></a>
             <?php
             }
             else {
             ?>
-                <p class="categoryLinkDisabled"><?= ucfirst($category->getName()) ?> <?= $category->getNbrTopics() ?></p>
+                <p class="categoryLinkDisabled"><?= ucfirst($category->getName()) ?> <br class="displayedPc"><span class="opacityPc">(</span><?= $category->getNbrTopics() ?><span class="opacityPc">)</span></p>
             <?php
             }
             ?>
@@ -39,7 +39,7 @@ $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
         <form action="index.php?ctrl=category&action=addCategory" method="post">
             <label for="categoryName"></label>
             <input id="categoryName" name="categoryName" placeholder="Nouvelle catégorie" type="text" maxlength="20">
-            <input id="searchSubmit" type="submit" value="ajouter">
+            <input id="searchSubmit" class="catSubmit" type="submit" value="ajouter">
         </form>
     <?php
     }

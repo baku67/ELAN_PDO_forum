@@ -20,4 +20,74 @@
         margin: 3px auto;
         width: 90%;
     }
+
+    .displayedPc {
+        display: none !important;;
+    }
+    .opacityPc {
+        opacity: 1;
+    }
+
+    footer {
+        padding: 3px 0;
+        height: 19px;
+    }
+    footer p {
+        font-size: 80%;
+    }
+
+    .topicCardDate {
+        font-size: 80%;
+        position: relative;
+        top: 5px;
+    }
+
+    .topicCardTitle {
+        display: block;
+        width: 210px;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .categoryLabel {
+        position: absolute;
+        color: black;
+        z-index: 99;
+        opacity: 0.8;
+        top: 36px;
+        font-size: 79%;
+        right: 0px;
+    }
+
+    .catAndNbrPostsLine {
+        display: inline-flex;
+        position: relative;
+        bottom: 8px;
+    }
+
+    .topicCardHeader {
+        padding: 4px 8px 4px 8px;
+    }
+    .statusTopic {
+        padding: 6px 5px 6px 5px;
+        bottom: 5px;
+        font-size: 80%;
+    }
+
+    .titleDiv {
+        display: inline-flex;
+        margin-block-start: 1.2em;
+        margin-block-end: 0em;
+        margin-bottom: 13px;
+    }
+
+    .topicDetailHeader {
+        padding: 0px 15px 15px 15px;
+        margin-top: 37px;
+    }
+
+    .lastMsgLine {
+        font-size: 92%;
+    }
 }

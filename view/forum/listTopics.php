@@ -98,14 +98,17 @@ if(!empty($topics)) {
         $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
     
         $dateDiff0 = $date2->diff($dateNow1);
-        $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+        $dateDiff1 = $dateDiff0->format("il y a %dj %Hh %im");
 
     ?>
 
         <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
             <div class="topicCard">
                 <div class="topicCardHeader">
-                    <span class="topicCardTitleLine"><span><?=$topic->getTitle()?></span><span style="display:none" class="<?= $authorClass ?>">Auteur</span></span>
+                    <span class="topicCardTitleLine">
+                        <span class="topicCardTitle"><?=$topic->getTitle()?></span>
+                        <span style="display:none" class="<?= $authorClass ?>">Auteur</span>
+                    </span>
                     <div class="topicHeaderRight">
                         <span class="categoryLabel"><?=$topic->getCategory()->getName()?></span>
                         <span class="statusTopic <?= $statusStyleClass ?>"><?= $statusText ?></span>
@@ -114,7 +117,7 @@ if(!empty($topics)) {
                 <div class="topicCardContent">
                     <p class="lastMsgLine"><span class="lastMsgLabel">Dernier message:</span><br><?= $topic->getLastPostMsg() ?></p>
                     <div class="topicCardBottomLine">
-                        <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></span>
+                        <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-solid fa-comments"></i></span>
                         <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>
                     </div>
                 </div>

@@ -62,7 +62,7 @@
                 $dateNow1 = new DateTime($dateNow0, new DateTimeZone("+0200"));
 
                 $dateDiff0 = $date2->diff($dateNow1);
-                $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+                $dateDiff1 = $dateDiff0->format("il y a %dj %Hh %im");
 
             ?>
                 <tr>
