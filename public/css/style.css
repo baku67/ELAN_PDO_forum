@@ -126,9 +126,17 @@ nav {
     padding: 8px 11px !important;
     width: 70%;
     margin: 20px auto 0px auto;
+    border-radius: 4px;
+    border: 0px;
 }
 .loginSubmit:hover {
     background-color: rgba(56, 29, 80, 0.7);
+}
+
+.topicFormDiv input:not(#submit), .topicFormDiv textarea, .topicFormDiv select {
+    border-radius: 4px;
+    border: 1px solid var(--primary-color);
+    padding: 3px 7px;
 }
 
 .switchLoginForm {
@@ -142,11 +150,32 @@ nav {
 
 .lastMsgLine {
     margin-block-start: 0;
+    margin-block-end: 10px;
+    display: inline-flex;
+    flex-direction: column;
 }
 .lastMsgLabel {
     font-style: italic;
     opacity: 0.7;
     font-size: 85%;
+}
+.lastMsgText {
+    margin-top: 5px;
+}
+.topicFormDiv {
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: 75%;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.topicFormTitle {
+    text-align: center;
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    font-size: 1.1em;
 }
 
 
@@ -177,6 +206,7 @@ nav {
 .topicCardBottomLine {
     border-top: 1px solid rgba(0, 0, 0, 0.15);
     padding-top: 3px;
+    font-size: 90%;
 }
 .topicCardNbrMsg {
 
@@ -266,13 +296,15 @@ nav {
     border: 1px solid rgba(61,0,116,0.5);
     border-radius: 4px;
     transition: all 0.4s;
-    background-color: rgba(56, 29, 80, 0.05);
-
+    border: 1px solid rgba(61,0,116,0.2);
+    border-bottom: 2px solid var(--primary-color);
 }
+
 .topicCard:hover {
     border: 1px solid rgba(61,0,116,1);
-    background-color: rgba(56, 29, 80, 0.2);
-    box-shadow: 5px 5px 5px rgba(56, 29, 80, 0.5);
+    border-bottom: 2px solid var(--primary-color);
+    background-color: rgba(56, 29, 80, 0.05);
+    box-shadow: 5px 5px 5px rgba(56, 29, 80, 0.35);
 }
 .topicCard:hover .topicCardHeader {
 
@@ -281,6 +313,9 @@ nav {
     background-color: var(--primary-color);
     color: white;
     padding: 8px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+
 }
 
 .topicCardTitleLine {
@@ -417,7 +452,7 @@ nav {
     margin-bottom: 15px;
     background-color: rgb(56 29 80 / 10%);
     border-radius: 4px;
-    border-bottom: 3px solid var(--primary-color);
+    border-bottom: 4px solid var(--primary-color);
     border-top: 1px solid rgb(56 29 80 / 15%);
     border-right: 1px solid rgb(56 29 80 / 15%);
     border-left: 1px solid rgb(56 29 80 / 15%);

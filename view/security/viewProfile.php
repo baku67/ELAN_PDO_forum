@@ -192,7 +192,7 @@ if(!empty($result["data"]["userTopicList"])) {
                     </div>
                 </div>
                 <div class="topicCardContent">
-                    <p class="lastMsgLine"><span class="lastMsgLabel">Dernier message:</span><br><?= $topic->getLastPostMsg() ?></p>
+                    <p class="lastMsgLine"><span class="lastMsgLabel">Dernier post:</span><br><?= $topic->getLastPostMsg() ?></p>
                     <div class="topicCardBottomLine">
                         <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-solid fa-comments"></i></span>
                         <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>

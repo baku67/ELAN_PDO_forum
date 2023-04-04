@@ -1,3 +1,5 @@
+Menu Burger mobile (vertical: tres gros à droite)
+
 Admin: supression categories from categoryList
         supression d'un topic/post ?
 

@@ -70,7 +70,7 @@
         padding: 4px 8px 4px 8px;
     }
     .statusTopic {
-        padding: 6px 5px 6px 5px;
+        padding: 6px 7px 6px 7px;
         bottom: 5px;
         font-size: 80%;
     }
@@ -79,7 +79,7 @@
         display: inline-flex;
         margin-block-start: 1.2em;
         margin-block-end: 0em;
-        margin-bottom: 13px;
+        margin-bottom: 0px;
     }
 
     .topicDetailHeader {
@@ -92,6 +92,18 @@
     }
 
     .topicDetailHeader {
-        border-bottom-width: 2px;
+        border-bottom-width: 4px;
+    }
+
+    .topicDetailFirstMsg {
+        margin-block-end: 5px;
+    }
+
+    .searchForm {
+        margin-top: 12px;
+    }
+
+    .topicCardNbrMsg {
+        font-size: 90%;
     }
 }

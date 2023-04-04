@@ -51,7 +51,7 @@ else if (($result["data"]["title"] == "Liste topics by Cat") || (empty($result["
 <?php
 }
 ?>
-<form action="index.php?ctrl=forum&action=search" method="post">
+<form class="searchForm" action="index.php?ctrl=forum&action=search" method="post">
     <div class="searchDiv"> 
         <input type="text" name="searchInput" id="searchInput" placeholder="Mots-clés" required>
         <input id="searchSubmit" type="submit" value="Chercher">
@@ -117,7 +117,10 @@ if(!empty($topics)) {
                     <!-- <span style="display:none" class="<?= $authorClass ?>">Auteur</span> -->
                 </div>
                 <div class="topicCardContent">
-                    <p class="lastMsgLine"><span class="lastMsgLabel">Dernier message:</span><br><?= $topic->getLastPostMsg() ?></p>
+                    <p class="lastMsgLine">
+                        <span class="lastMsgLabel">Dernier post:</span>
+                        <span class="lastMsgText"><?= $topic->getLastPostMsg() ?></span>
+                    </p>
                     <div class="topicCardBottomLine">
                         <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-solid fa-comments"></i></span>
                         <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink <?= $authorClass ?>" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>
@@ -140,37 +143,41 @@ else {
 
 
 
-<p>Créer un topic:</p>
-<form action="index.php?ctrl=forum&action=createTopic" method="post">
-    <label>Titre</label>
-    <input id="title" type="text" name="title" placeholder="Titre">
-    <label>1er message</label>
-    <textarea name="firstMsg" placeholder="blabla..." rows="5"></textarea>
-    <label>Catégorie</label>
-    <?php 
-    if( ($result["data"]["title"] == "Liste topics by Cat") ) {
-    ?>
-        <input type="text" value="<?= $catName ?>" disabled >
-        <input type="hidden" value="<?= $category->getId() ?>" id="category" name="category" >
-    <?php
-    }
-    else {
-    ?>
-        <select id="category" name="category">
+    <p class="topicFormTitle">Créer un topic:</p>
+
+    <form action="index.php?ctrl=forum&action=createTopic" method="post">
+        <div class="topicFormDiv"> 
+            <label>Titre</label>
+            <input id="title" type="text" name="title" placeholder="Titre" required>
+            <label>Premier message</label>
+            <textarea name="firstMsg" placeholder="blabla..." rows="5" required></textarea>
+            <label>Catégorie</label>
             <?php 
-            foreach ($categories as $category) { 
+            if( ($result["data"]["title"] == "Liste topics by Cat") ) {
             ?>
-                <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
-            <?php 
+                <input type="text" value="<?= $catName ?>" disabled >
+                <input type="hidden" value="<?= $category->getId() ?>" id="category" name="category" >
+            <?php
+            }
+            else {
+            ?>
+                <select id="category" name="category">
+                    <?php 
+                    foreach ($categories as $category) { 
+                    ?>
+                        <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+                    <?php 
+                    }
+                    ?>
+                </select>
+            <?php
             }
             ?>
-        </select>
-    <?php
-    }
-    ?>
-    
-    <input id="submit" type="submit" value="Créer">
-</form>
+            
+            <input class="loginSubmit" id="submit" type="submit" value="Créer" style="width: 30% !important">
+        </div>
+    </form>
+
 
 
   
