@@ -56,6 +56,9 @@ if(!empty($topics)) {
                 $authorClass = "";
             }
         }
+        else {
+            $authorClass = "";
+        }
     
         // Chercher "carbon php time human reading" library
         // Formattage *Time*Temps*Date

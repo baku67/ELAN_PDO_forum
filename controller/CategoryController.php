@@ -18,8 +18,13 @@
            $categoryManager = new CategoryManager();
            $userManager = new UserManager();
 
-           // On envoie le role de l'user connecté depuis la BDD et non la SESSION (pour si changement de role en cours de session active)
-           $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
+            // On envoie le role de l'user connecté depuis la BDD et non la SESSION (pour si changement de role en cours de session active)
+            if(!empty($_SESSION["user"])) {
+                $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
+            }
+            else {
+                $userConnectedRoleFromBdd = "notConnected";
+            }
 
             return [
                 "view" => VIEW_DIR."forum/listCategories.php",

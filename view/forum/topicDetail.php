@@ -100,6 +100,9 @@ if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USE
                     $authorClass = "";
                 }
             }
+            else {
+                $authorClass = "";
+            }
 
             // Check si Post liked (on check si le postId est dans l'array des userPostIdLiked)
             $isLiked = false;

@@ -7,7 +7,7 @@
 
         private $id;
         private $text;
-        private $creationDate;
+        private $creationdate;
         private $user;
         private $topic;
 
@@ -17,6 +17,16 @@
             $this->hydrate($data);        
         }
  
+
+        public function getCreationdate(){
+            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
+            return $formattedDate;
+        }
+
+        public function setCreationdate($date){
+            $this->creationdate = new \DateTime($date);
+            return $this;
+        }
 
         public function getId()
         {
@@ -44,15 +54,7 @@
         }
 
 
-        public function getCreationdate(){
-            $formattedDate = $this->creationdate->format("d/m/Y, H:i:s");
-            return $formattedDate;
-        }
 
-        public function setCreationdate($date){
-            $this->creationdate = new \DateTime($date);
-            return $this;
-        }
 
 
 
