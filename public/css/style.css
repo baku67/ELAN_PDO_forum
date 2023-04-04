@@ -54,7 +54,7 @@ nav {
     color: white !important;
 }
 
-#title {
+#titleSite {
     font-weight: bold;
     font-size: 2.7em;
     color: white !important;
@@ -209,14 +209,46 @@ nav {
 .authorTopic {
     display: block !important;
     margin-left: 20px;
-    border-right: 1px solid white;
-    border-left: 1px solid white;
+    border-right: 1px solid yellow;
+    border-left: 1px solid yellow;
     border-radius: 5px;
     padding: 0px 5px;
+    color: yellow;
 }
 
 
 .fa-comments {
     font-size: 90%;
     opacity: 0.8;
+}
+
+.searchDiv {
+    width: 100%;
+    display: inline-flex;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+}
+#searchInput {
+    width: -webkit-fill-available;
+    padding: 4px 8px;
+}
+#searchSubmit {
+    background-color: var(--primary-color);
+    color: white;
+    border: 0px;
+    border-top-right-radius: 2px;
+    border-top-left-radius: 2px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+#searchSubmit:hover {
+    background-color: rgba(56, 29, 80, 0.8);
+}
+
+.separatorLine {
+    height: 1px;
+    background-color: rgba(56, 29, 80, 0.5);
+    width: 70%;
+    margin: 0 auto;
 }

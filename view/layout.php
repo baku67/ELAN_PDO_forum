@@ -32,7 +32,7 @@
             <header>
                 <nav>
                     <div id="nav-left">
-                        <a id="title" href="/">Forum</a>
+                        <a id="titleSite" href="/">Forum</a>
                     </div>
                     <div id="nav-right">
                     <?php
@@ -44,8 +44,14 @@
                             <div style="display:inline-flex">
                                 <a class="onglets" href="index.php?ctrl=security&action=viewProfile"><span class="fas fa-user"></span>&nbsp;<?= ucfirst(App\Session::getUser()->getUsername()) ?></a>
                                 <a class="onglets" href="index.php?ctrl=security&action=logout">Déconnexion</a>
+                                <?php
+                                if(App\Session::isAdmin()){
+                                    ?>
+                                        <a class="onglets" href="index.php?ctrl=home&action=users">Admin</a>
+                                    <?php
+                                }
+                                ?>
                             </div>
-                            
                             <?php
                         }
                         else{
@@ -55,13 +61,6 @@
                             <a class="onglets" href="index.php?ctrl=forum&action=listTopics">Liste des topics</a>
                             <a class="onglets" href="index.php?ctrl=category&action=index">Liste des catégories</a>
                         <?php
-                        }
-                    ?>
-                    <?php
-                        if(App\Session::isAdmin()){
-                            ?>
-                                <a class="onglets" href="index.php?ctrl=home&action=users">Admin</a>
-                            <?php
                         }
                     ?>
                     </div>

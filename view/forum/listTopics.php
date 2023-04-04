@@ -14,13 +14,20 @@ if (isset($result["data"]["catName"])) {
 else {
     $catName = "";
 }
+
+if (isset($result["data"]["category"])) {
+    $category = $result["data"]["category"];
+}
+else {
+    $category = "";
+}
     
 ?>
 
 <?php 
 if (!empty($result["data"]["title"]) && $result["data"]["title"] == "Recherche") {
 ?>
-    <h1>Recherche (<?= $totalCountTopics["count"] ?> résultats) <?= $catName ?> </h1>
+    <h1>Recherche "<?= $result["data"]["searchText"] ?>" (<?= $totalCountTopics["count"] ?> résultats) <?= $catName ?> </h1>
 <?php
 }
 else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"]["title"]))) {
@@ -35,10 +42,14 @@ else if (($result["data"]["title"] == "Liste topics by Cat") || (empty($result["
 }
 ?>
 <form action="index.php?ctrl=forum&action=search" method="post">
-    <input type="text" name="searchInput" id="searchInput" placeholder="Rechercher">
-    <input type="submit" value="Chercher">
+    <div class="searchDiv"> 
+        <input type="text" name="searchInput" id="searchInput" placeholder="Mots-clés" required>
+        <input id="searchSubmit" type="submit" value="Chercher">
+    </div>
 </form>
 
+<br>
+<div class="separatorLine"></div>
 <br>
 
 <?php
@@ -121,15 +132,28 @@ else {
     <label>1er message</label>
     <textarea name="firstMsg" placeholder="blabla..." rows="5"></textarea>
     <label>Catégorie</label>
-    <select id="category" name="category">
-        <?php 
-        foreach ($categories as $category) { 
-        ?>
-            <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
-        <?php 
-        }
-        ?>
-    </select>
+    <?php 
+    if( ($result["data"]["title"] == "Liste topics by Cat") ) {
+    ?>
+        <input type="text" value="<?= $catName ?>" disabled >
+        <input type="hidden" value="<?= $category->getId() ?>" id="category" name="category" >
+    <?php
+    }
+    else {
+    ?>
+        <select id="category" name="category">
+            <?php 
+            foreach ($categories as $category) { 
+            ?>
+                <option value="<?= $category->getId() ?>"><?= $category->getName() ?></option>
+            <?php 
+            }
+            ?>
+        </select>
+    <?php
+    }
+    ?>
+    
     <input id="submit" type="submit" value="Créer">
 </form>
 

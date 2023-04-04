@@ -67,9 +67,14 @@
                         "categories" => $categoryManager->findAll(["name", "DESC"]),
                         "topics" => $topicManager->listTopicBySearch($inputSearch),
                         "totalCountTopics" => $topicManager->getSearchCountTopics($inputSearch),
-                        "title" => "Recherche"
+                        "title" => "Recherche",
+                        "searchText" => $inputSearch
                     ]
                 ];
+            }
+            else {
+                $_SESSION["error"] = "Recherche invalide";
+                $this->redirectTo("forum", "index");
             }
         }
 
@@ -157,6 +162,7 @@
                 "view" => VIEW_DIR."forum/listTopics.php",
                 "data" => [
                     "catName" => $_GET['catName'],
+                    "category" => $categoryManager->findOneById($id),
                     "topics" => $topicManager->listTopicByCat($id),
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
                     "totalCountTopics" => $topicManager->getTotalCountTopicsByCat($id),

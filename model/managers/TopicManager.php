@@ -91,9 +91,11 @@
 
         public function listTopicBySearch($searchInput) {
             $sql = "
-                SELECT *
-                FROM topic t
+                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts 
+                FROM " .$this->tableName. " t
+                LEFT JOIN post p ON p.topic_id = t.id_topic
                 WHERE t.title LIKE :searchInput
+                GROUP BY t.id_topic
                 ORDER BY t.creationdate DESC
             ";
 
