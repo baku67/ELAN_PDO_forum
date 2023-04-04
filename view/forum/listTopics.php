@@ -25,7 +25,7 @@ if (!empty($result["data"]["title"]) && $result["data"]["title"] == "Recherche")
 }
 else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"]["title"]))) {
 ?>
-    <h1><?= $catName ?> (<?= $totalCountTopics["count"] ?> résultats)  </h1>
+    <h1><?= $catName ?>Tout les topics (<?= $totalCountTopics["count"] ?> résultats)  </h1>
 <?php
 }
 ?>
@@ -43,9 +43,11 @@ if(!empty($topics)) {
 
         if($topic->getStatus() == 1) {
             $statusText = "Ouvert";
+            $statusStyleClass = "openTopic";
         }
         else {
             $statusText = "Fermé";
+            $statusStyleClass = "closedTopic";
         }
     
         if(App\Session::getUser()) {
@@ -71,15 +73,26 @@ if(!empty($topics)) {
     
         $dateDiff0 = $date2->diff($dateNow1);
         $dateDiff1 = $dateDiff0->format("il y a %Ya %mm %dj, %Hh %im %ss");
+
     ?>
 
         <a href="index.php?ctrl=forum&action=topicDetail&id=<?= $topic->getId() ?>">
-        <div class="topicCard <?= $authorClass ?>">
-            <p><span class="categoryLabel"><?=$topic->getCategory()->getName()?></span><?=$topic->getTitle()?><span> &nbsp;(<?= $statusText ?>)</span></p>
-            <p><?= $topic->getLastPostMsg() ?></p>
-            <p><?= $dateDiff1 ?>, par <a class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></a></p>
-            <p><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></p>
-        </div>
+            <div class="topicCard">
+                <div class="topicCardHeader">
+                    <span class="topicCardTitleLine"><span><?=$topic->getTitle()?></span><span style="display:none" class="<?= $authorClass ?>">Auteur</span></span>
+                    <div class="topicHeaderRight">
+                        <span class="categoryLabel"><?=$topic->getCategory()->getName()?></span>
+                        <span class="statusTopic <?= $statusStyleClass ?>"><?= $statusText ?></span>
+                    </div>
+                </div>
+                <div class="topicCardContent">
+                    <p class="lastMsgLine"><span class="lastMsgLabel">Dernier message:</span><br><?= $topic->getLastPostMsg() ?></p>
+                    <div class="topicCardBottomLine">
+                        <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-regular fa-comments"></i></span>
+                        <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>
+                    </div>
+                </div>
+            </div>
         </a>
 
         <br>

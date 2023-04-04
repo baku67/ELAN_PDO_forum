@@ -6,7 +6,7 @@ $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
     
 ?>
 
-<h1>liste catégories</h1>
+<h1>Catégories</h1>
 
 <?php
 foreach($categories as $category ){

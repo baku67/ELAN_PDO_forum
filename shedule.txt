@@ -1,5 +1,8 @@
-En cours: le selected de la categorie actuelle du topic (admin: changement de catégorie du topicDetail)
-    Et finir forumController: public function changeTopicCategory() 
+Admin: supression categories from categoryList
+        supression d'un topic/post ?
+
+Nav: hover et disposition
+
 
 Nbr de messages par topic dans topicList
 
