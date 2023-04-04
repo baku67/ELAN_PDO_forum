@@ -25,7 +25,12 @@ if (!empty($result["data"]["title"]) && $result["data"]["title"] == "Recherche")
 }
 else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"]["title"]))) {
 ?>
-    <h1><?= $catName ?>Tout les topics (<?= $totalCountTopics["count"] ?> résultats)  </h1>
+    <h1>Tout les topics (<?= $totalCountTopics["count"] ?> résultats)  </h1>
+<?php
+}
+else if (($result["data"]["title"] == "Liste topics by Cat") || (empty($result["data"]["title"]))) {
+?>
+    <h1><?= $catName ?> (<?= $totalCountTopics["count"] ?> résultats)  </h1>
 <?php
 }
 ?>

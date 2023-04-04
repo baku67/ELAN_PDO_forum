@@ -13,7 +13,7 @@ a {
 
 body {
      margin: 0;
-     background-color: antiquewhite;
+     background-color: #f9edfd;
 }
 
 a {
@@ -159,7 +159,7 @@ nav {
     background-color: rgba(56, 29, 80, 0.2);
 }
 .topicCard:hover .topicCardHeader {
-    
+
 }
 .topicCardHeader {
     background-color: var(--primary-color);
@@ -217,6 +217,6 @@ nav {
 
 
 .fa-comments {
-    font-size: 70%;
+    font-size: 90%;
     opacity: 0.8;
 }

@@ -160,7 +160,7 @@
                     "topics" => $topicManager->listTopicByCat($id),
                     "categories" => $categoryManager->findAll(["name", "DESC"]),
                     "totalCountTopics" => $topicManager->getTotalCountTopicsByCat($id),
-                    "title" => ""
+                    "title" => "Liste topics by Cat"
                 ]
             ];
         }

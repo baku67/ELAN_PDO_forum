@@ -1,7 +1,13 @@
 Admin: supression categories from categoryList
         supression d'un topic/post ?
 
-Nav: hover et disposition
+Nav: hover et disposition (Mettre ParcourirTopics + Catégories à gauche pres de Forum, et compte/Déco/Admin à droite)
+
+Séparateur ligne ? entre les topicsCard
+
+Lors de listTopicsByCat: Fix le titre + nbrPosts HS
+
+Le count des posts par topic enleve l'affichage de certains topics (topicList)
 
 
 Nbr de messages par topic dans topicList

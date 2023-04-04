@@ -21,8 +21,8 @@
 
             $sql="
                 SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts
-                FROM topic t
-                INNER JOIN post p ON p.topic_id = t.id_topic
+                FROM " .$this->tableName. " t
+                LEFT JOIN post p ON p.topic_id = t.id_topic
                 GROUP BY t.id_topic
                 ORDER BY t.creationdate DESC
             ";
@@ -37,9 +37,13 @@
         public function listTopicByCat($id){
 
             $sql = "
-            SELECT * FROM " .$this->tableName. " t
-            WHERE t.category_id = :id
-            ORDER BY t.id_topic DESC";
+                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts 
+                FROM " .$this->tableName. " t
+                LEFT JOIN post p ON p.topic_id = t.id_topic
+                WHERE t.category_id = :id
+                GROUP BY t.id_topic
+                ORDER BY t.creationdate DESC
+            ";
 
             return $this->getMultipleResults(
                 DAO::select($sql, ['id' => $id]),
