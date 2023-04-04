@@ -27,17 +27,27 @@ else {
 <?php 
 if (!empty($result["data"]["title"]) && $result["data"]["title"] == "Recherche") {
 ?>
-    <h1>Recherche "<?= $result["data"]["searchText"] ?>" (<?= $totalCountTopics["count"] ?> résultats) <?= $catName ?> </h1>
+    <div class="titleDiv">
+        <h1 class="titleUnderline">Recherche "<?= $result["data"]["searchText"] ?>"</h1>
+        <span>(<?= $totalCountTopics["count"] ?> résultats) <?= $catName ?></span>
+    </div>
 <?php
 }
 else if (($result["data"]["title"] == "Liste topics") || (empty($result["data"]["title"]))) {
 ?>
-    <h1>Tout les topics (<?= $totalCountTopics["count"] ?> résultats)  </h1>
+    <div class="titleDiv">
+        <h1 class="titleUnderline">Tout les topics</h1>
+        <span>(<?= $totalCountTopics["count"] ?> résultats)</span>
+    </div>
+
 <?php
 }
 else if (($result["data"]["title"] == "Liste topics by Cat") || (empty($result["data"]["title"]))) {
 ?>
-    <h1><?= $catName ?> (<?= $totalCountTopics["count"] ?> résultats)  </h1>
+    <div class="titleDiv">
+        <h1 class="titleUnderline"><?= $catName ?></h1>
+        <span> (<?= $totalCountTopics["count"] ?> résultats)</span>
+    </div>
 <?php
 }
 ?>

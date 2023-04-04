@@ -69,16 +69,19 @@
     
 ?>
 
+<div class="titleDiv">
+    <h1 class="titleUnderline">Profil</h1>
+    <span>(Utilisateur n°<?= $result["data"]["user"]->getId() ?>)</span>
+</div>
 
-<h1>Profile (réf n°<?= $result["data"]["user"]->getId() ?>)</h1>
 
-<p>Username: <?= $result["data"]["user"]->getUsername() ?></p>
+<p><strong>Username:</strong> <?= $result["data"]["user"]->getUsername() ?></p>
 
 <?php
 if(($userConnectedRoleFromBdd == "ROLE_ADMIN") || ($userConnectedRoleFromBdd == "viewOwnProfile" )){
 ?>
-    <p>Email: <?= $result["data"]["user"]->getEmail() ?></p>
-    <p>Password: ********** </p>
+    <p><strong>Email:</strong> <?= $result["data"]["user"]->getEmail() ?></p>
+    <p><strong>Password:</strong> ********** </p>
 <?php
 }
 ?>

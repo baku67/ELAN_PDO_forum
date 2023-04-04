@@ -17,9 +17,11 @@
     
     if($topic->getStatus() == 1) {
         $statusText = "Ouvert";
+        $statusClass = "openTopicDetail";
     }
     else {
         $statusText = "Fermé";
+        $statusClass = "closedTopicDetail";
     }
 
     // ** (isLiked userCo) On récupère la liste des Posts liés au topic et à l'userConnected (Puis dans foreachPost on check si le postId est dans l'array)
@@ -49,39 +51,54 @@
     // ** Exemple de récup du nbr de like en passant l'idPost en index
     // var_dump(array_count_values($globalListLikesTopic)[51]);
 
+
 ?>
 
-<h1>Detail du topic n°<?= $topic->getId() ?><span> &nbsp;(<?= $statusText ?>)</span></h1>
-<span><?= $postsCount ?> <i class="fa-regular fa-comments"></i></span> 
-<?php
-if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
-?>
-    <span>(<?= $topic->getCategory()->getName() ?>)</span>
-<?php
-} else {
-?>
-    <form action="index.php?ctrl=forum&action=changeTopicCategory&id=<?= $topic->getId() ?>" method="post">
-        <select name="category_Select" id="category_Select" onchange='this.form.submit()'>
-            <?php 
-            foreach ($categories as $category) {
-                // Si Topic->Categorie->name = Category->name alors $selected="selected"
-                if($topic->getCategory()->getId() == $category->getId()) {
-                    $selected = "selected";
-                }
-                else {
-                    $selected = "";
-                }
-            ?>
-                <option value="<?= $category->getId() ?>" <?=$selected?>><?= $category->getName() ?></option>
-            <?php
-            }
-            ?>
-        </select>
-        <noscript><input type="submit" value="changer"></noscript>
-    </form>
-<?php
-}
-?>
+
+    <div class="titleDiv">
+        <h1 class="titleUnderline">Detail du topic n°<?= $topic->getId() ?></h1>
+        <span class="<?= $statusClass ?>"><?= $statusText ?></span>
+    </div>
+
+    <br>
+
+
+    <div style="display:inline-flex">
+
+        <?php
+        if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
+        ?>
+            <span>(<?= $topic->getCategory()->getName() ?>)</span>
+        <?php
+        } else {
+        ?>
+            <form action="index.php?ctrl=forum&action=changeTopicCategory&id=<?= $topic->getId() ?>" method="post">
+                <select name="category_Select" id="category_Select" onchange='this.form.submit()'>
+                    <?php 
+                    foreach ($categories as $category) {
+                        // Si Topic->Categorie->name = Category->name alors $selected="selected"
+                        if($topic->getCategory()->getId() == $category->getId()) {
+                            $selected = "selected";
+                        }
+                        else {
+                            $selected = "";
+                        }
+                    ?>
+                        <option value="<?= $category->getId() ?>" <?=$selected?>><?= $category->getName() ?></option>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <noscript><input type="submit" value="changer"></noscript>
+            </form>
+        <?php
+        }
+        ?>
+
+        <span class="topicDetailNbrPosts"><?= $postsCount ?> <i class="fa-regular fa-comments"></i></span>
+        
+    </div>
+
 
 
     <p><?=$topic->getTitle()?></p>
