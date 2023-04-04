@@ -90,4 +90,8 @@
     .lastMsgLine {
         font-size: 92%;
     }
+
+    .topicDetailHeader {
+        border-bottom-width: 2px;
+    }
 }

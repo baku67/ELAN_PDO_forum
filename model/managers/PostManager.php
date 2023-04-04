@@ -19,7 +19,7 @@
             $sql = "
             SELECT * FROM ".$this->tableName . " p
             WHERE p.topic_id = :id
-            ORDER BY p.creationdate DESC";
+            ORDER BY p.creationdate ASC";
 
             return $this->getMultipleResults(
                 DAO::select($sql, ['id' => $id]),

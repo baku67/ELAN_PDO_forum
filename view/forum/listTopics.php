@@ -76,6 +76,7 @@ if(!empty($topics)) {
             $statusStyleClass = "closedTopic";
         }
     
+        // Si auteur du topic: surligagne de l'auteur
         if(App\Session::getUser()) {
             if($topic->getUser()->getId() == $_SESSION["user"]->getId()) {
                 $authorClass = "authorTopic";
@@ -107,18 +108,19 @@ if(!empty($topics)) {
                 <div class="topicCardHeader">
                     <span class="topicCardTitleLine">
                         <span class="topicCardTitle"><?=$topic->getTitle()?></span>
-                        <span style="display:none" class="<?= $authorClass ?>">Auteur</span>
                     </span>
                     <div class="topicHeaderRight">
                         <span class="categoryLabel"><?=$topic->getCategory()->getName()?></span>
                         <span class="statusTopic <?= $statusStyleClass ?>"><?= $statusText ?></span>
                     </div>
+                    <!-- Si SESSION[user] auteur du post: -->
+                    <!-- <span style="display:none" class="<?= $authorClass ?>">Auteur</span> -->
                 </div>
                 <div class="topicCardContent">
                     <p class="lastMsgLine"><span class="lastMsgLabel">Dernier message:</span><br><?= $topic->getLastPostMsg() ?></p>
                     <div class="topicCardBottomLine">
                         <span class="topicCardNbrMsg"><?= $topic->getNbrPosts() ?> <i class="fa-solid fa-comments"></i></span>
-                        <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>
+                        <span class="topicCardDate"><?= $dateDiff1 ?>, par <span class="userLink <?= $authorClass ?>" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?= $topic->getUser()->getUsername() ?></span></span>
                     </div>
                 </div>
             </div>

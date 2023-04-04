@@ -14,6 +14,20 @@
         $userConnectedRoleFromBdd = $result["data"]['userConnectedRoleFromBdd'];
     }
 
+
+    // Si auteur du topic: surligagne de l'auteur
+    if(App\Session::getUser()) {
+        if($topic->getUser()->getId() == $_SESSION["user"]->getId()) {
+            $authorTopicClass = "authorTopic";
+        }
+        else {
+            $authorTopicClass = "";
+        }
+    }
+    else {
+        $authorTopicClass = "";
+    }
+
     
     if($topic->getStatus() == 1) {
         $statusText = "Ouvert";
@@ -69,7 +83,7 @@
             <?php
             if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
             ?>
-                <span>(<?= $topic->getCategory()->getName() ?>)</span>
+                <span><a href="index.php?ctrl=forum&action=listTopicByCat&id=<?= $topic->getCategory()->getId() ?>&catName=<?= $topic->getCategory()->getName() ?>">(<?= $topic->getCategory()->getName() ?>)</a></span>
             <?php
             } else {
             ?>
@@ -103,7 +117,7 @@
 
 
         <p class="topicDetailFirstMsg"><?=$topic->getTitle()?></p>
-        <span class="topicDetailInfos">by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?=$topic->getUser()->getUsername()?></a>, le <?=$topic->getCreationdate()?></span>
+        <span class="topicDetailInfos">by <a class="<?= $authorTopicClass ?>"href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?=$topic->getUser()->getUsername()?></a>, le <?=$topic->getCreationdate()?></span>
    
     </div>
 
@@ -115,16 +129,16 @@
             // Check si l'user est auteur du post
             if(App\Session::getUser()) {
                 if ($post->getUser()->getId() == $_SESSION["user"]->getId()) {
-                    $authorClass = "authorPost";
+                    $authorPostClass = "authorPostClass";
                 }
                 else {
-                    $authorClass = "";
+                    $authorPostClass = "";
                 }
             }
             else {
-                $authorClass = "";
+                $authorPostClass = "";
             }
-
+            
             // Check si Post liked (on check si le postId est dans l'array des userPostIdLiked)
             $isLiked = false;
             if(in_array($post->getId(), $postIdLikedArray)) {
@@ -142,36 +156,47 @@
                 $postGlobalLikesCount = 0;
             }
 
+            if($isLiked) {
+                $likeThumbClass = "fa-solid fa-thumbs-up";
+            }
+            else {
+                $likeThumbClass = "fa-regular fa-thumbs-up";
+            }
+
 
 
         ?>
 
-            <div class="postCard <?= $authorClass ?>">
-                <p><?= $post->getText() ?></p>
-                <span class="postInfos">by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $post->getUser()->getId() ?>"><?= $post->getUser()->getUsername() ?></a>, le <?= $post->getCreationdate() ?></span>
-                <?php
-                if(App\Session::getUser()){
-                    // Bouton like différent selon isLiked
-                    if($isLiked) {
-                ?>
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-solid fa-thumbs-up"></i></a>
-                    <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><p><?= $postGlobalLikesCount ?> likes</p></a>
-                <?php
-                    }else{
-                ?>  
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up"></i></a>
-                    <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><p><?= $postGlobalLikesCount ?> likes</p></a>
-                <?php
+            <div class="postCard">
+
+                <p class="postText"><?= $post->getText() ?></p>
+
+                <div class="postCardBottomLine">
+                    
+                    <?php
+                    if(App\Session::getUser()){
+                        // Bouton like différent selon isLiked
+                    ?>
+                        <div class="postLikesLine">
+                            <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><?= $postGlobalLikesCount ?></a>
+                            <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="<?= $likeThumbClass ?>"></i></a>
+                        </div>
+                    <?php
                     }
-                }
-                else {
-                ?>
-                    <!-- Vérification user dans le controller finalement -->
-                    <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up" style="opacity:0.5"></i></a>
-                    <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><p><?= $postGlobalLikesCount ?> likes</p></a>
-                <?php
-                }
-                ?>
+                    else {
+                    ?>
+                        <!-- Vérification user dans le controller finalement (mais grisé) -->
+                        <div class="postLikesLine">
+                            <a href="index.php?ctrl=forum&action=postLikesList&id=<?= $post->getId() ?>"><?= $postGlobalLikesCount ?></a>
+                            <a href="index.php?ctrl=forum&action=likePost&id=<?= $post->getId() ?>&id2=<?= $topic->getId() ?>"><i class="fa-regular fa-thumbs-up" style="opacity:0.5"></i></a>
+                        </div>
+                    <?php
+                    }
+                    ?>
+
+                    <span class="postInfos">by <a class="<?= $authorPostClass ?>" href="index.php?ctrl=security&action=viewUserProfile&id=<?= $post->getUser()->getId() ?>"><?= $post->getUser()->getUsername() ?></a>, le <?= $post->getCreationdate() ?></span>
+
+                </div>
             </div>
 
         <?php
