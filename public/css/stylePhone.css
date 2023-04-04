@@ -1,0 +1,23 @@
+@media  screen and (max-width: 425px) {
+    
+    * {
+        
+    }
+
+
+    #forum {
+        width:80%;
+        margin: 0 auto;
+    }
+
+    .categoriesDiv {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .categoriesDiv a, .categoriesDiv p {
+        padding: 3px 7px;
+        margin: 3px auto;
+        width: 90%;
+    }
+}

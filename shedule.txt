@@ -9,6 +9,11 @@ Lors de listTopicsByCat: Fix le titre + nbrPosts HS
 
 Le count des posts par topic enleve l'affichage de certains topics (topicList)
 
+Distinction "topic fermé par l'auteur", "topic fermé par l'admin" (BDD topic:closedBy)
+
+
+
+
 
 Nbr de messages par topic dans topicList
 

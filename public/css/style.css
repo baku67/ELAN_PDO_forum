@@ -89,6 +89,7 @@ nav {
     /* border-bottom-right-radius: 4px; */
     border-top-right-radius: 4px;
     bottom: 1px;
+    right: 1px;
 }
 .openTopic {
     background-color: #009554;
@@ -97,6 +98,12 @@ nav {
 .closedTopic {
     background-color: rgb(151 47 27);
     color: white;
+}
+
+.fa-user {
+    font-size: 80%;
+    bottom: 1px;
+    position: relative;
 }
 
 .topicCardBottomLine {
@@ -161,13 +168,14 @@ nav {
     position: relative;
     border: 1px solid rgba(61,0,116,0.5);
     border-radius: 4px;
-    transition: all 0.5s;
+    transition: all 0.4s;
     background-color: rgba(56, 29, 80, 0.05);
 
 }
 .topicCard:hover {
     border: 1px solid rgba(61,0,116,1);
     background-color: rgba(56, 29, 80, 0.2);
+    box-shadow: 5px 5px 5px rgba(56, 29, 80, 0.5);
 }
 .topicCard:hover .topicCardHeader {
 
@@ -288,6 +296,28 @@ nav {
     color: white;
     border: 0px solid;
     padding: 2px 5px;
+    border-radius: 4px;
+}
+
+.topicDetailHeader {
+    padding: 15px;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    background-color: rgb(56 29 80 / 10%);
+    border-radius: 4px;
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.topicDetailInfos {
+    font-style: italic;
+    font-size: 90%;
+    opacity: 0.8;
+    margin-block-end: 0;
+}
+
+.topicDetailFirstMsg {
+    background-color: rgb(56 29 80 / 15%);
+    padding: 10px;
     border-radius: 4px;
 }
 

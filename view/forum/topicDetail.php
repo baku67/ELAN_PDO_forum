@@ -54,55 +54,59 @@
 
 ?>
 
+    <div class="topicDetailHeader">
 
-    <div class="titleDiv">
-        <h1 class="titleUnderline">Detail du topic n°<?= $topic->getId() ?></h1>
-        <span class="<?= $statusClass ?>"><?= $statusText ?></span>
+        <div class="titleDiv">
+            <h1 class="titleUnderline">Topic n°<?= $topic->getId() ?></h1>
+            <span class="<?= $statusClass ?>"><?= $statusText ?></span>
+        </div>
+
+        <br>
+
+
+        <div style="display:inline-flex">
+
+            <?php
+            if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
+            ?>
+                <span>(<?= $topic->getCategory()->getName() ?>)</span>
+            <?php
+            } else {
+            ?>
+                <form action="index.php?ctrl=forum&action=changeTopicCategory&id=<?= $topic->getId() ?>" method="post">
+                    <select name="category_Select" id="category_Select" onchange='this.form.submit()'>
+                        <?php 
+                        foreach ($categories as $category) {
+                            // Si Topic->Categorie->name = Category->name alors $selected="selected"
+                            if($topic->getCategory()->getId() == $category->getId()) {
+                                $selected = "selected";
+                            }
+                            else {
+                                $selected = "";
+                            }
+                        ?>
+                            <option value="<?= $category->getId() ?>" <?=$selected?>><?= $category->getName() ?></option>
+                        <?php
+                        }
+                        ?>
+                    </select>
+                    <noscript><input type="submit" value="changer"></noscript>
+                </form>
+            <?php
+            }
+            ?>
+
+            <span class="topicDetailNbrPosts"><?= $postsCount ?> <i class="fa-regular fa-comments"></i></span>
+            
+        </div>
+
+
+
+        <p class="topicDetailFirstMsg"><?=$topic->getTitle()?></p>
+        <span class="topicDetailInfos">by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?=$topic->getUser()->getUsername()?></a>, le <?=$topic->getCreationdate()?></span>
+   
     </div>
 
-    <br>
-
-
-    <div style="display:inline-flex">
-
-        <?php
-        if((empty($userConnectedRoleFromBdd)) || ($userConnectedRoleFromBdd == "ROLE_USER")) {
-        ?>
-            <span>(<?= $topic->getCategory()->getName() ?>)</span>
-        <?php
-        } else {
-        ?>
-            <form action="index.php?ctrl=forum&action=changeTopicCategory&id=<?= $topic->getId() ?>" method="post">
-                <select name="category_Select" id="category_Select" onchange='this.form.submit()'>
-                    <?php 
-                    foreach ($categories as $category) {
-                        // Si Topic->Categorie->name = Category->name alors $selected="selected"
-                        if($topic->getCategory()->getId() == $category->getId()) {
-                            $selected = "selected";
-                        }
-                        else {
-                            $selected = "";
-                        }
-                    ?>
-                        <option value="<?= $category->getId() ?>" <?=$selected?>><?= $category->getName() ?></option>
-                    <?php
-                    }
-                    ?>
-                </select>
-                <noscript><input type="submit" value="changer"></noscript>
-            </form>
-        <?php
-        }
-        ?>
-
-        <span class="topicDetailNbrPosts"><?= $postsCount ?> <i class="fa-regular fa-comments"></i></span>
-        
-    </div>
-
-
-
-    <p><?=$topic->getTitle()?></p>
-    <p>by <a href="index.php?ctrl=security&action=viewUserProfile&id=<?= $topic->getUser()->getId() ?>"><?=$topic->getUser()->getUsername()?></a>, le <?=$topic->getCreationdate()?></p>
 
     <?php
     if (isset($posts)) {
