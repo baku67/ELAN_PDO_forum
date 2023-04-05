@@ -249,7 +249,7 @@ nav {
 .postCard {
     /* padding: 5px; */
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
 
     border-top: 1px solid rgb(56 29 80 / 40%);
     border-bottom: 1px solid rgb(56 29 80 / 40%);
@@ -495,7 +495,7 @@ nav {
     padding: 4px 10px;
     background-color: #009554;
     color: white;
-    margin-left: 15px !important;
+    margin-left: 20px !important;
     bottom: 5px;
     border-radius: 3px;
 }
@@ -507,6 +507,19 @@ nav {
     margin-left: 15px !important;
     bottom: 5px;
     border-radius: 3px;
+}
+
+.openCloseTopicButton {
+    color: white;
+    padding: 5px 7px;
+    border-radius: 4px;
+}
+.openTopicBtn {
+    background-color: rgb(15 205 128);
+    /* color: black; */
+}
+.closeTopicBtn {
+    background-color: rgb(231 21 106);
 }
 
 .categoriesMain {

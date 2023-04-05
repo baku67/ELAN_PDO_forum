@@ -213,19 +213,21 @@
     <?php
     if($topic->getStatus() == 0) {
         $actionText = "Rouvrir";
+        $buttonClass = "openTopicBtn";
     }
     else {
         $actionText = "Fermer";
+        $buttonClass = "closeTopicBtn";
     }
 
     if(!empty($_SESSION["user"]) && ($_SESSION["user"]->getId() == $topic->getUser()->getId())) {
     ?>
-        <a href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>">(Auteur) <?= $actionText ?> le topic</a>
+        <a class="openCloseTopicButton <?= $buttonClass ?>" href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>&closedBy=author">(Auteur) <?= $actionText ?> le topic</a>
     <?php
     }
     else if(!empty($_SESSION["user"]) && ($userConnectedRoleFromBdd == "ROLE_ADMIN")) {
     ?>
-        <a href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>">(Admin) <?= $actionText ?> le topic</a>
+        <a class="openCloseTopicButton <?= $buttonClass ?>" href="index.php?ctrl=forum&action=closeTopic&id=<?= $topic->getId() ?>&closedBy=admin">(Admin) <?= $actionText ?> le topic</a>
     <?php
     }
     ?>
@@ -243,7 +245,25 @@
     <?php 
     } else {
     ?>
-        <p>L'auteur a fermé le topic</p>
+
+
+        <?php 
+        if($topic->getClosedBy() == "admin") {
+        ?>
+            <p>Un admin a fermé le topic</p>
+        <?php
+        }
+        else {
+        ?>
+            <p>L'auteur a fermé le topic</p>
+        <?php
+        }
+        ?>
+
+        
+
+
+
     <?php
     }
     ?>

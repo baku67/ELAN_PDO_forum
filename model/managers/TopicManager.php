@@ -20,7 +20,7 @@
         public function findAllAndCount() {
 
             $sql="
-                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts
+                SELECT t.id_topic, t.title, t.status, t.closedBy, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts
                 FROM " .$this->tableName. " t
                 LEFT JOIN post p ON p.topic_id = t.id_topic
                 GROUP BY t.id_topic
@@ -37,7 +37,7 @@
         public function listTopicByCat($id){
 
             $sql = "
-                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts 
+                SELECT t.id_topic, t.title, t.status, t.closedBy, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts 
                 FROM " .$this->tableName. " t
                 LEFT JOIN post p ON p.topic_id = t.id_topic
                 WHERE t.category_id = :id
@@ -53,7 +53,7 @@
 
         public function getUserTopics($id) {
             $sql = "
-                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts
+                SELECT t.id_topic, t.title, t.status, t.closedBy, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts
                 FROM ".$this->tableName." t
                 LEFT JOIN post p ON p.topic_id = t.id_topic
                 WHERE t.user_id = :id
@@ -94,7 +94,7 @@
 
         public function listTopicBySearch($searchInput) {
             $sql = "
-                SELECT t.id_topic, t.title, t.status, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts 
+                SELECT t.id_topic, t.title, t.status, t.closedBy, t.creationdate, t.user_id, t.category_id, t.lastPostId, t.lastPostMsg, COUNT(p.id_post) AS nbrPosts 
                 FROM " .$this->tableName. " t
                 LEFT JOIN post p ON p.topic_id = t.id_topic
                 WHERE t.title LIKE :searchInput
@@ -123,16 +123,36 @@
 
 
         // Close et open différents ou juste toggle avec !value ?
-        public function changeStatusTopic($id, $status) {
-            $sql = "UPDATE ".$this->tableName."
-             SET status = :status
-            WHERE id_topic = :id
-            ";
+        public function changeStatusTopic($id, $status, $closedBy) {
 
-            return $this->getOneOrNullResult(
-                DAO::update($sql, ['status' => $status, 'id' => $id], false), 
-                $this->className
-            );
+            if($status == "0") {
+
+                $sql = "
+                    UPDATE ".$this->tableName."
+                    SET status = :status,
+                    closedBy = :closedBy
+                    WHERE id_topic = :id
+                ";
+
+                return $this->getOneOrNullResult(
+                    DAO::update($sql, ['status' => $status, 'closedBy' => $closedBy, 'id' => $id], false), 
+                    $this->className
+                );
+
+            }
+            else {
+                $sql = "
+                    UPDATE ".$this->tableName."
+                    SET status = :status
+                    WHERE id_topic = :id
+                ";
+
+                return $this->getOneOrNullResult(
+                    DAO::update($sql, ['status' => $status, 'id' => $id], false), 
+                    $this->className
+                );
+            }
+            
         }
 
         public function changeTopicCategory($topicId, $newCategoryId) {

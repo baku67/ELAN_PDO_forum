@@ -253,6 +253,8 @@
 
             $topic = $topicManager->findOneById($topicId);
 
+            $closedBy = $_GET["closedBy"];
+
             // On recheck le role du user connecté dans la BDD et non à partir du $_SESSION (pour si changement role en cours de session)
             $userConnectedRoleFromBdd = $userManager->findOneById($_SESSION["user"]->getId())->getRole();
 
@@ -262,11 +264,11 @@
                     
                     // On inverse le status du topic (fermeture/reouverture)
                     if($topic->getStatus() == "1") {
-                        $topicManager->changeStatusTopic($topicId, "0");
+                        $topicManager->changeStatusTopic($topicId, "0", $closedBy);
                         $_SESSION["success"] = "Le topic a été fermé";
                     }
                     else {
-                        $topicManager->changeStatusTopic($topicId, "1");
+                        $topicManager->changeStatusTopic($topicId, "1", $closedBy);
                         $_SESSION["success"] = "Le topic a été rouvert";
                     }
 

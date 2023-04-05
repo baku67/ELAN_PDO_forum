@@ -14,6 +14,7 @@
         private $lastPostMsg;
         // Champ "non mappé" (car pas présent en BDD)
         private $nbrPosts;
+        private $closedBy;
 
         public function __construct($data){         
             $this->hydrate($data);        
@@ -105,6 +106,18 @@
         public function setStatus($status)
         {
                 $this->status = $status;
+
+                return $this;
+        }
+
+
+        public function getClosedBy()
+        {
+                return $this->closedBy;
+        }
+        public function setClosedBy($closedBy)
+        {
+                $this->closedBy = $closedBy;
 
                 return $this;
         }
